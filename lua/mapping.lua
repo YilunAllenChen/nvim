@@ -52,7 +52,18 @@ M.set_mappings {
 
     -- Jumping Around
     [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
-    ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "go to definition" },
+    ['<leader><leader>'] = { function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc =
+    "incoming calls" },
+    ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "definition" },
+    ["gD"] = {
+      function() require('telescope.builtin').lsp_declarations() end,
+      desc = "Declaration of current symbol",
+    },
+    ['gr'] = { function() require('telescope.builtin').lsp_references() end, desc = "references" },
+    ['gt'] = { function() require('telescope.builtin').lsp_type_definitions() end, desc = "type definition" },
+    ['gi'] = { function() require('telescope.builtin').lsp_implementations() end, desc = "type definition" },
+    ['gI'] = { function() require('telescope.builtin').lsp_incoming_calls() end, desc = "incoming calls" },
+
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
     ["<leader>pp"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
@@ -87,11 +98,20 @@ M.set_mappings {
       desc = "ToggleTerm lazygit"
     },
 
+
     -- LSP
+    ["K"] = {
+      function() vim.lsp.buf.hover() end,
+      desc = "Hover symbol details",
+    },
     ["<leader>l"] = { desc = "LSP" },
     ["<leader>lf"] = {
       function() vim.lsp.buf.format(M.format_opts) end,
       desc = "Format buffer",
+    },
+    ["<leader>lr"] = {
+      function() vim.lsp.buf.rename() end,
+      desc = "Rename current symbol",
     },
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
     ["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
@@ -105,25 +125,29 @@ M.set_mappings {
         end
       end,
       desc = "Search symbols",
-      -- Diagnostics
-      ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-      ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
-      ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
-
-      -- Buffers
-      ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
-      ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
-
-      -- Findings stuff
-      ["<leader>f"] = { desc = "Find" },
-      ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
-      ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
-      ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },
-      ["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
-      ["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
-      ["<leader>ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc =
-      "Find themes" },
     },
+    ["<leader>la"] = {
+      function() require("telescope.builtin").lsp_code_actions { layout_strategy = "vertical" } end,
+    },
+
+    -- Diagnostics
+    ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+    ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
+    ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
+
+    -- Buffers
+    ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
+    ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
+
+    -- Findings stuff
+    ["<leader>f"] = { desc = "Find" },
+    ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
+    ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
+    ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },
+    ["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
+    ["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
+    ["<leader>ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc =
+    "Find themes" },
 
     -- Opening terminals
     ["<C-t>"] = { "<cmd>:terminal<cr>" },

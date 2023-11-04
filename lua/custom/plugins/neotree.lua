@@ -19,10 +19,10 @@ return {
       default_component_configs = {
         indent = { padding = 0 },
         icon = {
-          folder_closed = "|",
-          folder_open = "[",
-          folder_empty = "_",
-          folder_empty_open = "_",
+          -- folder_closed = "|",
+          -- folder_open = "",
+          -- folder_empty = "_",
+          -- folder_empty_open = "_",
           default = "*"
         },
         modified = { symbol = "M" },
