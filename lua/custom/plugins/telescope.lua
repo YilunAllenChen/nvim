@@ -1,6 +1,5 @@
 return {
   'nvim-telescope/telescope.nvim',
-  branch = '0.1.x',
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -40,7 +39,25 @@ return {
           height = 0.9,
         },
         mappings = {
-          i = { ["<esc>"] = require("telescope.actions").close, },
+          -- https://github.com/nvim-telescope/telescope.nvim/issues/2501#issuecomment-1562937344
+          i = {
+            ["<CR>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><CR>", true, false, true), "i", false)
+            end,
+            ["<C-x>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-x>", true, false, true), "i", false)
+            end,
+            ["<C-v>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-v>", true, false, true), "i", false)
+            end,
+            ["<C-t>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-t>", true, false, true), "i", false)
+            end,
+            ["<C-q>"] = function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-q>", true, false, true), "i", false)
+            end,
+            i = { ["<esc>"] = require("telescope.actions").close, },
+          },
           n = { ["q"] = require("telescope.actions").close },
         },
       },

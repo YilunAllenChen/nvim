@@ -185,6 +185,10 @@ maps.n["<leader>fW"] = {
   end,
   desc = "Find words in all files",
 }
+maps.n["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" }
+maps.n["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" }
+maps.n["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" }
+maps.n["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" }
 maps.n["<leader>l"] = sections.l
 maps.n["<leader>ls"] = {
   function()
@@ -221,3 +225,5 @@ maps.t["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" 
 maps.t["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" }
 
 M.set_mappings(maps)
+
+vim.cmd[[autocmd BufEnter * normal! 1]]
