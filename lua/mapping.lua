@@ -128,13 +128,6 @@ maps.n["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Gi
 maps.n["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" }
 maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" }
 maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
-maps.n["<leader>gp"] = { function() require("gitsigns").preview_hunk() end, desc = "Preview Git hunk" }
-maps.n["<leader>gh"] = { function() require("gitsigns").reset_hunk() end, desc = "Reset Git hunk" }
-maps.n["<leader>gr"] = { function() require("gitsigns").reset_buffer() end, desc = "Reset Git buffer" }
-maps.n["<leader>gs"] = { function() require("gitsigns").stage_hunk() end, desc = "Stage Git hunk" }
-maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc = "Stage Git buffer" }
-maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" }
-maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
 
 maps.n["<leader>e"] = {
   function()
@@ -159,10 +152,6 @@ maps.n["<leader>l"] = sections.l
 maps.n["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
 
 maps.n["<leader>f"] = sections.f
-maps.n["<leader>g"] = sections.g
-maps.n["<leader>gb"] = { function() require("telescope.builtin").git_branches() end, desc = "Git branches" }
-maps.n["<leader>gc"] = { function() require("telescope.builtin").git_commits() end, desc = "Git commits" }
-maps.n["<leader>gt"] = { function() require("telescope.builtin").git_status() end, desc = "Git status" }
 maps.n["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" }
 maps.n["<leader>f'"] = { function() require("telescope.builtin").marks() end, desc = "Find marks" }
 maps.n["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" }

@@ -2,6 +2,7 @@ return
 {
   'hrsh7th/nvim-cmp',
   lazy = true,
+  event = 'BufReadPre',
   dependencies = {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
