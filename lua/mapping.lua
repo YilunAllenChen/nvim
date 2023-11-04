@@ -56,8 +56,6 @@ M.set_mappings {
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
     ["\\"] = { "<C-w>v", desc = "Vertical Split" },
     ["-"] = { "<C-w>s", desc = "Horizontal Split" },
-    ["<leader>j"] = { "<C-i>", desc = "jump in" },
-    ["<leader>k"] = { "<C-o>", desc = "jump out" },
     ["'"] = { "<cmd>:q<cr>", desc = "Quit" },
     ["<esc>"] = { "^", desc = "go to first non-space" },
     ["t"] = { "<C-w>s<cmd>:terminal<cr>" },
@@ -138,8 +136,7 @@ maps.n["<leader>gS"] = { function() require("gitsigns").stage_buffer() end, desc
 maps.n["<leader>gu"] = { function() require("gitsigns").undo_stage_hunk() end, desc = "Unstage Git hunk" }
 maps.n["<leader>gd"] = { function() require("gitsigns").diffthis() end, desc = "View Git diff" }
 
-maps.n["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Toggle Explorer" }
-maps.n["<leader>o"] = {
+maps.n["<leader>e"] = {
   function()
     if vim.bo.filetype == "neo-tree" then
       vim.cmd.wincmd "p"
@@ -147,7 +144,7 @@ maps.n["<leader>o"] = {
       vim.cmd.Neotree "focus"
     end
   end,
-  desc = "Toggle Explorer Focus",
+  desc = "Explorer",
 }
 
 maps.n["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" }

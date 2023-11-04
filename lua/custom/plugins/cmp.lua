@@ -37,6 +37,16 @@ return
       TypeParameter = "",
     }
     local cmp = require("cmp")
+    local luasnip = require("luasnip")
+
+    local border_opts = {
+      border = "rounded",
+      winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+    }
+    local function has_words_before()
+      local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+    end
     cmp.setup {
       snippet = {
         expand = function(args)
@@ -60,19 +70,14 @@ return
         ["<Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expandable() then
-            luasnip.expand()
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
-          elseif check_backspace() then
-            fallback()
+          elseif has_words_before() then
+            cmp.complete()
           else
             fallback()
           end
-        end, {
-          "i",
-          "s",
-        }),
+        end, { "i", "s" }),
         ["<S-Tab>"] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
@@ -100,6 +105,7 @@ return
           })[entry.source.name]
           return vim_item
         end,
+        expandable_indicator = false,
       },
       sources = {
         { name = "nvim_lsp" },
@@ -111,10 +117,10 @@ return
         behavior = cmp.ConfirmBehavior.Replace,
         select = false,
       },
+      entries = { name = 'custom', selection_order = 'near_cursor' },
       window = {
-        documentation = {
-          border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-        },
+        completion = cmp.config.window.bordered(border_opts),
+        documentation = cmp.config.window.bordered(border_opts),
       },
       experimental = {
         ghost_text = false,

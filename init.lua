@@ -20,7 +20,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  lazy=true,
+  lazy = true,
   {
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -31,10 +31,10 @@ require('lazy').setup({
     },
   },
 
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     'lewis6991/gitsigns.nvim',
-    lazy=true,
+    lazy = true,
     opts = {
       signs = {
         add = { text = '+' },
@@ -95,7 +95,7 @@ require('lazy').setup({
 
   {
     'nvim-treesitter/nvim-treesitter',
-    lazy=true,
+    lazy = true,
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
@@ -105,7 +105,7 @@ require('lazy').setup({
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
-    lazy=true,
+    lazy = true,
     event = "VeryLazy",
     config = function()
       require("nvim-surround").setup {
@@ -115,7 +115,7 @@ require('lazy').setup({
   },
   {
     "smoka7/hop.nvim",
-    lazy=true,
+    lazy = true,
     event = "VeryLazy",
     config = function()
       require("hop").setup {
@@ -126,7 +126,7 @@ require('lazy').setup({
   {
     -- should disable if there are compliance issues
     "zbirenbaum/copilot.lua",
-    lazy=true,
+    lazy = true,
     cmd = "Copilot",
     event = "InsertEnter",
     config = function()
@@ -142,14 +142,14 @@ require('lazy').setup({
   },
   {
     "ahmedkhalf/project.nvim",
-    lazy=true,
+    lazy = true,
     event = "VeryLazy",
     config = function()
       require("project_nvim").setup {}
       require("telescope").load_extension "projects"
     end,
   },
-  { "gcmt/wildfire.vim", event="VeryLazy" },
+  { "gcmt/wildfire.vim",      event = "VeryLazy" },
   {
     "nvim-pack/nvim-spectre",
     as = "spectre",
@@ -201,7 +201,7 @@ vim.o.undofile = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
-vim.o.updatetime = 100
+vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 vim.o.completeopt = 'menuone,preview'
 vim.o.termguicolors = true
@@ -230,24 +230,24 @@ require("mapping")
 --
 require('telescope').setup {
   defaults = {
-        prompt_prefix = string.format("%s ", "/"),
-        selection_caret = string.format("%s ", "$"),
-        path_display = { "full" },
-      file_ignore_patterns = { "node_modules", ".mypy_cache", ".pyc", ".git", ".pytest_cache", "target", "**/dist" },
-        sorting_strategy = "ascending",
-        layout_strategy = "vertical",
-        layout_config = {
-          vertical = {
-            prompt_position = "top",
-            preview = {
-              preview_height = 0.5,
-              preview_cutoff = 120,
-            },
-            mirror = true,
-          },
-          width = 0.9,
-          height = 0.9,
+    prompt_prefix = string.format("%s ", "/"),
+    selection_caret = string.format("%s ", "$"),
+    path_display = { "full" },
+    file_ignore_patterns = { "node_modules", ".mypy_cache", ".pyc", ".git", ".pytest_cache", "target", "**/dist" },
+    sorting_strategy = "ascending",
+    layout_strategy = "vertical",
+    layout_config = {
+      vertical = {
+        prompt_position = "top",
+        preview = {
+          preview_height = 0.5,
+          preview_cutoff = 120,
         },
+        mirror = true,
+      },
+      width = 0.9,
+      height = 0.9,
+    },
     mappings = {
       i = { ["<esc>"] = require("telescope.actions").close, },
       n = { ["q"] = require("telescope.actions").close },
@@ -425,7 +425,7 @@ local servers = {
   clangd = {},
   pyright = {},
   rust_analyzer = {},
-  html = { filetypes = { 'html', 'twig', 'hbs'} },
+  html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
     Lua = {
@@ -462,48 +462,65 @@ mason_lspconfig.setup_handlers {
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
-local cmp = require 'cmp'
-local luasnip = require 'luasnip'
-require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body)
-    end,
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      elseif luasnip.locally_jumpable(-1) then
-        luasnip.jump(-1)
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  },
-  sources = {
-    { name = 'nvim_lsp' },
-    { name = 'luasnip' },
-  },
-}
-
+-- local cmp = require 'cmp'
+-- local luasnip = require 'luasnip'
+-- require('luasnip.loaders.from_vscode').lazy_load()
+-- luasnip.config.setup {}
+--
+-- cmp.setup {
+--   snippet = {
+--     expand = function(args)
+--       luasnip.lsp_expand(args.body)
+--     end,
+--   },
+--   mapping = cmp.mapping.preset.insert {
+--     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+--     ['<C-f>'] = cmp.mapping.scroll_docs(4),
+--     ['<CR>'] = cmp.mapping.confirm {
+--       behavior = cmp.ConfirmBehavior.Replace,
+--       select = true,
+--     },
+--     ['<Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_next_item()
+--       elseif luasnip.expand_or_locally_jumpable() then
+--         luasnip.expand_or_jump()
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--     ['<S-Tab>'] = cmp.mapping(function(fallback)
+--       if cmp.visible() then
+--         cmp.select_prev_item()
+--       elseif luasnip.locally_jumpable(-1) then
+--         luasnip.jump(-1)
+--       else
+--         fallback()
+--       end
+--     end, { 'i', 's' }),
+--   },
+--   sources = {
+--     { name = 'nvim_lsp' },
+--     { name = 'luasnip' },
+--   },
+-- }
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
+local _border = "rounded"
+
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
+  vim.lsp.handlers.hover, {
+    border = _border
+  }
+)
+
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
+  vim.lsp.handlers.signature_help, {
+    border = _border
+  }
+)
+
+vim.diagnostic.config {
+  float = { border = _border }
+}
