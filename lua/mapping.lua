@@ -58,8 +58,8 @@ M.set_mappings {
     ["-"] = { "<C-w>s", desc = "Horizontal Split" },
     ["'"] = { "<cmd>:q<cr>", desc = "Quit" },
     ["<esc>"] = { "^", desc = "go to first non-space" },
-    ["t"] = { "<C-w>s<cmd>:terminal<cr>" },
-    ["T"] = { "<C-w>v<cmd>:terminal<cr>" },
+    ["t"] = { "<C-w>s<cmd>:terminal<cr>a" },
+    ["T"] = { "<C-w>v<cmd>:terminal<cr>a" },
     ["<C-t>"] = { "<cmd>:terminal<cr>" },
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
@@ -75,7 +75,7 @@ M.set_mappings {
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
     ["<leader>fR"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
     ["<C-s>"] = { "<cmd>:w!<cr>", desc = "Save File" },
-    ["<C-b>"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    ["b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>n"] = { "<cmd>enew<cr>", desc = "New File" },
@@ -146,6 +146,10 @@ maps.n["<leader>lf"] = {
   function() vim.lsp.buf.format(M.format_opts) end,
   desc = "Format buffer",
 }
+maps.n["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
+maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }
+maps.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
+maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
 
 -- SymbolsOutline
 maps.n["<leader>l"] = sections.l

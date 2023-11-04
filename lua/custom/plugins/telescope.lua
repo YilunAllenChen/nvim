@@ -16,7 +16,35 @@ return {
       end,
     },
   },
+  opts = {
+  },
   config = function()
+    require('telescope').setup {
+      defaults = {
+        prompt_prefix = string.format("%s ", "/"),
+        selection_caret = string.format("%s ", ">"),
+        path_display = { "full" },
+        file_ignore_patterns = { "node_modules", ".mypy_cache", ".pyc", ".git", ".pytest_cache", "target", "**/dist" },
+        sorting_strategy = "ascending",
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = {
+            prompt_position = "top",
+            preview = {
+              preview_height = 0.5,
+              preview_cutoff = 120,
+            },
+            mirror = true,
+          },
+          width = 0.9,
+          height = 0.9,
+        },
+        mappings = {
+          i = { ["<esc>"] = require("telescope.actions").close, },
+          n = { ["q"] = require("telescope.actions").close },
+        },
+      },
+    }
     pcall(require('telescope').load_extension, 'fzf')
   end,
 }

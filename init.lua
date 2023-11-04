@@ -1,5 +1,3 @@
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
 package.path = package.path .. ';./?.lua'
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
@@ -19,30 +17,55 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup({
-  { import = 'custom.plugins' },
-}, {})
 
 -- [[ Setting options ]]
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
-vim.o.hlsearch = false
-vim.wo.number = true
-vim.wo.relativenumber = true
-vim.o.mouse = 'a'
-vim.o.clipboard = 'unnamedplus'
-vim.o.breakindent = true
-vim.o.undofile = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.wo.signcolumn = 'yes'
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-vim.o.completeopt = 'menuone,preview'
-vim.o.termguicolors = true
+
+local options = {
+  opt = {
+    cmdheight = 0,             -- hide command line unless needed
+    clipboard = "unnamedplus", -- connection to the system clipboard
+    pumheight = 10,            -- height of the pop up menu
+    showtabline = 2,           -- always display tabline
+    splitbelow = true,         -- splitting a new window below the current one
+    splitright = true,         -- splitting a new window at the right of the current one
+  },
+  g = {
+    mapleader = ' ',
+    maplocalleader = ' ',
+    max_file = { size = 1024 * 100, lines = 1000 }, -- set global limits for large files
+    diagnostics_mode = 3,                           -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+    icons_enabled = true,                           -- disable icons in the UI (disable if no nerd font is available)
+    lsp_handlers_enabled = true,                    -- enable or disable default vim.lsp.handlers (hover and signature help)
+    cmp_enabled = true,                             -- enable completion at start
+  },
+  o = {
+    hlsearch = false,
+    mouse = 'a',
+    breakindent = true,
+    undofile = true,
+    ignorecase = true,
+    smartcase = true,
+    timeoutlen = 500, -- shorten key timeout length a little bit for which-key
+    updatetime = 300, -- length of time to wait before triggering the plugin
+    completeopt = 'menu,menuone,preview',
+    termguicolors = true,
+  },
+  wo = {
+    number = true,
+    relativenumber = true,
+    signcolumn = 'yes',
+  },
+}
 
 
+for scope, table in pairs(options) do
+  for setting, value in pairs(table) do
+    vim[scope][setting] = value
+  end
+end
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
@@ -59,36 +82,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 require("mapping")
-
--- [[ Configure Telescope ]]
--- See `:help telescope` and `:help telescope.setup()`
---
-require('telescope').setup {
-  defaults = {
-    prompt_prefix = string.format("%s ", "/"),
-    selection_caret = string.format("%s ", "$"),
-    path_display = { "full" },
-    file_ignore_patterns = { "node_modules", ".mypy_cache", ".pyc", ".git", ".pytest_cache", "target", "**/dist" },
-    sorting_strategy = "ascending",
-    layout_strategy = "vertical",
-    layout_config = {
-      vertical = {
-        prompt_position = "top",
-        preview = {
-          preview_height = 0.5,
-          preview_cutoff = 120,
-        },
-        mirror = true,
-      },
-      width = 0.9,
-      height = 0.9,
-    },
-    mappings = {
-      i = { ["<esc>"] = require("telescope.actions").close, },
-      n = { ["q"] = require("telescope.actions").close },
-    },
-  },
-}
 
 local _border = "rounded"
 
@@ -107,3 +100,7 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 vim.diagnostic.config {
   float = { border = _border }
 }
+
+require('lazy').setup({
+  { import = 'custom.plugins' },
+}, {})
