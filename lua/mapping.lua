@@ -43,7 +43,7 @@ end
 M.set_mappings {
   n = {
     -- Blazingly Fast
-    ["'"] = { "<cmd>:q<cr>", desc = "Quit" },
+    ["'"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     [","] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
     ["="] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,

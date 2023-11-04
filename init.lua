@@ -104,5 +104,3 @@ vim.diagnostic.config {
 require('lazy').setup({
   { import = 'custom.plugins' },
 }, {})
-
-
