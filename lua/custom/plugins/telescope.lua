@@ -39,24 +39,8 @@ return {
           height = 0.9,
         },
         mappings = {
-          -- https://github.com/nvim-telescope/telescope.nvim/issues/2501#issuecomment-1562937344
           i = {
-            ["<CR>"] = function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><CR>", true, false, true), "i", false)
-            end,
-            ["<C-x>"] = function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-x>", true, false, true), "i", false)
-            end,
-            ["<C-v>"] = function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-v>", true, false, true), "i", false)
-            end,
-            ["<C-t>"] = function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-t>", true, false, true), "i", false)
-            end,
-            ["<C-q>"] = function()
-              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc><C-q>", true, false, true), "i", false)
-            end,
-            i = { ["<esc>"] = require("telescope.actions").close, },
+            ["<esc>"] = require("telescope.actions").close,
           },
           n = { ["q"] = require("telescope.actions").close },
         },

@@ -1,6 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
-  lazy=true,
+  lazy = true,
   dependencies = { "MunifTanjim/nui.nvim" },
   cmd = "Neotree",
   init = function() vim.g.neo_tree_remove_legacy_commands = true end,
@@ -8,15 +8,12 @@ return {
     return {
       auto_clean_after_session_restore = true,
       close_if_last_window = true,
-      sources = { "filesystem", "buffers", "git_status" },
+      sources = { "filesystem" },
       source_selector = {
         winbar = true,
         content_layout = "center",
         sources = {
-          { source = "filesystem", display_name = "File" },
-          { source = "buffers", display_name = "Bufs" },
-          { source = "git_status", display_name = "Git" },
-          { source = "diagnostics", display_name = "Diagnostic" },
+          { source = "filesystem" }
         },
       },
       default_component_configs = {
@@ -58,7 +55,7 @@ return {
           if node.type == "directory" or node:has_children() then
             if not node:is_expanded() then -- if unexpanded, expand
               state.commands.toggle_node(state)
-            else -- if expanded and has children, seleect the next child
+            else                           -- if expanded and has children, seleect the next child
               require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
             end
           else -- if not a directory just open it
@@ -86,9 +83,9 @@ return {
           for i, result in pairs(results) do
             if result.val and result.val ~= "" then
               vim.list_extend(messages, {
-                { ("%s."):format(i), "Identifier" },
+                { ("%s."):format(i),           "Identifier" },
                 { (" %s: "):format(result.msg) },
-                { result.val, "String" },
+                { result.val,                  "String" },
                 { "\n" },
               })
             end
@@ -136,4 +133,3 @@ return {
     }
   end,
 }
-

@@ -40,13 +40,21 @@ function M.set_mappings(map_table, base)
   if package.loaded["which-key"] then M.which_key_register() end -- if which-key is loaded already, register
 end
 
+local sections = {
+  f = { desc = "Find" },
+  l = { desc = "LSP" },
+  u = { desc = "UI/UX" },
+  b = { desc = "Buffers" },
+  bs = { desc = "Sort Buffers" },
+  d = { desc = "Debugger" },
+  g = { desc = "Git" },
+  S = { desc = "Session" },
+  t = { desc = "Terminal" },
+}
+
 M.set_mappings {
   n = {
     -- window navigation
-    ['<C-h>'] = { "<C-w>h" },
-    ['<C-j>'] = { "<C-w>j" },
-    ['<C-k>'] = { "<C-w>k" },
-    ['<C-l>'] = { "<C-w>l" },
     ["<C-Up>"] = { "<cmd>resize -2<CR>", desc = "Resize split up" },
     ["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" },
     ["<C-Left>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split left" },
@@ -63,7 +71,6 @@ M.set_mappings {
     ["<C-t>"] = { "<cmd>:terminal<cr>" },
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
-    ["w"] = { function() require("nvim-window").pick() end, desc = "pick window" },
     [","] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
     ["="] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
@@ -75,155 +82,110 @@ M.set_mappings {
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
     ["<leader>fR"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
     ["<C-s>"] = { "<cmd>:w!<cr>", desc = "Save File" },
-    ["b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>n"] = { "<cmd>enew<cr>", desc = "New File" },
+    ["<leader>p"] = { function() require("lazy").home() end, desc = "Plugins" },
+    ["]t"] = { function() vim.cmd.tabnext() end, desc = "Next tab" },
+    ["[t"] = { function() vim.cmd.tabprevious() end, desc = "Previous tab" },
+    ["<leader>/"] = {
+      function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
+      desc = "Toggle comment line",
+    },
+    ["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" },
+    ["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" },
+    ["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" },
+    ["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
+    ["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Explorer" },
+    ["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" },
+    ["<leader>pM"] = { "<cmd>MasonUpdateAll<cr>", desc = "Mason Update" },
+    ["<leader>g"] = sections.g,
+
+    ["<leader>lf"] = {
+      function() vim.lsp.buf.format(M.format_opts) end,
+      desc = "Format buffer",
+    },
+    ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+    ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
+    ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
+
+    -- SymbolsOutline
+    ["<leader>l"] = sections.l,
+    ["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
+
+    ["<leader>f"] = sections.f,
+    ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
+    ["<leader>f'"] = { function() require("telescope.builtin").marks() end, desc = "Find marks" },
+    ["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+    ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
+    ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },
+    ["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
+    ["<leader>fF"] = {
+      function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
+      desc = "Find all files",
+    },
+    ["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
+    ["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
+    ["<leader>fm"] = { function() require("telescope.builtin").man_pages() end, desc = "Find man" },
+    ["<leader>fn"] = { function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" },
+
+    ["<leader>fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" },
+    ["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" },
+    ["<leader>ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc =
+    "Find themes" },
+    ["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
+    ["<leader>fW"] = {
+      function()
+        require("telescope.builtin").live_grep {
+          additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+        }
+      end,
+      desc = "Find words in all files",
+    },
+    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
+    ["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
+    ["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
+    ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
+
+
+    ["<leader>ls"] = {
+      function()
+        local aerial_avail, _ = pcall(require, "aerial")
+        if aerial_avail then
+          require("telescope").extensions.aerial.aerial()
+        else
+          require("telescope.builtin").lsp_document_symbols()
+        end
+      end,
+      desc = "Search symbols",
+    },
+    ["<leader>gg"] = {
+      function()
+        local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+        lazygit:toggle()
+      end,
+      desc = "ToggleTerm lazygit"
+    }
+
   },
   t = {
     ["<esc>"] = { "<C-\\><C-n>" },
+    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
+    ["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
+    ["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
+    ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
   },
   i = {
     ["<C-d><C-b>"] = { "import ipdb; ipdb.set_trace(context=5)", desc = "debug" },
   },
-}
-
--- Plugin Manager
-local maps = { i = {}, n = {}, v = {}, t = {} }
-
-local sections = {
-  f = { desc = "Find" },
-  p = { desc = "Packages" },
-  l = { desc = "LSP" },
-  u = { desc = "UI/UX" },
-  b = { desc = "Buffers" },
-  bs = { desc = "Sort Buffers" },
-  d = { desc = "Debugger" },
-  g = { desc = "Git" },
-  S = { desc = "Session" },
-  t = { desc = "Terminal" },
-}
-maps.n["<leader>p"] = sections.p
-maps.n["<leader>pi"] = { function() require("lazy").install() end, desc = "Plugins Install" }
-maps.n["<leader>ps"] = { function() require("lazy").home() end, desc = "Plugins Status" }
-maps.n["<leader>pS"] = { function() require("lazy").sync() end, desc = "Plugins Sync" }
-maps.n["<leader>pu"] = { function() require("lazy").check() end, desc = "Plugins Check Updates" }
-maps.n["<leader>pU"] = { function() require("lazy").update() end, desc = "Plugins Update" }
-
--- Navigate tabs
-maps.n["]t"] = { function() vim.cmd.tabnext() end, desc = "Next tab" }
-maps.n["[t"] = { function() vim.cmd.tabprevious() end, desc = "Previous tab" }
-
-maps.n["<leader>/"] = {
-  function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
-  desc = "Toggle comment line",
-}
-maps.v["<leader>/"] = {
-  "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-  desc = "Toggle comment for selection",
-}
-
-maps.n["<leader>g"] = sections.g
-maps.n["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" }
-maps.n["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" }
-maps.n["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" }
-maps.n["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" }
-
-maps.n["<leader>e"] = {
-  function()
-    if vim.bo.filetype == "neo-tree" then
-      vim.cmd.wincmd "p"
-    else
-      vim.cmd.Neotree "focus"
-    end
-  end,
-  desc = "Explorer",
-}
-
-maps.n["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" }
-maps.n["<leader>pM"] = { "<cmd>MasonUpdateAll<cr>", desc = "Mason Update" }
-maps.n["<leader>lf"] = {
-  function() vim.lsp.buf.format(M.format_opts) end,
-  desc = "Format buffer",
-}
-maps.n["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
-maps.n["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" }
-maps.n["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" }
-maps.n["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" }
-
--- SymbolsOutline
-maps.n["<leader>l"] = sections.l
-maps.n["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" }
-
-maps.n["<leader>f"] = sections.f
-maps.n["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" }
-maps.n["<leader>f'"] = { function() require("telescope.builtin").marks() end, desc = "Find marks" }
-maps.n["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" }
-maps.n["<leader>fc"] =
-{ function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" }
-maps.n["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" }
-maps.n["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" }
-maps.n["<leader>fF"] = {
-  function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-  desc = "Find all files",
-}
-maps.n["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" }
-maps.n["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" }
-maps.n["<leader>fm"] = { function() require("telescope.builtin").man_pages() end, desc = "Find man" }
-maps.n["<leader>fn"] =
-{ function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" }
-maps.n["<leader>fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" }
-maps.n["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" }
-maps.n["<leader>ft"] =
-{ function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc = "Find themes" }
-maps.n["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" }
-maps.n["<leader>fW"] = {
-  function()
-    require("telescope.builtin").live_grep {
-      additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-    }
-  end,
-  desc = "Find words in all files",
-}
-maps.n["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" }
-maps.n["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" }
-maps.n["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" }
-maps.n["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" }
-maps.n["<leader>l"] = sections.l
-maps.n["<leader>ls"] = {
-  function()
-    local aerial_avail, _ = pcall(require, "aerial")
-    if aerial_avail then
-      require("telescope").extensions.aerial.aerial()
-    else
-      require("telescope.builtin").lsp_document_symbols()
-    end
-  end,
-  desc = "Search symbols",
-}
-
--- Terminal
-maps.n["<leader>t"] = sections.t
-if vim.fn.executable "lazygit" == 1 then
-  maps.n["<leader>g"] = sections.g
-  maps.n["<leader>gg"] = {
-    function()
-      local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
-      lazygit:toggle()
-    end,
-    desc = "ToggleTerm lazygit"
+  v = {
+    ["<leader>/"] = {
+      "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
+      desc = "Toggle comment for selection",
+    },
+    ["<S-Tab>"] = { "<gv", desc = "Unindent line" },
+    ["<Tab>"] = { ">gv", desc = "Indent line" }
   }
-end
--- Stay in indent mode
-maps.v["<S-Tab>"] = { "<gv", desc = "Unindent line" }
-maps.v["<Tab>"] = { ">gv", desc = "Indent line" }
 
--- Improved Terminal Navigation
-maps.t["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" }
-maps.t["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" }
-maps.t["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" }
-maps.t["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" }
-
-M.set_mappings(maps)
-
-vim.cmd[[autocmd BufEnter * normal! 1]]
+}
