@@ -40,115 +40,61 @@ function M.set_mappings(map_table, base)
   if package.loaded["which-key"] then M.which_key_register() end -- if which-key is loaded already, register
 end
 
-local sections = {
-  f = { desc = "Find" },
-  l = { desc = "LSP" },
-  u = { desc = "UI/UX" },
-  b = { desc = "Buffers" },
-  bs = { desc = "Sort Buffers" },
-  d = { desc = "Debugger" },
-  g = { desc = "Git" },
-  S = { desc = "Session" },
-  t = { desc = "Terminal" },
-}
-
 M.set_mappings {
   n = {
-    -- window navigation
-    ["<C-Up>"] = { "<cmd>resize -2<CR>", desc = "Resize split up" },
-    ["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" },
-    ["<C-Left>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split left" },
-    ["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split right" },
-    ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "go to definition" },
-    [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
-    ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
-    ["\\"] = { "<C-w>v", desc = "Vertical Split" },
-    ["-"] = { "<C-w>s", desc = "Horizontal Split" },
+    -- Blazingly Fast
     ["'"] = { "<cmd>:q<cr>", desc = "Quit" },
-    ["<esc>"] = { "^", desc = "go to first non-space" },
-    ["t"] = { "<C-w>s<cmd>:terminal<cr>a" },
-    ["T"] = { "<C-w>v<cmd>:terminal<cr>a" },
-    ["<C-t>"] = { "<cmd>:terminal<cr>" },
-    ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
-    ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
     [","] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
     ["="] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
       desc = "Find all files",
     },
-    ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Fuck my life" },
-    ["<leader>'"] = { "<cmd>:edit!<cr>", desc = "Reload buffer" },
+
+    -- Jumping Around
+    [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
+    ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "go to definition" },
+    ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
     ["<leader>pp"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
-    ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
-    ["<leader>fR"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
-    ["<C-s>"] = { "<cmd>:w!<cr>", desc = "Save File" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
+
+    -- Editing
+    ["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Explorer" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>n"] = { "<cmd>enew<cr>", desc = "New File" },
-    ["<leader>p"] = { function() require("lazy").home() end, desc = "Plugins" },
-    ["]t"] = { function() vim.cmd.tabnext() end, desc = "Next tab" },
-    ["[t"] = { function() vim.cmd.tabprevious() end, desc = "Previous tab" },
+    ["<leader>'"] = { "<cmd>:edit!<cr>", desc = "Reload buffer" },
     ["<leader>/"] = {
       function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
       desc = "Toggle comment line",
     },
+    ["<leader>fR"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
+
+    -- Packages & Plugins
+    ["<leader>p"] = { function() require("lazy").home() end, desc = "Plugins" },
+    ["<leader>m"] = { "<cmd>Mason<cr>", desc = "Mason Installer" },
+
+    -- Git
+    ["<leader>g"] = { desc = "Git" },
     ["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" },
     ["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" },
     ["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" },
     ["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
-    ["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Explorer" },
-    ["<leader>pm"] = { "<cmd>Mason<cr>", desc = "Mason Installer" },
-    ["<leader>pM"] = { "<cmd>MasonUpdateAll<cr>", desc = "Mason Update" },
-    ["<leader>g"] = sections.g,
+    ["<leader>gg"] = {
+      function()
+        local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+        lazygit:toggle()
+      end,
+      desc = "ToggleTerm lazygit"
+    },
 
+    -- LSP
+    ["<leader>l"] = { desc = "LSP" },
     ["<leader>lf"] = {
       function() vim.lsp.buf.format(M.format_opts) end,
       desc = "Format buffer",
     },
-    ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-    ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
-    ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
-
-    -- SymbolsOutline
-    ["<leader>l"] = sections.l,
+    ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
     ["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
-
-    ["<leader>f"] = sections.f,
-    ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
-    ["<leader>f'"] = { function() require("telescope.builtin").marks() end, desc = "Find marks" },
-    ["<leader>fb"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
-    ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
-    ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },
-    ["<leader>ff"] = { function() require("telescope.builtin").find_files() end, desc = "Find files" },
-    ["<leader>fF"] = {
-      function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-      desc = "Find all files",
-    },
-    ["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
-    ["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
-    ["<leader>fm"] = { function() require("telescope.builtin").man_pages() end, desc = "Find man" },
-    ["<leader>fn"] = { function() require("telescope").extensions.notify.notify() end, desc = "Find notifications" },
-
-    ["<leader>fo"] = { function() require("telescope.builtin").oldfiles() end, desc = "Find history" },
-    ["<leader>fr"] = { function() require("telescope.builtin").registers() end, desc = "Find registers" },
-    ["<leader>ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc =
-    "Find themes" },
-    ["<leader>fw"] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
-    ["<leader>fW"] = {
-      function()
-        require("telescope.builtin").live_grep {
-          additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
-        }
-      end,
-      desc = "Find words in all files",
-    },
-    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
-    ["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
-    ["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
-    ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
-
-
     ["<leader>ls"] = {
       function()
         local aerial_avail, _ = pcall(require, "aerial")
@@ -159,14 +105,45 @@ M.set_mappings {
         end
       end,
       desc = "Search symbols",
+      -- Diagnostics
+      ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+      ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
+      ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
+
+      -- Buffers
+      ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
+      ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
+
+      -- Findings stuff
+      ["<leader>f"] = { desc = "Find" },
+      ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
+      ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
+      ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },
+      ["<leader>fh"] = { function() require("telescope.builtin").help_tags() end, desc = "Find help" },
+      ["<leader>fk"] = { function() require("telescope.builtin").keymaps() end, desc = "Find keymaps" },
+      ["<leader>ft"] = { function() require("telescope.builtin").colorscheme { enable_preview = true } end, desc =
+      "Find themes" },
     },
-    ["<leader>gg"] = {
-      function()
-        local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
-        lazygit:toggle()
-      end,
-      desc = "ToggleTerm lazygit"
-    }
+
+    -- Opening terminals
+    ["<C-t>"] = { "<cmd>:terminal<cr>" },
+    ["t"] = { "<C-w>s<cmd>:terminal<cr>a" },
+    ["T"] = { "<C-w>v<cmd>:terminal<cr>a" },
+
+    -- window management & navigation
+    ["\\"] = { "<C-w>v", desc = "Vertical Split" },
+    ["-"] = { "<C-w>s", desc = "Horizontal Split" },
+    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
+    ["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
+    ["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
+    ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
+    ["<C-Up>"] = { "<cmd>resize -2<CR>", desc = "Resize split up" },
+    ["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" },
+    ["<C-Left>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split left" },
+    ["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split right" },
+
+    -- WTF
+    ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Fuck my life" },
 
   },
   t = {
