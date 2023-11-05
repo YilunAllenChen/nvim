@@ -1,5 +1,10 @@
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
+
+local output = vim.fn.system "which fish"
+local fish = output:gsub("^%s*(.-)%s*$", "%1") -- Trim leading/trailing whitespace
+if fish ~= "" then vim.o.shell = fish end
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

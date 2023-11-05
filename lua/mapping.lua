@@ -116,7 +116,7 @@ M.set_mappings {
     },
     ["<leader>l"] = { desc = "LSP" },
     ["<leader>lf"] = {
-      function() vim.lsp.buf.format(M.format_opts) end,
+      function() vim.lsp.buf.format() end,
       desc = "Format buffer",
     },
     ["<leader>lr"] = {
