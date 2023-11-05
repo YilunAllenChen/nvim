@@ -6,6 +6,8 @@ Reworked nvim config, from kickstart.nvim
 ```shell
 mv ~/.config/nvim ~/.config/nvim.bak
 mv ~/.local/share/nvim ~/.local/share/nvim.bak
-# overlay my stuff
+# clone
 git clone https://github.com/YilunAllenChen/kickstart ~/.config/nvim
+
+nvim
 ```
