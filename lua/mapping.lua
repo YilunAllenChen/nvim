@@ -163,8 +163,8 @@ M.set_mappings {
     ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
     ["<C-Up>"] = { "<cmd>resize -2<CR>", desc = "Resize split up" },
     ["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" },
-    ["<C-Left>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split left" },
-    ["<C-Right>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split right" },
+    ["<C-Left>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split left" },
+    ["<C-Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split right" },
 
     -- WTF
     ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Fuck my life" },
