@@ -148,6 +148,8 @@ M.set_mappings {
     -- Buffers
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
+    ["<leader>bc"] =
+    { function() require("astronvim.utils.buffer").close_all(true) end, desc = "Close all buffers except current" },
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },
@@ -177,7 +179,9 @@ M.set_mappings {
     ["<C-Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split right" },
 
     -- WTF
-    ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Fuck my life" },
+    ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Make It Rain!!!" },
+    ["<leader>gol"] = { "<cmd>CellularAutomaton game_of_life<cr>", desc = "Game Of Life!!!" },
+    ["<leader>sld"] = { "<cmd>CellularAutomaton slide<cr>", desc = "SLIDE!!!!" },
 
   },
   t = {

@@ -1,7 +1,6 @@
 return {
   'AlexvZyl/nordic.nvim',
-  lazy = false,
-  priority = 1000,
+  lazy = true,
   config = function()
     require 'nordic'.load()
   end
