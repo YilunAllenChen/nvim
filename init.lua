@@ -1,9 +1,12 @@
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-
-local output = vim.fn.system "which fish"
-local fish = output:gsub("^%s*(.-)%s*$", "%1") -- Trim leading/trailing whitespace
-if fish ~= "" then vim.o.shell = fish end
+local ok, output = pcall(vim.system, 'which fish')
+if ok then
+  local fish = output:gsub('^%s*(.-)%s*$', '%1') -- Trim leading/trailing whitespace
+  if fish ~= '' then
+    vim.o.shell = fish
+  end
+end
 
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
@@ -22,21 +25,21 @@ vim.opt.rtp:prepend(lazypath)
 
 local options = {
   opt = {
-    cmdheight = 0,             -- hide command line unless needed
-    clipboard = "unnamedplus", -- connection to the system clipboard
-    pumheight = 10,            -- height of the pop up menu
-    showtabline = 2,           -- always display tabline
-    splitbelow = true,         -- splitting a new window below the current one
-    splitright = true,         -- splitting a new window at the right of the current one
+    cmdheight = 0, -- hide command line unless needed
+    clipboard = 'unnamedplus', -- connection to the system clipboard
+    pumheight = 10, -- height of the pop up menu
+    showtabline = 2, -- always display tabline
+    splitbelow = true, -- splitting a new window below the current one
+    splitright = true, -- splitting a new window at the right of the current one
   },
   g = {
     mapleader = ' ',
     maplocalleader = ' ',
     max_file = { size = 1024 * 100, lines = 1000 }, -- set global limits for large files
-    diagnostics_mode = 3,                           -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-    icons_enabled = true,                           -- disable icons in the UI (disable if no nerd font is available)
-    lsp_handlers_enabled = true,                    -- enable or disable default vim.lsp.handlers (hover and signature help)
-    cmp_enabled = true,                             -- enable completion at start
+    diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+    icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
+    lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signature help)
+    cmp_enabled = true, -- enable completion at start
   },
   o = {
     hlsearch = false,
@@ -56,7 +59,6 @@ local options = {
     signcolumn = 'yes',
   },
 }
-
 
 for scope, table in pairs(options) do
   for setting, value in pairs(table) do
@@ -78,24 +80,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-require("mapping")
+require 'mapping'
 
-local _border = "rounded"
+local _border = 'rounded'
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-  vim.lsp.handlers.hover, {
-    border = _border
-  }
-)
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+  border = _border,
+})
 
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-  vim.lsp.handlers.signature_help, {
-    border = _border
-  }
-)
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  border = _border,
+})
 
 vim.diagnostic.config {
-  float = { border = _border }
+  float = { border = _border },
 }
 
 require('lazy').setup({
