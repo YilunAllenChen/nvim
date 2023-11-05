@@ -1,3 +1,4 @@
+-- file tree
 return {
   "nvim-neo-tree/neo-tree.nvim",
   lazy = true,

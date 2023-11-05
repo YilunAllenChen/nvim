@@ -1,3 +1,4 @@
+-- utility to create git link from current line
 return {
   "ruifm/gitlinker.nvim",
   lazy = true,

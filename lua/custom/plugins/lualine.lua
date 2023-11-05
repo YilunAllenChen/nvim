@@ -1,3 +1,4 @@
+-- tabline and statusline
 return
 {
   'nvim-lualine/lualine.nvim',

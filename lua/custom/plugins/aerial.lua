@@ -1,3 +1,4 @@
+-- document / workspace outline
 return {
   "stevearc/aerial.nvim",
   lazy = true,

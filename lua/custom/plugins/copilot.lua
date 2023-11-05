@@ -1,3 +1,4 @@
+-- Github copilot
 return {
   -- should disable if there are compliance issues
   "zbirenbaum/copilot.lua",

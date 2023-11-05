@@ -1,3 +1,4 @@
+-- prettier ui
 return {
   "stevearc/dressing.nvim",
   config = function()

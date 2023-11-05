@@ -1,3 +1,4 @@
+-- Syntax highlighting and text objects
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     ensure_installed = {},
