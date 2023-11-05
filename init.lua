@@ -1,5 +1,3 @@
-package.path = package.path .. ';./?.lua'
-
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 -- Install package manager
@@ -16,12 +14,6 @@ if not vim.loop.fs_stat(lazypath) then
   }
 end
 vim.opt.rtp:prepend(lazypath)
-
-
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
-
 
 local options = {
   opt = {
