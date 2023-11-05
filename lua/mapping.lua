@@ -139,6 +139,7 @@ M.set_mappings {
     ["<leader>la"] = {
       function() require("telescope.builtin").lsp_code_actions { layout_strategy = "vertical" } end,
     },
+    ["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" },
 
     -- Diagnostics
     ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },

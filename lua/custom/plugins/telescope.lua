@@ -29,10 +29,10 @@ return {
         layout_strategy = "vertical",
         layout_config = {
           vertical = {
-            -- prompt_position = "top",
+            prompt_position = "top",
             preview_cutoff = 0,
             preview_height = 0.5,
-            -- mirror = true,
+            mirror = true,
           },
           width = 0.9,
           height = 0.9,
