@@ -1,17 +1,27 @@
 local function alpha_render()
   local dashboard = require "alpha.themes.dashboard"
   dashboard.section.header.val = {
-    "▄▀█ █░░ █░░ █▀▀ █▄░█ ▀ █▀   █▄░█ █▀▀ █▀█ █░█ █ █▀▄▀█",
-    "█▀█ █▄▄ █▄▄ ██▄ █░▀█ ░ ▄█   █░▀█ ██▄ █▄█ ▀▄▀ █ █░▀░█",
-    "",
-    "              \\",
-    "               \\",
-    "                          '-.",
-    "                .---._      .--'",
-    "              /       `-..__)  ,-'",
-    "             |    0           /",
-    "              --.__,   .__.,`",
-    "               `-.___'._\\_.'",
+    -- "▄▀█ █░░ █░░ █▀▀ █▄░█ ▀ █▀   █▄░█ █▀▀ █▀█ █░█ █ █▀▄▀█",
+    -- "█▀█ █▄▄ █▄▄ ██▄ █░▀█ ░ ▄█   █░▀█ ██▄ █▄█ ▀▄▀ █ █░▀░█",
+    -- "",
+    -- "",
+    -- "",
+    -- "                          '-.",
+    -- "                .---._      .--'",
+    -- "              /       `-..__)  ,-'",
+    -- "             |    0           /",
+    -- "              --.__,   .__.,`",
+    -- "               `-.___'._\\_.'",
+    [[                                                                       ]],
+    [[                                                                     ]],
+    [[       ████ ██████           █████      ██                     ]],
+    [[      ███████████             █████                             ]],
+    [[      █████████ ███████████████████ ███   ███████████   ]],
+    [[     █████████  ███    █████████████ █████ ██████████████   ]],
+    [[    █████████ ██████████ █████████ █████ █████ ████ █████   ]],
+    [[  ███████████ ███    ███ █████████ █████ █████ ████ █████  ]],
+    [[ ██████  █████████████████████ ████ █████ █████ ████ ██████ ]],
+    [[                                                                       ]],
   }
   dashboard.section.header.opts.hl = "DashboardHeader"
   dashboard.section.buttons.val = {}
@@ -28,7 +38,7 @@ local function alpha_render()
       local stats = require("lazy").stats()
       local ms = math.floor(stats.startuptime * 100 + 0.5) / 100
       dashboard.section.footer.val =
-      { " ", " ", " ", "Neovim loaded " .. stats.count .. " plugins in " .. ms .. "ms" }
+      { " ", " ", " ", "Allen's Neovim started up with " .. stats.count .. " plugins in " .. ms .. "ms" }
       dashboard.section.footer.opts.hl = "DashboardFooter"
       pcall(vim.cmd.AlphaRedraw)
     end,
