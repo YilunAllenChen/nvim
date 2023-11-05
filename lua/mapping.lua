@@ -42,8 +42,18 @@ end
 
 M.set_mappings {
   n = {
-    -- Blazingly Fast
-    ["'"] = { "<cmd>confirm q<cr>", desc = "Quit" },
+
+    -- Blazingly Fast Shortcuts
+    ["'"] = {
+      function()
+        if vim.bo.buftype == 'terminal' then
+          vim.cmd('bd!')
+        else
+          vim.cmd('confirm q')
+        end
+      end
+      , desc = "Quit"
+    },
     [","] = { function() require("telescope.builtin").live_grep() end, desc = "Find words" },
     ["="] = {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
@@ -53,7 +63,7 @@ M.set_mappings {
     -- Jumping Around
     [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
     ['<leader><leader>'] = { function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc =
-    "incoming calls" },
+    "Fuzzy Search In Buffer" },
     ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "definition" },
     ["gD"] = {
       function() require('telescope.builtin').lsp_declarations() end,
