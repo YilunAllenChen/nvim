@@ -7,5 +7,5 @@ Reworked nvim config, from kickstart.nvim
 mv ~/.config/nvim ~/.config/nvim.bak
 mv ~/.local/share/nvim ~/.local/share/nvim.bak
 # overlay my stuff
-git clone https://github.com/YilunAllenChen/kickstart ~/.config/nvim/lua/user
+git clone https://github.com/YilunAllenChen/kickstart ~/.config/nvim
 ```
