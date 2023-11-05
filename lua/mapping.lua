@@ -136,7 +136,8 @@ M.set_mappings {
       end,
       desc = "Search symbols",
     },
-    ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" },
+    -- ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" },
+    ["<leader>la"] = { function() require("actions-preview").code_actions() end, desc = "Code action" },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" },
 
     -- Diagnostics
@@ -147,8 +148,7 @@ M.set_mappings {
     -- Buffers
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
-    ["<leader>bc"] =
-    { function() require("astronvim.utils.buffer").close_all(true) end, desc = "Close all buffers except current" },
+    ["<leader>bc"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },
