@@ -153,6 +153,7 @@ M.set_mappings {
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },
+    ["<leader>fd"] = { "<cmd>TodoTelescope<cr>", desc = "TODO" },
     ["<leader>f<CR>"] = { function() require("telescope.builtin").resume() end, desc = "Resume previous search" },
     ["<leader>fc"] = { function() require("telescope.builtin").grep_string() end, desc = "Find for word under cursor" },
     ["<leader>fC"] = { function() require("telescope.builtin").commands() end, desc = "Find commands" },

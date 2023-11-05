@@ -1,4 +1,4 @@
--- finder 
+-- finder
 return {
   'nvim-telescope/telescope.nvim',
   dependencies = {
@@ -29,12 +29,10 @@ return {
         layout_strategy = "vertical",
         layout_config = {
           vertical = {
-            prompt_position = "top",
-            preview = {
-              preview_height = 0.5,
-              preview_cutoff = 120,
-            },
-            mirror = true,
+            -- prompt_position = "top",
+            preview_cutoff = 0,
+            preview_height = 0.5,
+            -- mirror = true,
           },
           width = 0.9,
           height = 0.9,
