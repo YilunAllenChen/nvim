@@ -136,9 +136,7 @@ M.set_mappings {
       end,
       desc = "Search symbols",
     },
-    ["<leader>la"] = {
-      function() require("telescope.builtin").lsp_code_actions { layout_strategy = "vertical" } end,
-    },
+    ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" },
 
     -- Diagnostics
