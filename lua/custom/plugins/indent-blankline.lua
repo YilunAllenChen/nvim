@@ -8,9 +8,9 @@ return {
     local highlight = {
       -- "RainbowBlue",
       -- "RainbowOrange",
-      "RainbowGreen",
+      -- "RainbowGreen",
       -- "RainbowViolet",
-      -- "RainbowCyan",
+      "RainbowCyan",
     }
     local hooks = require("ibl.hooks")
     hooks.register(hooks.type.HIGHLIGHT_SETUP, function()

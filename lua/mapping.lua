@@ -178,10 +178,10 @@ M.set_mappings {
     ["<C-Left>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split left" },
     ["<C-Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split right" },
 
-    -- WTF
+    -- fun stuff
     ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Make It Rain!!!" },
     ["<leader>gol"] = { "<cmd>CellularAutomaton game_of_life<cr>", desc = "Game Of Life!!!" },
-    ["<leader>sld"] = { "<cmd>CellularAutomaton slide<cr>", desc = "SLIDE!!!!" },
+    ["<leader>sld"] = { "<cmd>CellularAutomaton scramble<cr>", desc = "SCRABLE!!!" },
 
   },
   t = {
