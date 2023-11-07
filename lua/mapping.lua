@@ -71,7 +71,6 @@ M.set_mappings {
     },
     ['gr'] = { function() require('telescope.builtin').lsp_references() end, desc = "references" },
     ['gt'] = { function() require('telescope.builtin').lsp_type_definitions() end, desc = "type definition" },
-    ['gi'] = { function() require('telescope.builtin').lsp_implementations() end, desc = "type definition" },
     ['gI'] = { function() require('telescope.builtin').lsp_incoming_calls() end, desc = "incoming calls" },
 
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
