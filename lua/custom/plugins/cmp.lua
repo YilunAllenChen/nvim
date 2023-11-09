@@ -11,7 +11,6 @@ return {
     { 'hrsh7th/cmp-buffer', dependencies = 'nvim-cmp' },
     { 'hrsh7th/cmp-cmdline', dependencies = 'nvim-cmp' },
     { 'hrsh7th/cmp-emoji', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-nvim-lsp-signature-help', dependencies = 'nvim-cmp' },
     { 'hrsh7th/cmp-calc', dependencies = 'nvim-cmp' },
     'rafamadriz/friendly-snippets',
     'onsails/lspkind.nvim',
@@ -85,7 +84,6 @@ return {
             path = 'Path',
             emoji = 'Emoji',
             calc = 'Calc',
-            nvim_lsp_signature_help = 'SigHelp',
           }
           kind.kind = (strings[1] or '') .. ' '
           kind.menu = '    (' .. source_map[entry.source.name] .. '.' .. (strings[2] or '') .. ')'
@@ -100,7 +98,6 @@ return {
         { name = 'path' },
         { name = 'emoji' },
         { name = 'calc' },
-        { name = 'nvim_lsp_signature_help' },
       },
       confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,
