@@ -74,7 +74,7 @@ M.set_mappings {
     ['gI'] = { function() require('telescope.builtin').lsp_incoming_calls() end, desc = "incoming calls" },
 
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
-    ["<leader>pp"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
+    ["<leader>P"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
 
     -- Editing
@@ -147,7 +147,7 @@ M.set_mappings {
     -- Buffers
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
-    ["<leader>bc"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
+    ["<leader>C"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },
