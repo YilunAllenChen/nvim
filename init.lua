@@ -1,11 +1,8 @@
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
-local ok, output = pcall(vim.system, 'which fish')
-if ok then
-  local fish = output:gsub('^%s*(.-)%s*$', '%1') -- Trim leading/trailing whitespace
-  if fish ~= '' then
-    vim.o.shell = fish
-  end
+-- let nvim use fish is available
+if vim.fn.executable 'fish' == 1 then
+  vim.opt.shell = 'fish'
 end
 
 -- Install package manager
