@@ -71,15 +71,14 @@ M.set_mappings {
     },
     ['gr'] = { function() require('telescope.builtin').lsp_references() end, desc = "references" },
     ['gt'] = { function() require('telescope.builtin').lsp_type_definitions() end, desc = "type definition" },
-    ['gi'] = { function() require('telescope.builtin').lsp_implementations() end, desc = "type definition" },
     ['gI'] = { function() require('telescope.builtin').lsp_incoming_calls() end, desc = "incoming calls" },
 
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
-    ["<leader>pp"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
+    ["<leader>P"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
 
     -- Editing
-    ["<leader>e"] = { "<cmd>Neotree toggle<cr>", desc = "Explorer" },
+    ["<leader>e"] = { "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
     ["<leader>n"] = { "<cmd>enew<cr>", desc = "New File" },
@@ -148,7 +147,7 @@ M.set_mappings {
     -- Buffers
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
-    ["<leader>bc"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
+    ["<leader>C"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },

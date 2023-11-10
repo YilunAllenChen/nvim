@@ -1,21 +1,24 @@
 -- underscore and camelcase enabled e/w/b motions
 return {
-  "chrisgrieser/nvim-spider",
+  'chrisgrieser/nvim-spider',
+  opts = {
+    skipInsignificantPunctuation = false,
+  },
   keys = {
     { -- example for lazy-loading and keymap
-      "e",
+      'e',
       "<cmd>lua require('spider').motion('e')<CR>",
-      mode = { "n", "o", "x" },
+      mode = { 'n', 'o', 'x' },
     },
     {
-      "w",
+      'w',
       "<cmd>lua require('spider').motion('w')<CR>",
-      mode = { "n", "o", "x" },
+      mode = { 'n', 'o', 'x' },
     },
     {
-      "b",
+      'b',
       "<cmd>lua require('spider').motion('b')<CR>",
-      mode = { "n", "o", "x" },
-    }
+      mode = { 'n', 'o', 'x' },
+    },
   },
 }

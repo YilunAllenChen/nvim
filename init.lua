@@ -45,8 +45,8 @@ local options = {
     undofile = true,
     ignorecase = true,
     smartcase = true,
-    timeoutlen = 500, -- shorten key timeout length a little bit for which-key
-    updatetime = 300, -- length of time to wait before triggering the plugin
+    timeoutlen = 50, -- shorten key timeout length a little bit for which-key
+    updatetime = 50, -- length of time to wait before triggering the plugin
     completeopt = 'menu,menuone,preview',
     termguicolors = true,
   },
