@@ -7,11 +7,11 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-path', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-buffer', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-cmdline', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-emoji', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-calc', dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-path',     dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-buffer',   dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-cmdline',  dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-emoji',    dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-calc',     dependencies = 'nvim-cmp' },
     'rafamadriz/friendly-snippets',
     'onsails/lspkind.nvim',
   },
@@ -34,8 +34,6 @@ return {
         end,
       },
       mapping = {
-        ['<C-k>'] = cmp.mapping.select_prev_item(),
-        ['<C-j>'] = cmp.mapping.select_next_item(),
         ['<Up>'] = cmp.mapping.select_prev_item(),
         ['<Down>'] = cmp.mapping.select_next_item(),
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-1), { 'i', 'c' }),
@@ -45,6 +43,10 @@ return {
           i = cmp.mapping.abort(),
           c = cmp.mapping.close(),
         },
+        ['<C-Space>'] = cmp.mapping.complete(),
+        -- Accept currently selected item. If none selected, `select` first item.
+        -- Set `select` to `false` to only confirm explicitly selected items.
+        ['<CR>'] = cmp.mapping.confirm { select = false },
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
@@ -72,7 +74,7 @@ return {
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
-          local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 }(entry, vim_item)
+          local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 } (entry, vim_item)
           local strings = vim.split(kind.kind, '%s', { trimempty = true })
           local source_map = {
             nvim_lsp = 'LSP',
