@@ -135,7 +135,6 @@ M.set_mappings {
       end,
       desc = "Search symbols",
     },
-    -- ["<leader>la"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code action" },
     ["<leader>la"] = { function() require("actions-preview").code_actions() end, desc = "Code action" },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" },
 
@@ -199,7 +198,10 @@ M.set_mappings {
       desc = "Toggle comment for selection",
     },
     ["<S-Tab>"] = { "<gv", desc = "Unindent line" },
-    ["<Tab>"] = { ">gv", desc = "Indent line" }
+    ["<Tab>"] = { ">gv", desc = "Indent line" },
+
+    ["<leader>le"] = {"<cmd>Refactor extract<CR>", desc="Refactor: extract function"},
+    ["<leader>rr"] = {"<cmd>SnipRun<CR>", desc = "Run snippet"},
   }
 
 }
