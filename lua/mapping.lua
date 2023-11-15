@@ -209,7 +209,6 @@ M.set_mappings {
     ["<Tab>"] = { ">gv", desc = "Indent line" },
 
     ["<leader>le"] = { "<cmd>Refactor extract<CR>", desc = "Refactor: extract function" },
-    ["<leader>rr"] = { "<cmd>SnipRun<CR>", desc = "Run snippet" },
   }
 
 }
