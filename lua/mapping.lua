@@ -59,6 +59,14 @@ M.set_mappings {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
       desc = "Find all files",
     },
+    ["C-g"] = { function()
+      local filePath = vim.fn.expand('%:p')
+      if filePath == '' then
+        print('No file loaded')
+      else
+        print(filePath)
+      end
+    end, desc = "Show Full Path" },
 
     -- Jumping Around
     [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
@@ -200,8 +208,8 @@ M.set_mappings {
     ["<S-Tab>"] = { "<gv", desc = "Unindent line" },
     ["<Tab>"] = { ">gv", desc = "Indent line" },
 
-    ["<leader>le"] = {"<cmd>Refactor extract<CR>", desc="Refactor: extract function"},
-    ["<leader>rr"] = {"<cmd>SnipRun<CR>", desc = "Run snippet"},
+    ["<leader>le"] = { "<cmd>Refactor extract<CR>", desc = "Refactor: extract function" },
+    ["<leader>rr"] = { "<cmd>SnipRun<CR>", desc = "Run snippet" },
   }
 
 }
