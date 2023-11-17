@@ -1,7 +1,7 @@
 -- gitsign
 return {
   'lewis6991/gitsigns.nvim',
-  lazy = true,
+  event = "BufEnter",
   opts = {
     signs = {
       add = { text = '+' },
@@ -11,7 +11,6 @@ return {
       changedelete = { text = '~' },
     },
     on_attach = function(bufnr)
-      vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
     end,
   },
 }

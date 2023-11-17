@@ -59,7 +59,7 @@ M.set_mappings {
       function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
       desc = "Find all files",
     },
-    ["C-g"] = { function()
+    ["<C-g>"] = { function()
       local filePath = vim.fn.expand('%:p')
       if filePath == '' then
         print('No file loaded')
@@ -105,8 +105,7 @@ M.set_mappings {
     ["<leader>g"] = { desc = "Git" },
     ["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" },
     ["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" },
-    ["<leader>gl"] = { function() require("gitsigns").blame_line() end, desc = "View Git blame" },
-    ["<leader>gL"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
+    ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
     ["<leader>gg"] = {
       function()
         local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
