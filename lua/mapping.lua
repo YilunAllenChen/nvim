@@ -154,6 +154,7 @@ M.set_mappings {
     ["H"] = { "<cmd>:bprevious<cr>", desc = "Prev Buffer" },
     ["L"] = { "<cmd>:bnext<cr>", desc = "Next Buffer" },
     ["<leader>C"] = { "<cmd>:%bd|e#<cr>", desc = "Close all buffers except current" },
+    ["<leader>c"] = { "<cmd>:bd<cr>", desc = "Close buffer" },
 
     -- Findings stuff
     ["<leader>f"] = { desc = "Find" },

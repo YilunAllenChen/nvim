@@ -34,8 +34,8 @@ return {
             preview_height = 0.5,
             mirror = true,
           },
-          width = 0.9,
-          height = 0.9,
+          width = 0.7,
+          height = 0.7,
         },
         mappings = {
           i = {
