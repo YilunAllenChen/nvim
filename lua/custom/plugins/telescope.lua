@@ -16,20 +16,19 @@ return {
       end,
     },
   },
-  opts = {
-  },
+  opts = {},
   config = function()
     require('telescope').setup {
       defaults = {
-        prompt_prefix = string.format("%s ", "/"),
-        selection_caret = string.format("%s ", ">"),
-        path_display = { "full" },
-        file_ignore_patterns = { "node_modules", ".mypy_cache", ".pyc", ".git", ".pytest_cache", "target", "**/dist", "**/test_recorder"},
-        sorting_strategy = "ascending",
-        layout_strategy = "vertical",
+        prompt_prefix = string.format('%s ', '/'),
+        selection_caret = string.format('%s ', '>'),
+        path_display = { 'full' },
+        file_ignore_patterns = { 'node_modules', '.mypy_cache', '.pyc', '.git', '.pytest_cache', 'target', '**/dist', '**/test_recorder', '*.ipynb' },
+        sorting_strategy = 'ascending',
+        layout_strategy = 'vertical',
         layout_config = {
           vertical = {
-            prompt_position = "top",
+            prompt_position = 'top',
             preview_cutoff = 0,
             preview_height = 0.5,
             mirror = true,
@@ -39,9 +38,9 @@ return {
         },
         mappings = {
           i = {
-            ["<esc>"] = require("telescope.actions").close,
+            ['<esc>'] = require('telescope.actions').close,
           },
-          n = { ["q"] = require("telescope.actions").close },
+          n = { ['q'] = require('telescope.actions').close },
         },
       },
     }
