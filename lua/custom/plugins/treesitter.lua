@@ -63,7 +63,7 @@ end, 0)
 
 return {
   'nvim-treesitter/nvim-treesitter',
-  lazy = true,
+  event = "BufReadPre",
   dependencies = {
     'nvim-treesitter/nvim-treesitter-textobjects',
   },

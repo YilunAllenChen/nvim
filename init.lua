@@ -39,7 +39,7 @@ local options = {
     cmp_enabled = true, -- enable completion at start
   },
   o = {
-    hlsearch = false,
+    hlsearch = true,
     mouse = 'a',
     breakindent = true,
     undofile = true,
