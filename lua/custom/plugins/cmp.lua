@@ -4,8 +4,6 @@ return {
   lazy = true,
   event = 'BufReadPre',
   dependencies = {
-    'L3MON4D3/LuaSnip',
-    'saadparwaiz1/cmp_luasnip',
     { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-cmp' },
     { 'hrsh7th/cmp-path',     dependencies = 'nvim-cmp' },
     { 'hrsh7th/cmp-buffer',   dependencies = 'nvim-cmp' },
@@ -17,7 +15,6 @@ return {
   },
   config = function()
     local cmp = require 'cmp'
-    local luasnip = require 'luasnip'
 
     local border_opts = {
       border = 'rounded',
@@ -29,9 +26,6 @@ return {
     end
     local opts = {
       snippet = {
-        expand = function(args)
-          luasnip.lsp_expand(args.body) -- For `luasnip` users.
-        end,
       },
       mapping = {
         ['<Up>'] = cmp.mapping.select_prev_item(),
@@ -50,8 +44,6 @@ return {
         ['<Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_next_item()
-          elseif luasnip.expand_or_jumpable() then
-            luasnip.expand_or_jump()
           elseif has_words_before() then
             cmp.complete()
           else
@@ -61,8 +53,6 @@ return {
         ['<S-Tab>'] = cmp.mapping(function(fallback)
           if cmp.visible() then
             cmp.select_prev_item()
-          elseif luasnip.jumpable(-1) then
-            luasnip.jump(-1)
           else
             fallback()
           end
@@ -78,7 +68,6 @@ return {
           local strings = vim.split(kind.kind, '%s', { trimempty = true })
           local source_map = {
             nvim_lsp = 'LSP',
-            luasnip = 'Snippet',
             buffer = 'Buffer',
             path = 'Path',
             emoji = 'Emoji',
@@ -92,7 +81,6 @@ return {
       },
       sources = {
         { name = 'nvim_lsp' },
-        { name = 'luasnip' },
         { name = 'buffer' },
         { name = 'path' },
         { name = 'emoji' },
