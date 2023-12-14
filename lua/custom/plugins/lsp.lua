@@ -1,6 +1,6 @@
 -- LSP
 local servers = {
-  pyright = { exclude = { "**/site-packages" } },
+  ['pyright@1.1.337'] = {},
   rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
@@ -12,25 +12,24 @@ local servers = {
   },
 }
 
-return
-{
+return {
   'folke/neodev.nvim',
   'neovim/nvim-lspconfig',
   {
     'williamboman/mason.nvim',
     config = function()
-      require("mason").setup()
-    end
+      require('mason').setup()
+    end,
   },
   {
     'williamboman/mason-lspconfig.nvim',
     lazy = true,
-    event = "BufReadPre",
+    event = 'BufReadPre',
     config = function()
-      require("neodev").setup()
+      require('neodev').setup()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
       capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-      local mlsp = require("mason-lspconfig")
+      local mlsp = require 'mason-lspconfig'
       mlsp.setup {
         ensure_installed = vim.tbl_keys(servers),
       }
@@ -43,24 +42,24 @@ return
           }
         end,
       }
-    end
+    end,
   },
   {
     'nvim-lua/lsp-status.nvim',
     config = function()
-      require 'lsp-status'.register_progress()
+      require('lsp-status').register_progress()
     end,
   },
   { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
   {
-    "jay-babu/mason-null-ls.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    'jay-babu/mason-null-ls.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-      "williamboman/mason.nvim",
-      "jose-elias-alvarez/null-ls.nvim",
+      'williamboman/mason.nvim',
+      'jose-elias-alvarez/null-ls.nvim',
     },
     opts = {
-      ensure_installed = { "prettier", "stylua", "black", "jq", "jsonnetfmt" },
+      ensure_installed = { 'prettier', 'stylua', 'black', 'jq', 'jsonnetfmt' },
       handlers = {},
     },
   },
