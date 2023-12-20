@@ -79,7 +79,7 @@ M.set_mappings {
     },
     ['gr'] = { function() require('telescope.builtin').lsp_references() end, desc = "references" },
     ['gt'] = { function() require('telescope.builtin').lsp_type_definitions() end, desc = "type definition" },
-    ['gI'] = { function() require('telescope.builtin').lsp_incoming_calls() end, desc = "incoming calls" },
+    ['gI'] = { function() vim.lsp.buf.implementation() end, desc = "implementation" },
 
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
     ["<leader>P"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
@@ -130,7 +130,7 @@ M.set_mappings {
       desc = "Rename current symbol",
     },
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
-    ["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
+    ["<leader>lS"] = { function() require("telescope.builtin").lsp_workspace_symbols() end, desc = "Search workspace symbols" },
     ["<leader>ls"] = {
       function()
         local aerial_avail, _ = pcall(require, "aerial")
@@ -144,9 +144,8 @@ M.set_mappings {
     },
     ["<leader>la"] = { function() require("actions-preview").code_actions() end, desc = "Code action" },
     ["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" },
-
-    -- Diagnostics
     ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
+    ["<leader>lD"] = { function() require("telescope.builtin").diagnostics() end, desc = "Search diagnostics" },
     ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
     ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
 

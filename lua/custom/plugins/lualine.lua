@@ -1,15 +1,14 @@
 -- tabline and statusline
 local function custom()
   local recording = vim.fn.reg_recording()
-  local status = ""
+  local status = ''
   if recording ~= '' then
-    status = status .. [[Recording macro @ ]] ..recording .. ";"
+    status = status .. [[Recording macro @ ]] .. recording .. ';'
   end
   return status
 end
 
-return
-{
+return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
     'nvim-lua/lsp-status.nvim',
@@ -24,14 +23,16 @@ return
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { 'branch', "filename" },
+      lualine_b = { 'branch' },
       lualine_c = { custom },
       lualine_x = { 'filetype' },
       lualine_y = { "require'lsp-status'.status()" },
       lualine_z = { 'location' },
     },
     tabline = {
-      lualine_a = { 'buffers' },
+      lualine_a = {
+        -- { 'filename', file_status = true, path = 2 }
+      },
     },
   },
 }

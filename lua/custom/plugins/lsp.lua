@@ -1,6 +1,6 @@
 -- LSP
 local servers = {
-  pyright = { exclude = { "**/site-packages" } },
+  -- pyright = { exclude = { "**/site-packages" } },
   rust_analyzer = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
