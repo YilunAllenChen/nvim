@@ -28,6 +28,8 @@ local options = {
     showtabline = 2, -- always display tabline
     splitbelow = true, -- splitting a new window below the current one
     splitright = true, -- splitting a new window at the right of the current one
+    shiftwidth = 4,
+    tabstop = 4,
   },
   g = {
     mapleader = ' ',
