@@ -13,6 +13,7 @@ local servers = {
 }
 
 return {
+  'jose-elias-alvarez/null-ls.nvim',
   'folke/neodev.nvim',
   'neovim/nvim-lspconfig',
   {
@@ -23,7 +24,7 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    lazy = true,
+    lazy = false,
     event = 'BufReadPre',
     config = function()
       require('neodev').setup()

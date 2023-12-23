@@ -130,7 +130,8 @@ M.set_mappings {
       desc = "Rename current symbol",
     },
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
-    ["<leader>lS"] = { function() require("telescope.builtin").lsp_workspace_symbols() end, desc = "Search workspace symbols" },
+    ["<leader>lS"] = { function() require("aerial").toggle() end, desc = "Symbols outline" },
+    ["<leader>lG"] = { function() require("telescope.builtin").lsp_workspace_symbols() end, desc = "Search workspace symbols" },
     ["<leader>ls"] = {
       function()
         local aerial_avail, _ = pcall(require, "aerial")
