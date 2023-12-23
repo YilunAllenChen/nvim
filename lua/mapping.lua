@@ -82,7 +82,7 @@ M.set_mappings {
     ['gI'] = { function() vim.lsp.buf.implementation() end, desc = "implementation" },
 
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
-    ["<leader>P"] = { "<cmd>:Telescope projects<cr>", desc = "Telescope projects" },
+    ["<leader>o"] = { "<cmd>:Telescope projects<cr>", desc = "Open project" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
 
     -- Editing
@@ -95,7 +95,7 @@ M.set_mappings {
       function() require("Comment.api").toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1) end,
       desc = "Toggle comment line",
     },
-    ["<leader>fR"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
+    ["<leader>r"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
 
     -- Packages & Plugins
     ["<leader>p"] = { function() require("lazy").home() end, desc = "Plugins" },
