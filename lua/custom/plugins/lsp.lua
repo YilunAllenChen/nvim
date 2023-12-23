@@ -13,8 +13,21 @@ local servers = {
 }
 
 return {
-  'jose-elias-alvarez/null-ls.nvim',
   'folke/neodev.nvim',
+
+  {
+    'jose-elias-alvarez/null-ls.nvim',
+    config = function()
+      local null_ls = require("null-ls")
+      null_ls.setup({
+        sources = {
+          -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting
+          null_ls.builtins.formatting.stylua,
+          null_ls.builtins.formatting.black,
+        },
+      })
+    end
+  },
   'neovim/nvim-lspconfig',
   {
     'williamboman/mason.nvim',
@@ -25,7 +38,7 @@ return {
   {
     'williamboman/mason-lspconfig.nvim',
     lazy = false,
-    event = 'BufReadPre',
+    event = { 'BufReadPre', "BufNewFile" },
     config = function()
       require('neodev').setup()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -60,7 +73,7 @@ return {
       'jose-elias-alvarez/null-ls.nvim',
     },
     opts = {
-      ensure_installed = { 'prettier', 'stylua', 'black', 'jq', 'jsonnetfmt' },
+      ensure_installed = {},
       handlers = {},
     },
   },
