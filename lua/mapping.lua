@@ -70,7 +70,7 @@ M.set_mappings {
 
     -- Jumping Around
     [";"] = { "<cmd>:HopWord<cr>", desc = "Hop" },
-    ['<leader><leader>'] = { function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc =
+    ['<leader>s'] = { function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc =
     "Fuzzy Search In Buffer" },
     ['gd'] = { function() require('telescope.builtin').lsp_definitions() end, desc = "definition" },
     ["gD"] = {
@@ -169,25 +169,34 @@ M.set_mappings {
 
     -- Opening terminals
     ["<C-t>"] = { "<cmd>:terminal<cr>" },
-    ["t"] = { "<C-w>s<cmd>:terminal<cr>a" },
+    -- ["t"] = { "<C-w>s<cmd>:terminal<cr>a" },
+    ["t"] = { "<cmd>:20sp | terminal<cr>a" },
     ["T"] = { "<C-w>v<cmd>:terminal<cr>a" },
 
     -- window management & navigation
     ["\\"] = { "<C-w>v", desc = "Vertical Split" },
     ["-"] = { "<C-w>s", desc = "Horizontal Split" },
-    ["<C-h>"] = { "<cmd>wincmd h<cr>", desc = "Terminal left window navigation" },
-    ["<C-j>"] = { "<cmd>wincmd j<cr>", desc = "Terminal down window navigation" },
-    ["<C-k>"] = { "<cmd>wincmd k<cr>", desc = "Terminal up window navigation" },
-    ["<C-l>"] = { "<cmd>wincmd l<cr>", desc = "Terminal right window navigation" },
-    ["<C-Up>"] = { "<cmd>resize -2<CR>", desc = "Resize split up" },
-    ["<C-Down>"] = { "<cmd>resize +2<CR>", desc = "Resize split down" },
-    ["<C-Left>"] = { "<cmd>vertical resize +2<CR>", desc = "Resize split left" },
-    ["<C-Right>"] = { "<cmd>vertical resize -2<CR>", desc = "Resize split right" },
 
+
+
+    ['<C-Left>'] = { function() require('smart-splits').resize_left() end, desc = "resize_left" },
+    ['<C-Down>'] = { function() require('smart-splits').resize_down() end, desc = "resize_down" },
+    ['<C-Up>'] = { function() require('smart-splits').resize_up() end, desc = "resize_up" },
+    ['<C-Right>'] = { function() require('smart-splits').resize_right() end, desc = "resize_right" },
+    -- moving between splits
+    ['<C-h>'] = { function() require('smart-splits').move_cursor_left() end, desc = "move_cursor_left" },
+    ['<C-j>'] = { function() require('smart-splits').move_cursor_down() end, desc = "move_cursor_down" },
+    ['<C-k>'] = { function() require('smart-splits').move_cursor_up() end, desc = "move_cursor_up" },
+    ['<C-l>'] = { function() require('smart-splits').move_cursor_right() end, desc = "move_cursor_right" },
+    -- swapping buffers between windows
+    ['<leader><leader>h'] = { function() require('smart-splits').swap_buf_left() end, desc = "swap_buf_left" },
+    ['<leader><leader>j'] = { function() require('smart-splits').swap_buf_down() end, desc = "swap_buf_down" },
+    ['<leader><leader>k'] = { function() require('smart-splits').swap_buf_up() end, desc = "swap_buf_up" },
+    ['<leader><leader>l'] = { function() require('smart-splits').swap_buf_right() end, desc = "swap_buf_right" },
     -- fun stuff
     ["<leader>fml"] = { "<cmd>CellularAutomaton make_it_rain<cr>", desc = "Make It Rain!!!" },
-    ["<leader>gol"] = { "<cmd>CellularAutomaton game_of_life<cr>", desc = "Game Of Life!!!" },
-    ["<leader>sld"] = { "<cmd>CellularAutomaton scramble<cr>", desc = "SCRABLE!!!" },
+    ["<leader>fmg"] = { "<cmd>CellularAutomaton game_of_life<cr>", desc = "Game Of Life!!!" },
+    ["<leader>fms"] = { "<cmd>CellularAutomaton scramble<cr>", desc = "SCRABLE!!!" },
 
   },
   t = {
