@@ -126,7 +126,10 @@ M.set_mappings {
       desc = "Format buffer",
     },
     ["<leader>lr"] = {
-      function() vim.lsp.buf.rename() end,
+      function()
+        vim.lsp.buf.rename()
+        vim.cmd('silent! wa')
+      end,
       desc = "Rename current symbol",
     },
     ["<leader>lx"] = { "<cmd>:LspRestart<cr>", desc = "LSP Restart" },
