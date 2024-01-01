@@ -80,7 +80,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.api.nvim_create_autocmd('TermOpen', {
+vim.api.nvim_create_autocmd('WinEnter', {
   pattern = '*',
   command = 'setlocal winfixheight winfixwidth',
 })
