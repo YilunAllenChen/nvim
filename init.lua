@@ -39,6 +39,13 @@ local options = {
     icons_enabled = true,                           -- disable icons in the UI (disable if no nerd font is available)
     lsp_handlers_enabled = true,                    -- enable or disable default vim.lsp.handlers (hover and signature help)
     cmp_enabled = true,                             -- enable completion at start
+
+    -- codeium
+    codeium_disable_bindings = 1,
+    codeium_server_config = {
+      portal_url = 'https://codeium.des-lab-mt2n-8446.kube.drw',
+      api_url = 'https://codeium.des-lab-mt2n-8446.kube.drw/_route/api_server',
+    },
   },
   o = {
     hlsearch = true,
