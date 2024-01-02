@@ -210,7 +210,7 @@ M.set_mappings {
   },
   i = {
     ["<C-d><C-b>"] = { "import ipdb; ipdb.set_trace(context=5)", desc = "debug" },
-    ["<C-Right>"] = { function () return vim.fn['codeium#Accept']() end, desc = "Codeium accept" },
+    ["<C-l>"] = { function () return vim.fn['codeium#Accept']() end, desc = "Codeium accept" },
   },
   v = {
     ["<leader>/"] = {
