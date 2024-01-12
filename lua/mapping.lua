@@ -80,12 +80,12 @@ M.set_mappings {
     ['gr'] = { function() require('telescope.builtin').lsp_references() end, desc = "references" },
     ['gt'] = { function() require('telescope.builtin').lsp_type_definitions() end, desc = "type definition" },
     ['gI'] = { function() vim.lsp.buf.implementation() end, desc = "implementation" },
-
     ["<leader>;"] = { "<cmd>:HopAnywhere<cr>", desc = "Hop!!" },
     ["<leader>o"] = { "<cmd>:Telescope projects<cr>", desc = "Open project" },
     ["<leader>b"] = { function() require("telescope.builtin").buffers() end, desc = "Find buffers" },
 
     -- Editing
+    ['gx'] = { "<cmd>:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>", desc = "open file under cursor" },
     ["<leader>e"] = { "<cmd>NvimTreeToggle<cr>", desc = "Explorer" },
     ["<leader>w"] = { "<cmd>w<cr>", desc = "Save" },
     ["<leader>q"] = { "<cmd>confirm q<cr>", desc = "Quit" },
@@ -96,6 +96,7 @@ M.set_mappings {
       desc = "Toggle comment line",
     },
     ["<leader>r"] = { function() require("spectre").open() end, desc = "Spectre search & replace" },
+
 
     -- Packages & Plugins
     ["<leader>p"] = { function() require("lazy").home() end, desc = "Plugins" },
