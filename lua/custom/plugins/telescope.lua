@@ -24,6 +24,9 @@ return {
         selection_caret = string.format('%s ', '>'),
         path_display = { 'full' },
         file_ignore_patterns = { 'node_modules', '.mypy_cache', '.pyc', '.git', '.pytest_cache', 'target', '**/dist', '**/test_recorder', '**.ipynb' },
+        pickers = {
+          lsp_definitions = { fname_width = 100 },
+        },
         sorting_strategy = 'ascending',
         layout_strategy = 'vertical',
         layout_config = {
