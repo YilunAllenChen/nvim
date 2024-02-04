@@ -52,6 +52,7 @@ local options = {
     noea = true,
     mouse = 'a',
     breakindent = true,
+    max_file = { size = 1024 * 100, lines = 10000 }, -- set global limits for large files
     undofile = true,
     ignorecase = true,
     smartcase = true,
