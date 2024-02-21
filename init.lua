@@ -22,12 +22,12 @@ vim.opt.rtp:prepend(lazypath)
 
 local options = {
   opt = {
-    cmdheight = 0,             -- hide command line unless needed
+    cmdheight = 0, -- hide command line unless needed
     clipboard = 'unnamedplus', -- connection to the system clipboard
-    pumheight = 10,            -- height of the pop up menu
-    showtabline = 2,           -- always display tabline
-    splitbelow = true,         -- splitting a new window below the current one
-    splitright = true,         -- splitting a new window at the right of the current one
+    pumheight = 10, -- height of the pop up menu
+    showtabline = 2, -- always display tabline
+    splitbelow = true, -- splitting a new window below the current one
+    splitright = true, -- splitting a new window at the right of the current one
     smartindent = false,
     shiftwidth = 4,
     tabstop = 4,
@@ -36,16 +36,16 @@ local options = {
     mapleader = ' ',
     maplocalleader = ' ',
     max_file = { size = 1024 * 100, lines = 1000 }, -- set global limits for large files
-    diagnostics_mode = 3,                           -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-    icons_enabled = true,                           -- disable icons in the UI (disable if no nerd font is available)
-    lsp_handlers_enabled = true,                    -- enable or disable default vim.lsp.handlers (hover and signature help)
-    cmp_enabled = true,                             -- enable completion at start
+    diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
+    icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
+    lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signature help)
+    cmp_enabled = true, -- enable completion at start
 
     -- codeium
     codeium_disable_bindings = 1,
     codeium_server_config = {
-      portal_url = 'https://codeium.des-lab-mt2n-8446.kube.drw',
-      api_url = 'https://codeium.des-lab-mt2n-8446.kube.drw/_route/api_server',
+      portal_url = 'https://codeium.drwholdings.com',
+      api_url = 'https://codeium.drwholdings.com/_route/api_server',
     },
   },
   o = {
