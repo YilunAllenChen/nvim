@@ -211,6 +211,8 @@ M.set_mappings {
   },
   i = {
     ["<C-d><C-b>"] = { "import ipdb; ipdb.set_trace(context=5)", desc = "debug" },
+    ["<C-f>"] = { function() vim.lsp.buf.format() end, desc = "Format buffer" },
+    ["<C-s>"] = { "<cmd>:w<cr>", desc = "Save file" },
   },
   v = {
     ["<leader>/"] = {
