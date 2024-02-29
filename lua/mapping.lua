@@ -103,11 +103,10 @@ M.set_mappings {
     ["<leader>m"] = { "<cmd>Mason<cr>", desc = "Mason Installer" },
 
     -- Git
-    ["<leader>g"] = { desc = "Git" },
     ["]g"] = { function() require("gitsigns").next_hunk() end, desc = "Next Git hunk" },
     ["[g"] = { function() require("gitsigns").prev_hunk() end, desc = "Previous Git hunk" },
-    ["<leader>gl"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
-    ["<leader>gg"] = {
+    ["<leader>k"] = { function() require("gitsigns").blame_line { full = true } end, desc = "View full Git blame" },
+    ["<leader>g"] = {
       function()
         local lazygit = require("toggleterm.terminal").Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
         lazygit:toggle()

@@ -22,7 +22,7 @@ return {
         end
       },
       -- default mapping to call url generation with action_callback
-      mappings = "<leader>gy",
+      mappings = "<leader>y",
     }
   end,
 }
