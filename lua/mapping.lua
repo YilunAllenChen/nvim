@@ -318,7 +318,7 @@ M.set_mappings {
     ['<C-t>'] = { '<cmd>:terminal<cr>' },
     ['t'] = { ':15split | terminal<cr>a' },
     ['T'] = { '<C-w>v<cmd>:terminal<cr>a' },
-    ['<C-d><C-b>'] = {
+    ['<leader>db'] = {
       function()
         local current_file = vim.fn.expand '%:t:r'
         vim.api.nvim_command(':15split | terminal echo ' .. current_file .. '.py | entr -r -c sh -c \'echo "-- ENTR --"; python ' .. current_file .. ".py'")
