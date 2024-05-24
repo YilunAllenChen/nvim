@@ -50,7 +50,6 @@ local options = {
   },
   o = {
     hlsearch = true,
-    noea = true,
     mouse = 'a',
     breakindent = true,
     undofile = true,
