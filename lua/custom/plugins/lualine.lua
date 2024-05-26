@@ -30,8 +30,11 @@ return {
       lualine_z = { 'location' },
     },
     tabline = {
-      lualine_a = {
-        -- { 'filename', file_status = true, path = 2 }
+      lualine_z = {
+        { 'filename', file_status = true, path = 2 },
+      },
+      lualine_b = {
+        'buffers',
       },
     },
   },
