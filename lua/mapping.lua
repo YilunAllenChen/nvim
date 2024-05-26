@@ -272,7 +272,8 @@ M.set_mappings {
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
     ['<leader>C'] = { '<cmd>:%bd|e#<cr>', desc = 'Close all buffers except current' },
-    ['<leader>c'] = { '<cmd>:bd<cr>', desc = 'Close buffer' },
+    ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
+    ['f'] = { '<cmd>:HopChar2<cr>', desc = 'Hop2char' },
 
     -- Findings stuff
     ['<leader>f'] = { desc = 'Find' },
