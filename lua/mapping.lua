@@ -426,6 +426,11 @@ M.set_mappings {
       desc = 'Format buffer',
     },
     ['<C-s>'] = { '<cmd>:w<cr>', desc = 'Save file' },
+	['<C-z>'] = { '<cmd>u<cr>', desc = 'Undo' },
+	['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
+	['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
+	['<C-v>'] = { '<esc>pi', desc = 'Paste' },
+	['<C-a>'] = { '<esc>ggVG', desc = 'Select all' },
   },
   v = {
     ['<leader>/'] = {
