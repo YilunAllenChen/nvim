@@ -316,7 +316,7 @@ M.set_mappings {
 
     -- Opening terminals
     ['<C-t>'] = { '<cmd>:terminal<cr>' },
-    ['t'] = { ':15split | terminal<cr>a' },
+    ['t'] = { ':25split | terminal<cr>a' },
     ['T'] = { '<C-w>v<cmd>:terminal<cr>a' },
     ['<leader>db'] = {
       function()
