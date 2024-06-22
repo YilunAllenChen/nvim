@@ -37,7 +37,6 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
-    lazy = false,
     event = { 'BufReadPre', "BufNewFile" },
     config = function()
       require('neodev').setup()
