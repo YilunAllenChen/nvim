@@ -14,20 +14,6 @@ local servers = {
 
 return {
   'folke/neodev.nvim',
-
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    config = function()
-      local null_ls = require 'null-ls'
-      null_ls.setup {
-        sources = {
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#formatting
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.black,
-        },
-      }
-    end,
-  },
   {
     'neovim/nvim-lspconfig',
   },
@@ -66,16 +52,5 @@ return {
     end,
   },
   { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-  {
-    'jay-babu/mason-null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'williamboman/mason.nvim',
-      'jose-elias-alvarez/null-ls.nvim',
-    },
-    opts = {
-      ensure_installed = {},
-      handlers = {},
-    },
-  },
+  { 'jubnzv/virtual-types.nvim' },
 }
