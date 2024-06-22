@@ -242,7 +242,7 @@ M.set_mappings {
       end,
       desc = 'Code action',
     },
-    ['<leader>li'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
+    ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
     ['<leader>ld'] = {
       function()
         vim.diagnostic.open_float()
@@ -254,6 +254,19 @@ M.set_mappings {
         require('telescope.builtin').diagnostics()
       end,
       desc = 'Search diagnostics',
+    },
+    ['<leader>li'] = {
+      function()
+        local clients = vim.lsp.get_clients()
+        if clients == nil or clients[1] == nil then
+          return
+        end
+        local client = clients[1]
+        if client.server_capabilities.inlayHintProvider then
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
+        end
+      end,
+      desc = 'Enable inlay hints',
     },
     ['[d'] = {
       function()
@@ -425,11 +438,11 @@ M.set_mappings {
       desc = 'Format buffer',
     },
     ['<C-s>'] = { '<cmd>:w<cr>', desc = 'Save file' },
-	['<C-z>'] = { '<cmd>u<cr>', desc = 'Undo' },
-	['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
-	['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
-	['<C-v>'] = { '<esc>pi', desc = 'Paste' },
-	['<C-a>'] = { '<esc>ggVG', desc = 'Select all' },
+    ['<C-z>'] = { '<cmd>u<cr>', desc = 'Undo' },
+    ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
+    ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
+    ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
+    ['<C-a>'] = { '<esc>ggVG', desc = 'Select all' },
   },
   v = {
     ['<leader>/'] = {
