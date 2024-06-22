@@ -3,7 +3,6 @@ return
 {
   "nvim-pack/nvim-spectre",
   as = "spectre",
-  lazy = true,
   event = "VeryLazy",
   opts = {
     color_devicons = true,
