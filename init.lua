@@ -87,6 +87,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    vim.cmd 'set foldexpr&'
+  end,
+})
+
 require 'mapping'
 
 local _border = 'rounded'
