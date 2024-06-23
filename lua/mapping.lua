@@ -451,7 +451,5 @@ M.set_mappings {
     },
     ['<S-Tab>'] = { '<gv', desc = 'Unindent line' },
     ['<Tab>'] = { '>gv', desc = 'Indent line' },
-
-    ['<leader>le'] = { '<cmd>Refactor extract<CR>', desc = 'Refactor: extract function' },
   },
 }
