@@ -5,6 +5,10 @@ if vim.fn.executable 'fish' == 1 then
   vim.opt.shell = 'fish'
 end
 
+if vim.g.neovide then
+  vim.g.neovide_scale_factor = 1.2
+end
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
