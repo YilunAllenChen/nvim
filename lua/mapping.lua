@@ -46,6 +46,17 @@ function M.set_mappings(map_table, base)
   end -- if which-key is loaded already, register
 end
 
+-- Function to delete all buffers except nvim-tree and terminal buffers
+local function delete_all_buffers_except_nvimtree_and_term()
+  local bufnr_list = vim.api.nvim_list_bufs()
+  for _, bufnr in ipairs(bufnr_list) do
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
+    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://')) then
+      vim.api.nvim_buf_delete(bufnr, { force = true })
+    end
+  end
+end
+
 M.set_mappings {
   n = {
 
@@ -284,7 +295,8 @@ M.set_mappings {
     -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
-    ['<leader>C'] = { '<cmd>:%bd|e#<cr>', desc = 'Close all buffers except current' },
+    ['<leader>C'] = { delete_all_buffers_except_nvimtree_and_term, desc = 'Close all buffers except for tree & terminals current' },
+
     ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
 
     -- Findings stuff
