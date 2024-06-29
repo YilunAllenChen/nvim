@@ -35,6 +35,7 @@ local options = {
     smartindent = false,
     shiftwidth = 4,
     tabstop = 4,
+    foldmethod = 'manual',
   },
   g = {
     mapleader = ' ',
@@ -82,20 +83,6 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 require 'mapping'
 require 'autocmds'
-
-local _border = 'rounded'
-
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = _border,
-})
-
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = _border,
-})
-
-vim.diagnostic.config {
-  float = { border = _border },
-}
 
 require('lazy').setup({
   { import = 'custom.plugins' },
