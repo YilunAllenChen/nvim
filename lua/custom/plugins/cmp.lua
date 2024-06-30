@@ -1,4 +1,26 @@
 -- Autocomplete
+local lspkind_comparator = function(conf)
+  local lsp_types = require('cmp.types').lsp
+  return function(entry1, entry2)
+    if entry1.source.name ~= 'nvim_lsp' then
+      if entry2.source.name == 'nvim_lsp' then
+        return false
+      else
+        return nil
+      end
+    end
+    local kind1 = lsp_types.CompletionItemKind[entry1:get_kind()]
+    local kind2 = lsp_types.CompletionItemKind[entry2:get_kind()]
+
+    local priority1 = conf.kind_priority[kind1] or 0
+    local priority2 = conf.kind_priority[kind2] or 0
+    if priority1 == priority2 then
+      return nil
+    end
+    return priority2 < priority1
+  end
+end
+
 return {
   'hrsh7th/nvim-cmp',
   lazy = true,
@@ -7,11 +29,11 @@ return {
     'L3MON4D3/LuaSnip',
     'saadparwaiz1/cmp_luasnip',
     { 'hrsh7th/cmp-nvim-lsp', dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-path',     dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-buffer',   dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-cmdline',  dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-emoji',    dependencies = 'nvim-cmp' },
-    { 'hrsh7th/cmp-calc',     dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-path', dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-buffer', dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-cmdline', dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-emoji', dependencies = 'nvim-cmp' },
+    { 'hrsh7th/cmp-calc', dependencies = 'nvim-cmp' },
     'rafamadriz/friendly-snippets',
     'onsails/lspkind.nvim',
   },
@@ -74,7 +96,7 @@ return {
       formatting = {
         fields = { 'kind', 'abbr', 'menu' },
         format = function(entry, vim_item)
-          local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 } (entry, vim_item)
+          local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 }(entry, vim_item)
           local strings = vim.split(kind.kind, '%s', { trimempty = true })
           local source_map = {
             nvim_lsp = 'LSP',
@@ -100,11 +122,46 @@ return {
             get_bufnrs = function()
               return vim.api.nvim_list_bufs()
             end,
-          }
+          },
         },
         { name = 'path' },
         { name = 'emoji' },
         { name = 'calc' },
+      },
+
+      preselect = cmp.PreselectMode.First,
+      sorting = {
+        comparators = {
+          lspkind_comparator {
+            kind_priority = {
+              Field = 11,
+              Property = 11,
+              Constant = 10,
+              Enum = 10,
+              EnumMember = 10,
+              Event = 10,
+              Function = 10,
+              Method = 10,
+              Operator = 10,
+              Reference = 10,
+              Struct = 10,
+              Variable = 9,
+              File = 8,
+              Folder = 8,
+              Class = 5,
+              Color = 5,
+              Module = 5,
+              Keyword = 2,
+              Constructor = 1,
+              Interface = 1,
+              Snippet = 0,
+              Text = 1,
+              TypeParameter = 1,
+              Unit = 1,
+              Value = 1,
+            },
+          },
+        },
       },
       confirm_opts = {
         behavior = cmp.ConfirmBehavior.Replace,
