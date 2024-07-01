@@ -134,9 +134,10 @@ return {
         comparators = {
           lspkind_comparator {
             kind_priority = {
+              Class = 12,
               Field = 11,
+              Variable = 11,
               Property = 11,
-              Constant = 10,
               Enum = 10,
               EnumMember = 10,
               Event = 10,
@@ -145,10 +146,9 @@ return {
               Operator = 10,
               Reference = 10,
               Struct = 10,
-              Variable = 9,
+              Constant = 9,
               File = 8,
               Folder = 8,
-              Class = 5,
               Color = 5,
               Module = 5,
               Keyword = 2,
