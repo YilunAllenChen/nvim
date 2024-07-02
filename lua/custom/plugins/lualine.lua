@@ -31,9 +31,9 @@ return {
       lualine_a = { 'mode' },
       lualine_b = { alp_scope_api },
       lualine_c = { macro_indicator },
-      lualine_x = {},
+      lualine_x = { "require'lsp-status'.status()" },
       lualine_y = { 'branch' },
-      lualine_z = { 'filetype', "require'lsp-status'.status()", 'location' },
+      lualine_z = { 'filetype', 'location' },
     },
     tabline = {
       lualine_z = {
