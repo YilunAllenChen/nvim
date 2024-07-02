@@ -8,12 +8,6 @@ local function macro_indicator()
   return status
 end
 
-local function alp_scope_api()
-  local api = os.getenv 'ALP_CONFIG_API' or 'None'
-  local scope = os.getenv 'ALP_CONFIG_SCOPE' or 'None'
-  return api .. ' | ' .. scope
-end
-
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = {
@@ -29,8 +23,8 @@ return {
     },
     sections = {
       lualine_a = { 'mode' },
-      lualine_b = { alp_scope_api },
-      lualine_c = { macro_indicator },
+      lualine_b = { macro_indicator },
+      lualine_c = {},
       lualine_x = { "require'lsp-status'.status()" },
       lualine_y = { 'branch' },
       lualine_z = { 'filetype', 'location' },
