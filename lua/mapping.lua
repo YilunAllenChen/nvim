@@ -429,6 +429,8 @@ M.set_mappings {
       end,
       desc = 'swap_buf_right',
     },
+
+    ['<leader><leader>c'] = { '<cmd>e ~/.config/fish/config.fish<cr>', desc = 'Edit fish config' },
     -- fun stuff
     ['<leader>fml'] = { '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'Make It Rain!!!' },
     ['<leader>fmg'] = { '<cmd>CellularAutomaton game_of_life<cr>', desc = 'Game Of Life!!!' },
