@@ -144,6 +144,7 @@ M.set_mappings {
 
     -- Editing
     ['gx'] = { "<cmd>:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>", desc = 'open file under cursor' },
+    ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor' },
     ['<leader>e'] = { '<cmd>NvimTreeToggle<cr>', desc = 'Explorer' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
     ['<leader>q'] = { '<cmd>confirm q<cr>', desc = 'Quit' },

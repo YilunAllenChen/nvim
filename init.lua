@@ -7,6 +7,9 @@ end
 
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1.2
+  vim.g.neovide_position_animation_length = 0.0
+  vim.g.neovide_scroll_animation_length = 0.1
+  vim.g.neovide_transparency = 0.9
 end
 
 -- Install package manager
