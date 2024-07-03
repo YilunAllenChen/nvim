@@ -133,7 +133,6 @@ M.set_mappings {
       end,
       desc = 'implementation',
     },
-    ['<leader>;'] = { '<cmd>:HopAnywhere<cr>', desc = 'Hop!!' },
     ['<leader>o'] = { '<cmd>:Telescope projects<cr>', desc = 'Open project' },
     ['<leader>b'] = {
       function()
