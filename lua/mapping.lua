@@ -447,18 +447,10 @@ M.set_mappings {
   },
   i = {
     ['<C-d><C-b>'] = { 'import ipdb; ipdb.set_trace(context=5)', desc = 'debug' },
-    ['<C-f>'] = {
-      function()
-        vim.lsp.buf.format()
-      end,
-      desc = 'Format buffer',
-    },
     ['<C-s>'] = { '<cmd>:w<cr>', desc = 'Save file' },
-    ['<C-z>'] = { '<cmd>u<cr>', desc = 'Undo' },
     ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
-    ['<C-a>'] = { '<esc>ggVG', desc = 'Select all' },
   },
   v = {
     ['<leader>/'] = {
