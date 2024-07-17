@@ -447,6 +447,10 @@ M.set_mappings {
   },
   i = {
     ['<C-d><C-b>'] = { 'import ipdb; ipdb.set_trace(context=5)', desc = 'debug' },
+    ['<C-p>'] = {
+      '<esc>ggoimport pandas as pd<enter>import numpy as np<enter>import pyarrow as pa<enter>import fio.delta as delta<esc><C-o>i',
+      desc = 'import the typicals',
+    },
     ['<C-f>'] = {
       function()
         vim.lsp.buf.format()
