@@ -58,6 +58,7 @@ local function alpha_render()
     [[ ████      ████ ]],
     [[  ███       ███  ]],
     [[                    ]],
+    [[                    ]],
     [[    Allen's Neovim  ]],
   }, {
     ['b'] = { fg = '#3399ff', ctermfg = 33 },
@@ -81,6 +82,7 @@ local function alpha_render()
     [[ bbbbb     aaaaajhi ]],
     [[ bbbbb      aaaaajh ]],
     [[  bbbb       aaaaa  ]],
+    [[                    ]],
     [[                    ]],
     [[  aaaaaaaaabbbbbbb  ]],
   }))
