@@ -9,12 +9,12 @@ return {
         python = { 'isort', 'black' },
         -- Use a sub-list to run only the first available formatter
         -- javascript = { { 'prettierd', 'prettier' } },
-        json = {},
+        json = { 'prettier' },
       },
       format_after_save = {
         -- These options will be passed to conform.format()
         timeout_ms = 500,
-        lsp_format = 'fallback',
+        lsp_format = 'never',
       },
     }
   end,
