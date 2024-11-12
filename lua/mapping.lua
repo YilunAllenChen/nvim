@@ -345,13 +345,6 @@ M.set_mappings {
     ['<C-t>'] = { '<cmd>:terminal<cr>' },
     ['t'] = { ':25split | terminal<cr>a' },
     ['T'] = { '<C-w>v<cmd>:terminal<cr>a' },
-    ['<leader>db'] = {
-      function()
-        local current_file = vim.fn.expand '%:t:r'
-        vim.api.nvim_command(':15split | terminal echo ' .. current_file .. '.py | entr -r -c sh -c \'echo "-- ENTR --"; python ' .. current_file .. ".py'")
-      end,
-      desc = 'debug',
-    },
 
     -- window management & navigation
     ['\\'] = { '<C-w>v', desc = 'Vertical Split' },
@@ -446,7 +439,7 @@ M.set_mappings {
     ['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' },
   },
   i = {
-    ['<C-d><C-b>'] = { 'import ipdb; ipdb.set_trace(context=5)', desc = 'debug' },
+    ['<C-b>'] = { 'import ipdb; ipdb.set_trace(context=5)', desc = 'debug' },
     ['<C-p>'] = {
       '<esc>ggoimport pandas as pd<enter>import numpy as np<enter>import pyarrow as pa<enter>import fio.delta as delta<esc><C-o>i',
       desc = 'import the typicals',
