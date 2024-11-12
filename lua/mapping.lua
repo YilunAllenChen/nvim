@@ -5,7 +5,7 @@ function M.which_key_register()
     local wk_avail, wk = pcall(require, 'which-key')
     if wk_avail then
       for mode, registration in pairs(M.which_key_queue) do
-        wk.register(registration, { mode = mode })
+        wk.add(registration, { mode = mode })
       end
       M.which_key_queue = nil
     end
