@@ -1,15 +1,13 @@
 -- LSP
 local mason_servers = {
-  -- ['pyright@1.1.337'] = {},
-  -- rust_analyzer = {},
-  -- html = { filetypes = { 'html', 'twig', 'hbs' } },
+  pyright = {},
+  rust_analyzer = {},
+  lua_ls = {},
+	luaformatter = {},
 
-  -- lua_ls = {
-  --   Lua = {
-  --     workspace = { checkThirdParty = false },
-  --     telemetry = { enable = false },
-  --   },
-  -- },
+  black = {},
+  jq = {},
+	prettier = {},
 }
 
 -- servers not in mason yet
