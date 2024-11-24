@@ -77,15 +77,15 @@ return {
 					local kind = require('lspkind').cmp_format { mode = 'symbol_text', maxwidth = 50 } (entry, vim_item)
 					local strings = vim.split(kind.kind, '%s', { trimempty = true })
 					local source_map = {
-						nvim_lsp = 'LSP',
-						luasnip = 'Snippet',
-						buffer = 'Buffer',
-						path = 'Path',
-						emoji = 'Emoji',
-						calc = 'Calc',
+						nvim_lsp = 'lsp',
+						luasnip = 'snippet',
+						buffer = 'buffer',
+						path = 'path',
+						emoji = 'emoji',
+						calc = 'calc',
 					}
 					kind.kind = (strings[1] or '') .. ' '
-					kind.menu = '    (' .. source_map[entry.source.name] .. '.' .. (strings[2] or '') .. ')'
+					kind.menu = '    ' .. source_map[entry.source.name] .. ' ' .. (string.lower(strings[2]) or '') .. ''
 					return kind
 				end,
 				expandable_indicator = false,
