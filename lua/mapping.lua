@@ -176,13 +176,13 @@ M.set_mappings {
 		-- Git
 		[']g'] = {
 			function()
-				require('gitsigns').next_hunk()
+				require('gitsigns').nav_hunk('next')
 			end,
 			desc = 'Next Git hunk',
 		},
 		['[g'] = {
 			function()
-				require('gitsigns').prev_hunk()
+				require('gitsigns').nav_hunk('prev')
 			end,
 			desc = 'Previous Git hunk',
 		},
