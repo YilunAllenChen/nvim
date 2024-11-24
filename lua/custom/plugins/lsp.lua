@@ -1,7 +1,7 @@
 -- LSP
 local mason_servers = {
 	pyright = {},
-	"rust_analyzer@2024-10-21",
+	["rust_analyzer@2024-10-21"] = {},
 	lua_ls = {},
 	luaformatter = {},
 }
