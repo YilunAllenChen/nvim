@@ -3,7 +3,6 @@ local mason_servers = {
 	pyright = {},
 	["rust_analyzer@2024-10-21"] = {},
 	lua_ls = {},
-	luaformatter = {},
 }
 
 -- servers not in mason yet
