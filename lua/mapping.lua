@@ -194,7 +194,7 @@ M.set_mappings {
 		},
 		['<leader>g'] = {
 			function()
-				require("neogit").open({ kind = "split" })
+				require("neogit").open({ kind = "vsplit" })
 			end
 		},
 
