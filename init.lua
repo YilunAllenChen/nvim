@@ -50,10 +50,10 @@ local options = {
 
     -- codeium
     codeium_disable_bindings = 1,
-    codeium_server_config = {
-      portal_url = 'https://codeium.drwholdings.com',
-      api_url = 'https://codeium.drwholdings.com/_route/api_server',
-    },
+    -- codeium_server_config = {
+    --   portal_url = 'https://codeium.drwholdings.com',
+    --   api_url = 'https://codeium.drwholdings.com/_route/api_server',
+    -- },
   },
   o = {
     hlsearch = true,
