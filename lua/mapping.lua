@@ -194,14 +194,8 @@ M.set_mappings {
 		},
 		['<leader>g'] = {
 			function()
-				local lazygit = require('toggleterm.terminal').Terminal:new {
-					cmd = 'lazygit',
-					hidden = true,
-					direction = 'float',
-				}
-				lazygit:toggle()
-			end,
-			desc = 'ToggleTerm lazygit',
+				require("neogit").open({ kind = "split" })
+			end
 		},
 
 		-- LSP
