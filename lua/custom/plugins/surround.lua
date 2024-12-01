@@ -1,10 +1,10 @@
 -- utility functions for surrounding text with pairs
 return {
-  "kylechui/nvim-surround",
+  'kylechui/nvim-surround',
   -- version = "main",   -- Use for stability; omit to use `main` branch for the latest features
   lazy = true,
-  event = "VeryLazy",
+  event = 'VeryLazy',
   config = function()
-    require("nvim-surround").setup()
+    require('nvim-surround').setup()
   end,
 }

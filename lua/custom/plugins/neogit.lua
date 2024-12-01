@@ -1,8 +1,8 @@
 return {
-  "NeogitOrg/neogit",
+  'NeogitOrg/neogit',
   dependencies = {
-    "nvim-lua/plenary.nvim",         -- required
-    "sindrets/diffview.nvim",        -- optional - Diff integration
+    'nvim-lua/plenary.nvim', -- required
+    'sindrets/diffview.nvim', -- optional - Diff integration
   },
-  config = true
+  config = true,
 }
