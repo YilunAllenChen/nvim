@@ -17,6 +17,9 @@ return {
       commit_editor_I = {
         ['<CR>'] = 'Submit',
       },
+      rebase_editor_I = {
+        ['<CR>'] = 'Submit',
+      },
     },
     git_services = {
       ['git.drwholdings.com'] = 'https://git.drwholdings.com/${owner}/${repository}/compare/${branch_name}?expand=1',
