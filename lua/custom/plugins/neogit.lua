@@ -11,7 +11,12 @@ return {
 
     use_per_project_settings = false,
     commit_editor = {
-      kind = 'floating_console',
+      kind = 'split',
+    },
+    mappings = {
+      commit_editor_I = {
+        ['<CR>'] = 'Submit',
+      },
     },
     git_services = {
       ['git.drwholdings.com'] = 'https://git.drwholdings.com/${owner}/${repository}/compare/${branch_name}?expand=1',
