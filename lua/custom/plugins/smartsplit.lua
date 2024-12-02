@@ -7,7 +7,7 @@ return {
         'nofile',
         'prompt',
         'terminal',
-		'nvimtree',
+        'nvimtree',
       },
     }
   end,

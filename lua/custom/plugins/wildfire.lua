@@ -1,2 +1,2 @@
 -- handy plugin to select text objects
-return { "gcmt/wildfire.vim", event = "VeryLazy" }
+return { 'gcmt/wildfire.vim', event = 'VeryLazy' }

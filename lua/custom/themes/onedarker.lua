@@ -1,4 +1,4 @@
 return {
-  "lunarvim/Onedarker.nvim",
+  'lunarvim/Onedarker.nvim',
   lazy = true,
 }

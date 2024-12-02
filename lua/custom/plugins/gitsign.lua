@@ -1,7 +1,7 @@
 -- gitsign
 return {
   'lewis6991/gitsigns.nvim',
-  event = "BufEnter",
+  event = 'BufEnter',
   opts = {
     signs = {
       add = { text = '+' },
@@ -10,7 +10,6 @@ return {
       topdelete = { text = '‾' },
       changedelete = { text = '~' },
     },
-    on_attach = function(bufnr)
-    end,
+    on_attach = function(bufnr) end,
   },
 }

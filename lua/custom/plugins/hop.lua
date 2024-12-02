@@ -1,10 +1,10 @@
 -- JUMP ANYWHERE!!!!
 return {
-  "smoka7/hop.nvim",
+  'smoka7/hop.nvim',
   lazy = true,
-  event = "VeryLazy",
+  event = 'VeryLazy',
   config = function()
-    require("hop").setup {
+    require('hop').setup {
       multi_windows = true,
     }
   end,
