@@ -16,20 +16,25 @@ vim.api.nvim_create_autocmd('TermOpen', {
   end,
 })
 
--- Helper function to read the `.conda-env` file
-local function get_conda_env()
-  local cwd = vim.fn.getcwd()
-  local env_file = cwd .. '/.conda-env'
-  if vim.fn.filereadable(env_file) == 1 then
-    local env_name = vim.fn.readfile(env_file)[1]
-    return env_name
-  end
-  return nil
-end
-
 -- Autocommand for terminal buffers
 vim.api.nvim_create_autocmd('TermOpen', {
   callback = function()
+    local function get_last_part_of_path(path)
+      return path:match '^.*/(.*)$'
+    end
+    -- Helper function to read the `.conda-env` file
+    local function get_conda_env()
+      local registry = {
+        ['alsenal'] = 'desk-tools',
+        ['data'] = 'data',
+        ['data-utils'] = 'du',
+      }
+      local current_path = vim.fn.getcwd()
+      local last_part = get_last_part_of_path(current_path)
+
+      return registry[last_part] or nil
+    end
+
     local conda_env = get_conda_env()
     if conda_env then
       local term_cmd = string.format('conda activate %s; clear', conda_env)
