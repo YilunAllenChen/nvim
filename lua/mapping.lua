@@ -46,12 +46,22 @@ function M.set_mappings(map_table, base)
   end -- if which-key is loaded already, register
 end
 
--- Function to delete all buffers except nvim-tree and terminal buffers
-local function delete_all_buffers_except_nvimtree_and_term()
+local function delete_all_unused_bufs()
+  -- Get list of all buffer numbers
   local bufnr_list = vim.api.nvim_list_bufs()
+
+  -- Get list of all visible buffer numbers
+  local visible_bufnrs = {}
+  local windows = vim.api.nvim_list_wins()
+  for _, win_id in ipairs(windows) do
+    local open_bufnr = vim.api.nvim_win_get_buf(win_id)
+    visible_bufnrs[open_bufnr] = true
+  end
+
   for _, bufnr in ipairs(bufnr_list) do
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://')) then
+    -- Check if buffer is NvimTree, terminal, or visible
+    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then
       vim.api.nvim_buf_delete(bufnr, { force = true })
     end
   end
@@ -194,7 +204,7 @@ M.set_mappings {
     },
     ['<leader>g'] = {
       function()
-        require('neogit').open { kind = 'vsplit' }
+        require('neogit').open { kind = 'floating' }
       end,
     },
 
@@ -291,7 +301,7 @@ M.set_mappings {
     -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
-    ['<leader>C'] = { delete_all_buffers_except_nvimtree_and_term, desc = 'Close all buffers except for tree & terminals current' },
+    ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
 
     ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
 

@@ -1,6 +1,7 @@
 -- finder
 return {
   'nvim-telescope/telescope.nvim',
+  lazy = false,
   dependencies = {
     'nvim-lua/plenary.nvim',
     -- Fuzzy Finder Algorithm which requires local dependencies to be built.
@@ -21,7 +22,7 @@ return {
         prompt_prefix = string.format('%s ', '/'),
         selection_caret = string.format('%s ', '>'),
         path_display = { 'full' },
-        file_ignore_patterns = { 'node_modules', '.mypy_cache', '.pyc', '.git', '.pytest_cache', 'target/', '**/dist', '**/test_recorder', 'build/' },
+        file_ignore_patterns = { 'node_modules', '.mypy_cache', '.pyc', '*.git$', '.pytest_cache', 'target/', '**/dist', '**/test_recorder', 'build/' },
         sorting_strategy = 'ascending',
         layout_strategy = 'vertical',
         layout_config = {
@@ -31,8 +32,8 @@ return {
             preview_height = 0.3,
             mirror = true,
           },
-          width = 0.7,
-          height = 0.7,
+          width = 0.8,
+          height = 0.8,
         },
         mappings = {
           i = {

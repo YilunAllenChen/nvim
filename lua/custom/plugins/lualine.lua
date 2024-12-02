@@ -3,7 +3,7 @@ local function macro_indicator()
   local recording = vim.fn.reg_recording()
   local status = ''
   if recording ~= '' then
-    status = status .. [[Recording macro @ ]] .. recording .. ';'
+    status = status .. [[Recording macro @ ]] .. recording .. ''
   end
   return status
 end
