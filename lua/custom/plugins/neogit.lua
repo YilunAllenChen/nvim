@@ -11,6 +11,9 @@ return {
     commit_editor = {
       kind = 'split',
     },
+    merge_editor = {
+      kind = 'split',
+    },
     kind = 'vsplit',
     mappings = {
       commit_editor_I = {
