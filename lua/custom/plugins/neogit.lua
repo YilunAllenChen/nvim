@@ -6,13 +6,12 @@ return {
   },
   config = {
     graph_style = 'unicode',
-
     disable_hint = true,
-
     use_per_project_settings = false,
     commit_editor = {
       kind = 'split',
     },
+    kind = 'vsplit',
     mappings = {
       commit_editor_I = {
         ['<CR>'] = 'Submit',
