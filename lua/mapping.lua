@@ -204,7 +204,7 @@ M.set_mappings {
     },
     ['<leader>g'] = {
       function()
-        require('neogit').open { kind = 'floating' }
+        require('neogit').open()
       end,
     },
 
