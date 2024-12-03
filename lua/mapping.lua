@@ -67,6 +67,30 @@ local function delete_all_unused_bufs()
   end
 end
 
+function auto_activate_conda()
+  local function get_last_part_of_path(path)
+    return path:match '^.*/(.*)$'
+  end
+  -- Helper function to read the `.conda-env` file
+  local function get_conda_env()
+    local registry = {
+      ['alsenal'] = 'alsenal',
+      ['data'] = 'data',
+      ['data-utils'] = 'du',
+    }
+    local current_path = vim.fn.getcwd()
+    local last_part = get_last_part_of_path(current_path)
+
+    return registry[last_part] or nil
+  end
+
+  local conda_env = get_conda_env()
+  if conda_env then
+    local term_cmd = string.format('conda activate %s; clear', conda_env)
+    vim.fn.chansend(vim.b.terminal_job_id, term_cmd .. '\n')
+  end
+end
+
 M.set_mappings {
   n = {
 
@@ -202,18 +226,40 @@ M.set_mappings {
       end,
       desc = 'View full Git blame',
     },
-    ['<leader>g'] = {
+    ['<leader>O'] = {
       function()
-        local lazygit = require('toggleterm.terminal').Terminal:new {
-          cmd = 'lazygit',
-          hidden = true,
-          direction = 'float',
-        }
-        lazygit:toggle()
-      end,
-      desc = 'ToggleTerm lazygit',
-    },
+        local git = require 'neogit.lib.git'
+        local template
+        local config = require 'neogit.config'
+        local util = require 'neogit.lib.util'
+        local url = git.remote.get_url(git.branch.upstream_remote())[1]
 
+        local notification = require 'neogit.lib.notification'
+
+        for s, v in pairs(config.values.git_services) do
+          if url:match(util.pattern_escape(s)) then
+            template = v
+            break
+          end
+        end
+
+        if template then
+          if vim.ui.open then
+            local format_values = git.remote.parse(url)
+            format_values['branch_name'] = git.branch.current()
+            vim.ui.open(util.format(template, format_values))
+          else
+            notification.warn 'Requires Neovim 0.10'
+          end
+        else
+          notification.warn "Pull request URL template not found for this branch's upstream"
+        end
+      end,
+    },
+    ['<leader>g'] = {
+      '<cmd>:LazyGit<cr>',
+      desc = 'lazygit',
+    },
     -- LSP
     ['K'] = {
       function()
@@ -352,10 +398,27 @@ M.set_mappings {
     },
 
     -- Opening terminals
-    ['<C-t>'] = { '<cmd>:terminal<cr>' },
-    ['t'] = { ':25split | terminal<cr>a' },
-    ['T'] = { '<C-w>v<cmd>:terminal<cr>a' },
-
+    ['<C-t>'] = {
+      function()
+        vim.api.nvim_command 'terminal'
+        auto_activate_conda()
+        vim.cmd 'startinsert'
+      end,
+    },
+    ['t'] = {
+      function()
+        vim.api.nvim_command '25split | terminal'
+        auto_activate_conda()
+        vim.cmd 'startinsert'
+      end,
+    },
+    ['T'] = {
+      function()
+        vim.api.nvim_command 'vsplit | terminal'
+        auto_activate_conda()
+        vim.cmd 'startinsert'
+      end,
+    },
     -- window management & navigation
     ['\\'] = { '<C-w>v', desc = 'Vertical Split' },
     ['-'] = { '<C-w>s', desc = 'Horizontal Split' },
