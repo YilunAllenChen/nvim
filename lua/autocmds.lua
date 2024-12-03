@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd('TermOpen', {
     -- Helper function to read the `.conda-env` file
     local function get_conda_env()
       local registry = {
-        ['alsenal'] = 'desk-tools',
+        ['alsenal'] = 'alsenal',
         ['data'] = 'data',
         ['data-utils'] = 'du',
       }
