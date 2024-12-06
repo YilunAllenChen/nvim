@@ -226,36 +226,6 @@ M.set_mappings {
       end,
       desc = 'View full Git blame',
     },
-    ['<leader>O'] = {
-      function()
-        local git = require 'neogit.lib.git'
-        local template
-        local config = require 'neogit.config'
-        local util = require 'neogit.lib.util'
-        local url = git.remote.get_url(git.branch.upstream_remote())[1]
-
-        local notification = require 'neogit.lib.notification'
-
-        for s, v in pairs(config.values.git_services) do
-          if url:match(util.pattern_escape(s)) then
-            template = v
-            break
-          end
-        end
-
-        if template then
-          if vim.ui.open then
-            local format_values = git.remote.parse(url)
-            format_values['branch_name'] = git.branch.current()
-            vim.ui.open(util.format(template, format_values))
-          else
-            notification.warn 'Requires Neovim 0.10'
-          end
-        else
-          notification.warn "Pull request URL template not found for this branch's upstream"
-        end
-      end,
-    },
     ['<leader>g'] = {
       '<cmd>:LazyGit<cr>',
       desc = 'lazygit',
