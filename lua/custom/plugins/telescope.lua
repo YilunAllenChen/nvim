@@ -27,7 +27,7 @@ return {
           '.mypy_cache',
           '.pyc',
           '*.git$',
-          '.git/*',
+          '^.git/*',
           '.pytest_cache',
           'target/',
           '**/dist',
