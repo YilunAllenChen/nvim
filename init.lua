@@ -86,19 +86,12 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 require 'mapping'
 require 'autocmds'
 
-local _border = 'rounded'
+local handlers = vim.lsp.handlers
+local config = { border = 'rounded' }
 
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = _border,
-})
-
-vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-  border = _border,
-})
-
-vim.diagnostic.config {
-  float = { border = _border },
-}
+handlers['textDocument/hover'] = vim.lsp.with(handlers.hover, config)
+handlers['textDocument/signatureHelp'] = vim.lsp.with(handlers.signature_help, config)
+vim.diagnostic.config { float = config }
 
 require('lazy').setup({
   { import = 'custom.plugins' },
