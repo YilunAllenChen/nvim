@@ -67,7 +67,7 @@ local function delete_all_unused_bufs()
   end
 end
 
-function auto_activate_conda()
+local function auto_activate_conda()
   local function get_last_part_of_path(path)
     return path:match '^.*/(.*)$'
   end
@@ -252,12 +252,6 @@ M.set_mappings {
       desc = 'Rename current symbol',
     },
     ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
-    ['<leader>z'] = {
-      function()
-        require('aerial').toggle { direction = 'left' }
-      end,
-      desc = 'Symbols outline',
-    },
     ['<leader>lG'] = {
       function()
         require('telescope.builtin').lsp_workspace_symbols()
@@ -266,12 +260,7 @@ M.set_mappings {
     },
     ['<leader>ls'] = {
       function()
-        local aerial_avail, _ = pcall(require, 'aerial')
-        if aerial_avail then
-          require('telescope').extensions.aerial.aerial()
-        else
-          require('telescope.builtin').lsp_document_symbols()
-        end
+        require('telescope.builtin').lsp_document_symbols()
       end,
       desc = 'Search symbols',
     },

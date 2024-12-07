@@ -1,3 +1,4 @@
+-- allows me to nvim inside nvim
 return {
   {
     'willothy/flatten.nvim',

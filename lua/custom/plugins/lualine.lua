@@ -20,22 +20,24 @@ return {
       component_separators = '|',
       globalstatus = true,
       section_separators = { left = '', right = '' },
+      refresh = {
+        statusline = 300,
+        tabline = 500,
+        winbar = 300,
+      },
     },
     sections = {
       lualine_a = { 'mode' },
       lualine_b = { macro_indicator },
-      lualine_c = {},
+      lualine_c = { { 'filename', file_status = true, path = 2 } },
       lualine_x = { "require'lsp-status'.status()" },
       lualine_y = { 'branch' },
-      lualine_z = { 'filetype', 'location' },
+      lualine_z = { 'filetype', 'location', 'filesize' },
     },
     tabline = {
-      lualine_z = {
-        { 'filename', file_status = true, path = 2 },
-      },
-      lualine_b = {
-        'buffers',
-      },
+      lualine_b = { 'buffers' },
+      lualine_z = { 'os.date()' },
     },
+    extensions = { 'nvim-tree', 'mason' },
   },
 }
