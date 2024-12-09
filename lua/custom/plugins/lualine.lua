@@ -20,11 +20,6 @@ return {
       component_separators = '|',
       globalstatus = true,
       section_separators = { left = '', right = '' },
-      refresh = {
-        statusline = 300,
-        tabline = 500,
-        winbar = 300,
-      },
     },
     sections = {
       lualine_a = { 'mode' },
