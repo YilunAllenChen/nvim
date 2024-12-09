@@ -33,6 +33,8 @@ return {
           '**/dist',
           '**/test_recorder',
           'build/',
+          '^.cargo/*',
+          '^.rustup/*',
         },
         sorting_strategy = 'ascending',
         layout_strategy = 'vertical',
