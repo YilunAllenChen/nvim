@@ -109,7 +109,8 @@ M.set_mappings {
     ['<Backspace>'] = { '<cmd>close<cr>', desc = 'Close current window' },
     [','] = {
       function()
-        require('telescope.builtin').live_grep()
+        -- require('telescope.builtin').live_grep()
+        LiveMultigrep(opts)
       end,
       desc = 'Find words',
     },
