@@ -55,6 +55,9 @@ return {
           n = { ['q'] = require('telescope.actions').close },
         },
       },
+      extensions = {
+        fzf = {},
+      },
     }
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'projects')
