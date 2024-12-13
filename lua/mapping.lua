@@ -488,7 +488,7 @@ M.set_mappings {
     ['<C-j>'] = { '<down>', desc = 'Move down' },
     ['<C-k>'] = { '<up>', desc = 'Move up' },
     ['<C-n>'] = { '<backspace>', desc = 'backspace' },
-    ['<C-s>'] = { '<cmd>:w<cr>', desc = 'Save file' },
+    ['<C-s>'] = { '<cmd>:w<cr><esc>', desc = 'Save file' },
     ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
