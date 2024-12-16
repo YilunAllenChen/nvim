@@ -7,7 +7,7 @@ return {
         cpp = { 'clang-format' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
-        python = { 'isort', 'black' },
+        python = { 'autoflake', 'isort', 'black' },
         -- Use a sub-list to run only the first available formatter
         javascript = { 'prettierd', 'prettier' },
         json = { 'prettier' },
