@@ -106,7 +106,6 @@ M.set_mappings {
       desc = 'Quit',
     },
     -- close current window but not the buffer
-    ['<Backspace>'] = { '<cmd>close<cr>', desc = 'Close current window' },
     [','] = {
       function()
         -- require('telescope.builtin').live_grep()
