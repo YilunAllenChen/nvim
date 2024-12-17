@@ -171,7 +171,7 @@ M.set_mappings {
       desc = 'implementation',
     },
     ['<leader>o'] = { '<cmd>:Telescope projects<cr>', desc = 'Open project' },
-    ['<leader>b'] = {
+    ['<leader>j'] = {
       function()
         require('telescope.builtin').buffers()
       end,
