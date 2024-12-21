@@ -59,11 +59,17 @@ local function delete_all_unused_bufs()
   end
 
   for _, bufnr in ipairs(bufnr_list) do
+    if vim.api.nvim_buf_get_option(bufnr, 'modified') then
+      -- Skip the buffer if it has unsaved changes
+      goto continue
+    end
     local bufname = vim.api.nvim_buf_get_name(bufnr)
     -- Check if buffer is NvimTree, terminal, or visible
     if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then
       vim.api.nvim_buf_delete(bufnr, { force = true })
     end
+
+    ::continue::
   end
 end
 
@@ -105,7 +111,6 @@ M.set_mappings {
       end,
       desc = 'Quit',
     },
-    -- close current window but not the buffer
     [','] = {
       function()
         -- require('telescope.builtin').live_grep()
