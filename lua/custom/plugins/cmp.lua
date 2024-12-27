@@ -52,8 +52,8 @@ return {
             cmp.select_prev()
           end,
         },
-        ['C-b'] = { 'scroll_documentation_up', 'fallback' },
-        ['C-f'] = { 'scroll_documentation_down', 'fallback' },
+        ['C-u'] = { 'scroll_documentation_up', 'fallback' },
+        ['C-d'] = { 'scroll_documentation_down', 'fallback' },
         ['<CR>'] = { 'accept', 'fallback' },
       },
       appearance = {
