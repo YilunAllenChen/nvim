@@ -27,13 +27,13 @@ return {
     config = function()
       require('neodev').setup()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
       local mlsp = require 'mason-lspconfig'
       mlsp.setup {
         ensure_installed = vim.tbl_keys(mason_servers),
       }
       mlsp.setup_handlers {
         function(server_name)
+          capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
           require('lspconfig')[server_name].setup {
             capabilities = capabilities,
             settings = mason_servers[server_name],
