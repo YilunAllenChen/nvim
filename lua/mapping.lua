@@ -336,6 +336,12 @@ M.set_mappings {
       end,
       desc = 'Find for word under cursor',
     },
+    ['<leader>fn'] = {
+      function()
+        require('telescope').extensions.nerdy.nerdy()
+      end,
+      desc = 'Find nerdy stuff',
+    },
     ['<leader>fC'] = {
       function()
         require('telescope.builtin').commands()
