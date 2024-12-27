@@ -19,8 +19,16 @@ return {
     version = '*',
     opts = {
       completion = {
-        menu = { border = 'rounded' },
-        documentation = { window = { border = 'rounded' }, auto_show = true, auto_show_delay_ms = 200 },
+        menu = {
+          border = 'rounded',
+        },
+        documentation = {
+          window = {
+            border = 'rounded',
+          },
+          auto_show = true,
+          auto_show_delay_ms = 200,
+        },
         list = { selection = 'auto_insert' },
       },
 
