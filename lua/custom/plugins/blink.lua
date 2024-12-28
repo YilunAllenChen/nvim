@@ -69,7 +69,7 @@ return {
         nerd_font_variant = 'mono',
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'calc' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'calc', 'dadbod' },
         providers = {
           emoji = {
             module = 'blink-emoji',
@@ -80,6 +80,7 @@ return {
             module = 'blink.compat.source',
             name = 'calc',
           },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
         },
       },
     },
