@@ -29,37 +29,16 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
         },
-        list = { selection = 'auto_insert' },
+        list = { selection = 'preselect' },
       },
-
-      signature = { enabled = true },
+      signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
       keymap = {
-        -- set to 'none' to disable the 'default' preset
-        preset = 'default',
-
+        preset = 'none',
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
-        ['<C-e>'] = {},
-        ['<C-space>'] = {
-          function(cmp)
-            cmp.show { providers = { 'snippets' } }
-          end,
-        },
-        ['<tab>'] = {
-          function(cmp)
-            if has_words_before() then
-              return cmp.select_next()
-            else
-              return cmp.select_and_accept()
-            end
-          end,
-          'fallback',
-        },
-        ['<S-tab>'] = {
-          function(cmp)
-            cmp.select_prev()
-          end,
-        },
+        ['<C-space>'] = { 'show' },
+        ['<tab>'] = { 'select_and_accept', 'fallback' },
+        ['<S-tab>'] = { 'select_prev' },
         ['C-u'] = { 'scroll_documentation_up', 'fallback' },
         ['C-d'] = { 'scroll_documentation_down', 'fallback' },
         ['<CR>'] = { 'accept', 'fallback' },
