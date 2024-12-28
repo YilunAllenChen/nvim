@@ -54,6 +54,5 @@ return {
       require('lsp-status').register_progress()
     end,
   },
-  { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
   { 'jubnzv/virtual-types.nvim' },
 }
