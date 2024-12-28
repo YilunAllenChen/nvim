@@ -2,6 +2,7 @@ return {
   'rcarriga/nvim-notify',
   config = function()
     require('notify').setup {
+      merge_duplicates = true,
       level = 'warn',
       stages = 'slide',
       timeout = 3000,
