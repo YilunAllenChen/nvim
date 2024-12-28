@@ -84,4 +84,10 @@ return { -- Highlight, edit, and navigate code
       }
     end,
   },
+  -- close html tags automatically using nvim-treesitter
+  {
+    'windwp/nvim-ts-autotag',
+    event = 'BufReadPre',
+    opts = {},
+  },
 }
