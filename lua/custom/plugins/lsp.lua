@@ -51,7 +51,12 @@ return {
   {
     'nvim-lua/lsp-status.nvim',
     config = function()
-      require('lsp-status').register_progress()
+      local status = require 'lsp-status'
+      status.register_progress()
+      status.config {
+        status_symbol = '',
+        diagnostics = false,
+      }
     end,
   },
   { 'jubnzv/virtual-types.nvim' },
