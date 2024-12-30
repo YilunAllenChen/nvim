@@ -1,8 +1,3 @@
-local function has_words_before()
-  local line, col = (unpack or table.unpack)(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match '%s' == nil
-end
-
 return {
   {
     'saghen/blink.compat',
@@ -29,7 +24,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
         },
-        list = { selection = 'preselect' },
+        list = { selection = 'auto_insert' },
       },
       signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
       keymap = {
