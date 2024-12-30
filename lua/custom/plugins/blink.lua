@@ -24,7 +24,7 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
         },
-        list = { selection = 'auto_insert' },
+        list = { selection = 'preselect' },
       },
       signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
       keymap = {
@@ -36,7 +36,6 @@ return {
         ['<S-tab>'] = { 'select_prev' },
         ['C-u'] = { 'scroll_documentation_up', 'fallback' },
         ['C-d'] = { 'scroll_documentation_down', 'fallback' },
-        ['<CR>'] = { 'accept', 'fallback' },
       },
       appearance = {
         use_nvim_cmp_as_default = true,
