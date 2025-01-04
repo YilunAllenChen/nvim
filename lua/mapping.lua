@@ -83,6 +83,7 @@ local function auto_activate_conda()
       ['alsenal'] = 'alsenal',
       ['data'] = 'data',
       ['data-utils'] = 'du',
+      ['desk-tools'] = 'desk-tools',
     }
     local current_path = vim.fn.getcwd()
     local last_part = get_last_part_of_path(current_path)
@@ -174,7 +175,8 @@ M.set_mappings {
       end,
       desc = 'implementation',
     },
-    ['<leader>o'] = { '<cmd>:Telescope projects<cr>', desc = 'Open project' },
+    ['<leader>i'] = { '<cmd>:Telescope projects<cr>', desc = 'Open project' },
+    ['<leader>o'] = { '<cmd>:Oil<cr>', desc = 'Oil' },
     ['<leader>j'] = {
       function()
         require('telescope.builtin').buffers()
