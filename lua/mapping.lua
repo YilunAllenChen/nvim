@@ -475,6 +475,12 @@ M.set_mappings {
     ['<leader>fml'] = { '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'Make It Rain!!!' },
     ['<leader>fmg'] = { '<cmd>CellularAutomaton game_of_life<cr>', desc = 'Game Of Life!!!' },
     ['<leader>fms'] = { '<cmd>CellularAutomaton scramble<cr>', desc = 'SCRABLE!!!' },
+
+    -- space as text object
+    ['ci<space>'] = { '<esc>bvt c', desc = 'Change inside surrounding spaces' },
+    ['di<space>'] = { '<esc>bvt d', desc = 'Delete inside surrounding spaces' },
+    ['vi<space>'] = { '<esc>bvt ', desc = 'Select inside surrounding spaces' },
+    ['yi<space>'] = { '<esc>bvt y', desc = 'Yank inside surrounding spaces' },
   },
   t = {
     ['<esc>'] = { '<C-\\><C-n>' },
@@ -484,18 +490,7 @@ M.set_mappings {
     ['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' },
   },
   i = {
-    ['<C-b>'] = { 'import ipdb; ipdb.set_trace(context=5)', desc = 'debug' },
     ['<C-z>'] = { '<esc>ui', desc = 'Undo' },
-    ['<C-p>'] = {
-      '<esc>ggoimport pandas as pd<enter>import numpy as np<enter>import pyarrow as pa<enter>import fio.delta as delta<esc><C-o>i',
-      desc = 'import the typicals',
-    },
-    ['<C-f>'] = {
-      function()
-        vim.lsp.buf.format()
-      end,
-      desc = 'Format buffer',
-    },
     ['<C-h>'] = { '<left>', desc = 'Move left' },
     ['<C-l>'] = { '<right>', desc = 'Move right' },
     ['<C-j>'] = { '<down>', desc = 'Move down' },
@@ -503,7 +498,7 @@ M.set_mappings {
     ['<C-n>'] = { '<backspace>', desc = 'backspace' },
     ['<C-s>'] = { '<cmd>:w<cr><esc>', desc = 'Save file' },
     ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
-    ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word' },
+    ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word Forward' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
   },
   v = {
