@@ -1,2 +1,8 @@
--- handy plugin to select text objects
-return { 'gcmt/wildfire.vim', event = 'VeryLazy' }
+return {
+  'sustech-data/wildfire.nvim',
+  event = 'VeryLazy',
+  dependencies = { 'nvim-treesitter/nvim-treesitter' },
+  config = function()
+    require('wildfire').setup()
+  end,
+}
