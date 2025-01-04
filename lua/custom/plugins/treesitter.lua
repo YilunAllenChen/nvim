@@ -37,6 +37,15 @@ return { -- Highlight, edit, and navigate code
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('nvim-treesitter.configs').setup {
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = '<CR>',
+            scope_incremental = '<C-CR>',
+            node_incremental = '<CR>',
+            node_decremental = '<BS>',
+          },
+        },
         textobjects = {
           select = {
             enable = true,
