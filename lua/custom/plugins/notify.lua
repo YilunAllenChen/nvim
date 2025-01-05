@@ -7,7 +7,7 @@ return {
       level = 'info',
       stages = 'slide',
       timeout = 3000,
-      render = 'compact',
+      render = 'wrapped-compact',
       top_down = false,
       fps = 60,
     }
