@@ -121,8 +121,7 @@ M.set_mappings {
     },
     ['='] = {
       function()
-        -- require('telescope.builtin').find_files { hidden = true, no_ignore = true }
-        require('fzf-lua').files()
+        require('telescope.builtin').find_files()
       end,
       desc = 'Find all files',
     },
