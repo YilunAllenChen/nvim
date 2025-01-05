@@ -30,14 +30,27 @@ vim.opt.rtp:prepend(lazypath)
 local options = {
   opt = {
     cmdheight = 0, -- hide command line unless needed
-    clipboard = 'unnamedplus', -- connection to the system clipboard
+    clipboard = vim.env.SSH_TTY and '' or 'unnamedplus', -- Sync with system clipboard
     pumheight = 10, -- height of the pop up menu
     showtabline = 2, -- always display tabline
     splitbelow = true, -- splitting a new window below the current one
     splitright = true, -- splitting a new window at the right of the current one
+    termguicolors = true, -- set term gui colors (most terminals support this)
     smartindent = false,
     shiftwidth = 4,
     tabstop = 4,
+    hlsearch = true,
+    mouse = 'a',
+    breakindent = true,
+    undofile = true,
+    ignorecase = true,
+    smartcase = true,
+    timeoutlen = 500, -- shorten key timeout length a little bit for which-key
+    updatetime = 300, -- length of time to wait before triggering the plugin
+    completeopt = 'menu,menuone,preview',
+    number = true,
+    relativenumber = true,
+    signcolumn = 'yes',
   },
   g = {
     mapleader = ' ',
@@ -54,23 +67,6 @@ local options = {
       portal_url = 'https://codeium.drwholdings.com',
       api_url = 'https://codeium.drwholdings.com/_route/api_server',
     },
-  },
-  o = {
-    hlsearch = true,
-    mouse = 'a',
-    breakindent = true,
-    undofile = true,
-    ignorecase = true,
-    smartcase = true,
-    timeoutlen = 500, -- shorten key timeout length a little bit for which-key
-    updatetime = 300, -- length of time to wait before triggering the plugin
-    completeopt = 'menu,menuone,preview',
-    termguicolors = true,
-  },
-  wo = {
-    number = true,
-    relativenumber = true,
-    signcolumn = 'yes',
   },
 }
 
