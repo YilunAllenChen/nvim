@@ -31,7 +31,7 @@ return {
         adaptive_size = true,
       },
       filters = {
-        dotfiles = false,
+        dotfiles = true,
       },
       on_attach = nvim_tree_attach,
       live_filter = {

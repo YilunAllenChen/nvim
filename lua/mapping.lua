@@ -244,6 +244,12 @@ M.set_mappings {
       end,
       desc = 'Hover symbol details',
     },
+    ['<leader>d'] = {
+      function()
+        require('neogen').generate()
+      end,
+      desc = 'Generate documentation',
+    },
     ['<leader>l'] = { desc = 'LSP' },
     ['<leader>lf'] = {
       function()
@@ -500,6 +506,12 @@ M.set_mappings {
     ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word Forward' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
+    ['<Right>'] = {
+      function()
+        return vim.fn['codeium#Accept']()
+      end,
+      desc = 'Codeium Accept',
+    },
   },
   v = {
     ['<leader>/'] = {
