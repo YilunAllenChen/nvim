@@ -86,7 +86,7 @@ return {
           vertical = {
             prompt_position = 'top',
             preview_cutoff = 0,
-            preview_height = 0.3,
+            preview_height = 0.4,
             mirror = true,
           },
           width = 0.8,
