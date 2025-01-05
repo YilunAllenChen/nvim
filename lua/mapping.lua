@@ -121,7 +121,8 @@ M.set_mappings {
     },
     ['='] = {
       function()
-        require('telescope.builtin').find_files { hidden = true, no_ignore = true }
+        -- require('telescope.builtin').find_files { hidden = true, no_ignore = true }
+        require('fzf-lua').files()
       end,
       desc = 'Find all files',
     },
@@ -506,12 +507,6 @@ M.set_mappings {
     ['<C-;>'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word Forward' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
-    ['<Right>'] = {
-      function()
-        return vim.fn['codeium#Accept']()
-      end,
-      desc = 'Codeium Accept',
-    },
   },
   v = {
     ['<leader>/'] = {
