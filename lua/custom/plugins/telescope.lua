@@ -63,9 +63,12 @@ return {
   config = function()
     require('telescope').setup {
       defaults = {
-        prompt_prefix = string.format('%s ', '/'),
+        prompt_prefix = string.format('%s ', '  '),
         selection_caret = string.format('%s ', '>'),
         path_display = { 'full' },
+        preview = {
+          filesize_limit = 2, -- in MB
+        },
         file_ignore_patterns = {
           'node_modules',
           '.mypy_cache',
@@ -81,8 +84,11 @@ return {
           '^.rustup/*',
         },
         sorting_strategy = 'ascending',
-        layout_strategy = 'vertical',
+        layout_strategy = 'flex',
         layout_config = {
+          horizontal = {
+            prompt_position = 'top',
+          },
           vertical = {
             prompt_position = 'top',
             preview_cutoff = 0,

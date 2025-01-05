@@ -237,6 +237,12 @@ M.set_mappings {
       '<cmd>:LazyGit<cr>',
       desc = 'lazygit',
     },
+    ['<leader>G'] = {
+      function()
+        require('telescope.builtin').git_bcommits()
+      end,
+      desc = 'Git commits in buffer',
+    },
     -- LSP
     ['K'] = {
       function()
@@ -514,5 +520,11 @@ M.set_mappings {
     },
     ['<S-Tab>'] = { '<gv', desc = 'Unindent line' },
     ['<Tab>'] = { '>gv', desc = 'Indent line' },
+    ['<leader>G'] = {
+      function()
+        require('telescope.builtin').git_bcommits_range()
+      end,
+      desc = 'Git commits in buffer for selected range',
+    },
   },
 }
