@@ -352,9 +352,15 @@ M.set_mappings {
     },
     ['<leader>fn'] = {
       function()
+        require('telescope').extensions.notify.notify()
+      end,
+      desc = 'Find notifications',
+    },
+    ['<leader>fi'] = {
+      function()
         require('telescope').extensions.nerdy.nerdy()
       end,
-      desc = 'Find nerdy stuff',
+      desc = 'Find icons',
     },
     ['<leader>fC'] = {
       function()

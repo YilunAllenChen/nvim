@@ -3,8 +3,8 @@ return {
   event = 'VeryLazy',
   config = function()
     require('notify').setup {
-      merge_duplicates = true,
-      level = 'warn',
+      merge_duplicates = false,
+      level = 'info',
       stages = 'slide',
       timeout = 3000,
       render = 'compact',
