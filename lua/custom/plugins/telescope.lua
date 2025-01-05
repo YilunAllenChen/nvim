@@ -99,9 +99,7 @@ return {
           height = 0.8,
         },
         mappings = {
-          i = {
-            ['<esc>'] = require('telescope.actions').close,
-          },
+          i = { ['<esc>'] = require('telescope.actions').close },
           n = { ['q'] = require('telescope.actions').close },
         },
       },
