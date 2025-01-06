@@ -4,7 +4,7 @@ return {
   config = function()
     require('notify').setup {
       merge_duplicates = false,
-      level = 'warning',
+      level = vim.log.levels.WARN,
       stages = 'slide',
       timeout = 3000,
       render = 'wrapped-compact',
