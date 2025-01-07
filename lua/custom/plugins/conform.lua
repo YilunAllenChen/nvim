@@ -10,7 +10,7 @@ return {
         python = { 'autoflake', 'isort', 'black' },
         -- Use a sub-list to run only the first available formatter
         javascript = { 'prettierd', 'prettier' },
-        json = { 'prettier' },
+        json = { 'jq' },
       },
       format_after_save = {
         -- These options will be passed to conform.format()
