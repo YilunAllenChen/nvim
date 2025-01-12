@@ -24,7 +24,6 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
         },
-        list = { selection = 'preselect' },
       },
       signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
       keymap = {
