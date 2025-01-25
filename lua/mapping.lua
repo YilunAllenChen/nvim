@@ -136,7 +136,11 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
-
+    ['<leader>h'] = {
+      function()
+        require('telescope.builtin').marks()
+      end,
+    },
     -- Jumping Around
     [';'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<leader>s'] = {
