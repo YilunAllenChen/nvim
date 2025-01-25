@@ -502,10 +502,11 @@ M.set_mappings {
   },
   t = {
     ['<esc>'] = { '<C-\\><C-n>' },
-    ['<C-h>'] = { '<cmd>wincmd h<cr>', desc = 'Terminal left window navigation' },
+    ['<C-h>'] = { '<C-left>', desc = 'move left one word' },
+    ['<C-l>'] = { '<C-right>', desc = 'move right one word' },
+    ['<C-BS>'] = { '<C-w>', desc = 'Delete word' },
     ['<C-j>'] = { '<cmd>wincmd j<cr>', desc = 'Terminal down window navigation' },
     ['<C-k>'] = { '<cmd>wincmd k<cr>', desc = 'Terminal up window navigation' },
-    ['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' },
   },
   i = {
     ['<C-z>'] = { '<esc>ui', desc = 'Undo' },
