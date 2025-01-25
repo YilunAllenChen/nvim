@@ -200,9 +200,9 @@ M.set_mappings {
     },
     ['<leader>r'] = {
       function()
-        require('spectre').open()
+        require('grug-far').open()
       end,
-      desc = 'Spectre search & replace',
+      desc = 'search & replace',
     },
 
     -- Packages & Plugins
