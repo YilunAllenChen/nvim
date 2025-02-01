@@ -9,6 +9,7 @@ local function macro_indicator()
 end
 return {
   'nvim-lualine/lualine.nvim',
+  event = 'VeryLazy',
   dependencies = {
     'nvim-lua/lsp-status.nvim',
   },

@@ -7,6 +7,7 @@ return {
   },
   {
     'saghen/blink.cmp',
+    event = 'InsertEnter',
     dependencies = {
       'moyiz/blink-emoji.nvim',
       'hrsh7th/cmp-calc',

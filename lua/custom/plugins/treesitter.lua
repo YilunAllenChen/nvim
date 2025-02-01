@@ -14,6 +14,7 @@ return { -- Highlight, edit, and navigate code
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
+    event = 'BufReadPre',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('treesitter-context').setup {
@@ -34,6 +35,7 @@ return { -- Highlight, edit, and navigate code
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    event = 'BufReadPre',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('nvim-treesitter.configs').setup {

@@ -1,15 +1,13 @@
 return {
   {
     'mfussenegger/nvim-dap',
+    event = 'BufReadPost',
     dependencies = {
-      'leoluz/nvim-dap-go',
-      'rcarriga/nvim-dap-ui',
-      'theHamsta/nvim-dap-virtual-text',
-      'nvim-neotest/nvim-nio',
-      'williamboman/mason.nvim',
-      {
-        'jay-babu/mason-nvim-dap.nvim',
-      },
+      { 'rcarriga/nvim-dap-ui', event = 'BufReadPost' },
+      { 'theHamsta/nvim-dap-virtual-text', event = 'BufReadPost' },
+      { 'nvim-neotest/nvim-nio', event = 'BufReadPost' },
+      { 'williamboman/mason.nvim', event = 'BufReadPost' },
+      { 'jay-babu/mason-nvim-dap.nvim', event = 'BufReadPost' },
     },
     config = function()
       local dap = require 'dap'

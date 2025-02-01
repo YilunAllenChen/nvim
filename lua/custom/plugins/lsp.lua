@@ -12,11 +12,14 @@ local raw_servers = {
 
 return {
   'folke/neodev.nvim',
+  event = { 'BufReadPre', 'BufNewFile' },
   {
     'neovim/nvim-lspconfig',
+    event = { 'BufReadPre', 'BufNewFile' },
   },
   {
     'williamboman/mason.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('mason').setup()
     end,
@@ -50,6 +53,7 @@ return {
   },
   {
     'nvim-lua/lsp-status.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local status = require 'lsp-status'
       status.register_progress()
@@ -59,5 +63,5 @@ return {
       }
     end,
   },
-  { 'jubnzv/virtual-types.nvim' },
+  { 'jubnzv/virtual-types.nvim', event = { 'BufReadPre', 'BufNewFile' } },
 }
