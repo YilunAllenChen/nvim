@@ -80,13 +80,7 @@ return {
       vim.keymap.set('n', '<space>?', function()
         require('dapui').eval(nil, { enter = true })
       end)
-      vim.keymap.set('n', '<F1>', function()
-        -- if nvim tree is open, close it
-        if require('nvim-tree.api').tree.is_visible() then
-          require('nvim-tree.api').tree.close()
-        end
-        dap.continue()
-      end)
+      vim.keymap.set('n', '<F1>', dap.continue)
       vim.keymap.set('n', '<F2>', dap.step_into)
       vim.keymap.set('n', '<F3>', dap.step_over)
       vim.keymap.set('n', '<F4>', dap.step_out)
@@ -97,17 +91,19 @@ return {
       vim.fn.sign_define('DapStopped', { text = '👉', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
       dap.listeners.before.attach.dapui_config = function()
+        if require('nvim-tree.api').tree.is_visible() then
+          require('nvim-tree.api').tree.close()
+        end
         ui.open()
       end
       dap.listeners.before.launch.dapui_config = function()
+        if require('nvim-tree.api').tree.is_visible() then
+          require('nvim-tree.api').tree.close()
+        end
         ui.open()
       end
-      dap.listeners.before.event_terminated.dapui_config = function()
-        ui.close()
-      end
-      dap.listeners.before.event_exited.dapui_config = function()
-        ui.close()
-      end
+      dap.listeners.before.event_terminated.dapui_config = ui.close
+      dap.listeners.before.event_exited.dapui_config = ui.close
     end,
   },
 }
