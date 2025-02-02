@@ -25,6 +25,7 @@ return {
   },
   {
     'williamboman/mason-lspconfig.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('neodev').setup()
       local capabilities = vim.lsp.protocol.make_client_capabilities()
