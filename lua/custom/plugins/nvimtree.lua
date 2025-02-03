@@ -15,6 +15,7 @@ local function nvim_tree_attach(bufnr)
   vim.keymap.set('n', 'l', api.node.open.edit, opts 'Open')
   vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts 'Close')
   vim.keymap.set('n', '<CR>', api.node.open.tab_drop, opts 'Tab drop')
+  vim.keymap.set('n', '<C-e>', api.node.open.edit, opts 'Open')
 end
 
 return {

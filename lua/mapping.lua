@@ -210,13 +210,13 @@ M.set_mappings {
     },
 
     -- Packages & Plugins
-    ['<leader>p'] = {
+    ['<leader>pp'] = {
       function()
         require('lazy').home()
       end,
       desc = 'Plugins',
     },
-    ['<leader>m'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' },
+    ['<leader>pm'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' },
 
     -- Git
     [']g'] = {
@@ -520,8 +520,8 @@ M.set_mappings {
     ['<C-k>'] = { '<up>', desc = 'Move up' },
     ['<C-n>'] = { '<backspace>', desc = 'backspace' },
     ['<C-s>'] = { '<cmd>:w<cr><esc>', desc = 'Save file' },
-    ['<C-;>'] = { '<C-right', desc = 'next word' },
-    ['<C-g>'] = { '<C-left', desc = 'prev word' },
+    ['<C-;>'] = { '<C-right>', desc = 'next word' },
+    ['<C-g>'] = { '<C-left>', desc = 'prev word' },
     ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word Forward' },
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
   },
