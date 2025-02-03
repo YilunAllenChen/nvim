@@ -332,6 +332,56 @@ M.set_mappings {
       desc = 'Next diagnostic',
     },
 
+    -- DAP
+    ['<space>b'] = {
+      function()
+        require('dap').toggle_breakpoint()
+      end,
+      desc = 'Toggle breakpoint',
+    },
+    ['<space>?'] = {
+      function()
+        require('dapui').eval(nil, { enter = true })
+      end,
+      desc = 'Evaluate expression',
+    },
+    ['<F1>'] = {
+      function()
+        require('dap').continue()
+      end,
+      desc = 'Continue',
+    },
+    ['<F2>'] = {
+      function()
+        require('dap').step_into()
+      end,
+      desc = 'Step into',
+    },
+    ['<F3>'] = {
+      function()
+        require('dap').step_over()
+      end,
+      desc = 'Step over',
+    },
+    ['<F4>'] = {
+      function()
+        require('dap').step_out()
+      end,
+      desc = 'Step out',
+    },
+    ['<F5>'] = {
+      function()
+        require('dap').step_back()
+      end,
+      desc = 'Step back',
+    },
+    ['<F12>'] = {
+      function()
+        require('dap').restart()
+      end,
+      desc = 'Restart',
+    },
+
     -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
