@@ -375,6 +375,12 @@ M.set_mappings {
       end,
       desc = 'Step back',
     },
+    ['<F11>'] = {
+      function()
+        require('dap').stop()
+      end,
+      desc = 'Stop',
+    },
     ['<F12>'] = {
       function()
         require('dap').restart()

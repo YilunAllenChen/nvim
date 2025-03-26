@@ -70,6 +70,13 @@ return {
                 module = 'fio.desk_tools.apps.paper_watcher.main',
                 args = { '/home/alchen/repos/k8s/overlays/paperwatcher/qa/direct-trading-ags/config/config.jsonnet' },
               },
+              {
+                type = 'python',
+                request = 'launch',
+                name = 'Marea Auto Bookingj',
+                module = 'fio.desk_easy_deploy.operations.marea_auto_booking.main',
+                args = { '/home/alchen/repos/crypto/configs/marea_auto_booking/test.json' },
+              },
             }
             require('mason-nvim-dap').default_setup(config) -- don't forget this!
           end,
