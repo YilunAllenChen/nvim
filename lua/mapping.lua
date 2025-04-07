@@ -250,7 +250,7 @@ M.set_mappings {
     -- LSP
     ['K'] = {
       function()
-        vim.lsp.buf.hover()
+        vim.lsp.buf.hover { border = 'rounded' }
       end,
       desc = 'Hover symbol details',
     },
@@ -296,7 +296,7 @@ M.set_mappings {
     ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
     ['<leader>ld'] = {
       function()
-        vim.diagnostic.open_float()
+        vim.diagnostic.open_float { border = 'rounded' }
       end,
       desc = 'Hover diagnostics',
     },
@@ -321,13 +321,13 @@ M.set_mappings {
     },
     ['[d'] = {
       function()
-        vim.diagnostic.goto_prev()
+        vim.diagnostic.get_prev()
       end,
       desc = 'Previous diagnostic',
     },
     [']d'] = {
       function()
-        vim.diagnostic.goto_next()
+        vim.diagnostic.get_next()
       end,
       desc = 'Next diagnostic',
     },
