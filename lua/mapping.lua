@@ -377,7 +377,7 @@ M.set_mappings {
     },
     ['<F11>'] = {
       function()
-        require('dap').stop()
+        require('dap').close()
       end,
       desc = 'Stop',
     },
