@@ -73,7 +73,14 @@ return {
               {
                 type = 'python',
                 request = 'launch',
-                name = 'Marea Auto Bookingj',
+                name = 'Empirical Risk',
+                module = 'fio.desk_tools.apps.empirical_risk.entry_points.risk_publisher.main',
+                args = { 'configs/empirical_risk/risk_publisher/ags.json' },
+              },
+              {
+                type = 'python',
+                request = 'launch',
+                name = 'Marea Auto Booking',
                 module = 'fio.desk_easy_deploy.operations.marea_auto_booking.main',
                 args = { '/home/alchen/repos/crypto/configs/marea_auto_booking/test.json' },
               },
