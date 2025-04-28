@@ -12,7 +12,11 @@ return {
         javascript = { 'prettierd', 'prettier' },
         typescript = { 'prettierd', 'prettier' },
         typescriptreact = { 'prettierd', 'prettier' },
-        -- json = { 'jq' },
+        json = { 'jq' },
+      },
+      formatters = {
+        jq = { prepend_args = { '--indent', '4' } },
+        black = { inherit = false, command = 'python3', args = { '-m', 'black', '$FILENAME' } },
       },
       format_after_save = {
         -- These options will be passed to conform.format()

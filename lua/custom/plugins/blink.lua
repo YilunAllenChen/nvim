@@ -13,8 +13,14 @@ return {
       'hrsh7th/cmp-calc',
     },
     version = '*',
+
+    cmdline = { enabled = false },
     opts = {
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
       completion = {
+        list = {
+          selection = { preselect = false, auto_insert = true },
+        },
         menu = {
           border = 'rounded',
         },
@@ -32,7 +38,7 @@ return {
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
         ['<C-space>'] = { 'show' },
-        ['<tab>'] = { 'select_and_accept', 'fallback' },
+        ['<tab>'] = { 'accept', 'fallback' },
         ['<S-tab>'] = { 'select_prev' },
         ['C-u'] = { 'scroll_documentation_up', 'fallback' },
         ['C-d'] = { 'scroll_documentation_down', 'fallback' },
