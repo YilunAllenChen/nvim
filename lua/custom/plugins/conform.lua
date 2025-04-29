@@ -16,7 +16,9 @@ return {
       },
       formatters = {
         jq = { prepend_args = { '--indent', '4' } },
-        black = { inherit = false, command = 'python3', args = { '-m', 'black', '$FILENAME' } },
+        autoflake = {
+          prepend_args = { '--remove-all-unused-imports', '--remove-unused-variables' },
+        },
       },
       format_after_save = {
         -- These options will be passed to conform.format()
