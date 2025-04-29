@@ -1,9 +1,10 @@
--- jumping between projects
 return {
-  'ahmedkhalf/project.nvim',
+  'nvim-telescope/telescope-project.nvim',
   event = 'VeryLazy',
+  dependencies = {
+    'nvim-telescope/telescope.nvim',
+  },
   config = function()
-    require('project_nvim').setup {}
-    require('telescope').load_extension 'projects'
+    require('telescope').load_extension 'project'
   end,
 }
