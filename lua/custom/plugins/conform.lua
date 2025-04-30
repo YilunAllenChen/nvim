@@ -19,6 +19,7 @@ return {
         autoflake = {
           prepend_args = { '--remove-all-unused-imports', '--remove-unused-variables' },
         },
+        black = { command = 'python', prepend_args = { '-m', 'black' } },
       },
       format_after_save = {
         -- These options will be passed to conform.format()
