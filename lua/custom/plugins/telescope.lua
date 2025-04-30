@@ -109,7 +109,7 @@ return {
       },
     }
     pcall(require('telescope').load_extension, 'fzf')
-    pcall(require('telescope').load_extension, 'projects')
+    pcall(require('telescope').load_extension, 'repo')
     pcall(require('telescope').load_extension, 'nerdy')
   end,
 }

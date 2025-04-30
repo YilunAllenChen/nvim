@@ -179,7 +179,13 @@ M.set_mappings {
       end,
       desc = 'implementation',
     },
-    ['<leader>i'] = { '<cmd>:Telescope projects<cr>', desc = 'Open project' },
+    ['<leader>i'] = {
+      function()
+        require('telescope').extensions.repo.list { search_dirs = { '~/repos/' } }
+      end,
+      desc = 'Open project',
+    },
+
     ['<leader>o'] = { '<cmd>:Oil<cr>', desc = 'Oil' },
     ['<leader>j'] = {
       function()
