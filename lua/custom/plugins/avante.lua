@@ -12,6 +12,12 @@ return {
       max_completion_tokens = 4096, -- Increase this to include reasoning tokens (for reasoning models)
       --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
     },
+    mappings = {
+      sidebar = {
+        switch_windows = '<C-j>',
+        reverse_switch_windows = '<C-k>',
+      },
+    },
   },
   build = 'make',
   dependencies = {
