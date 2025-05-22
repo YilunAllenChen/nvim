@@ -41,10 +41,8 @@ return {
       },
       update_focused_file = {
         enable = true,
-        update_cwd = true,
       },
 
-      sync_root_with_cwd = true,
       respect_buf_cwd = true,
     }
   end,
