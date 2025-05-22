@@ -27,24 +27,10 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('neodev').setup()
-      local capabilities = vim.lsp.protocol.make_client_capabilities()
-      local mlsp = require 'mason-lspconfig'
-      mlsp.setup {
+      require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(mason_servers),
-        handlers = {
-          function(server_name)
-            capabilities = require('blink.cmp').get_lsp_capabilities(capabilities)
-            require('lspconfig')[server_name].setup {
-              capabilities = capabilities,
-              settings = mason_servers[server_name],
-              filetypes = (mason_servers[server_name] or {}).filetypes,
-            }
-          end,
-        },
       }
-
-      local servers = vim.tbl_keys(raw_servers)
-      for _, lsp in ipairs(servers) do
+      for _, lsp in ipairs(vim.tbl_keys(raw_servers)) do
         require('lspconfig')[lsp].setup(raw_servers[lsp])
       end
     end,
