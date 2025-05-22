@@ -35,6 +35,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
+    event = 'VeryLazy',
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('mason-lspconfig').setup {
