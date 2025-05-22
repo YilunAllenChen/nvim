@@ -16,9 +16,6 @@ return {
       },
       formatters = {
         jq = { prepend_args = { '--indent', '4' } },
-        autoflake = {
-          prepend_args = { '--remove-all-unused-imports', '--remove-unused-variables' },
-        },
         black = { command = 'python', prepend_args = { '-m', 'black' } },
       },
       format_after_save = {
