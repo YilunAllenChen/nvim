@@ -35,23 +35,18 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(mason_servers),
         automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = mason_servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            print(vim.inspect(server))
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
       }
       for _, lsp in ipairs(vim.tbl_keys(raw_servers)) do
         require('lspconfig')[lsp].setup(raw_servers[lsp])
+      end
+      for server_name, server in pairs(mason_servers) do
+        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+        require('lspconfig')[server_name].setup(server)
       end
     end,
   },
