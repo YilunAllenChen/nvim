@@ -1,6 +1,14 @@
 -- LSP
 local mason_servers = {
-  lua_ls = {},
+  pyright = {
+    settings = {
+      python = {
+        analysis = {
+          diagnosticMode = 'workspace',
+        },
+      },
+    },
+  },
 }
 
 -- servers not in mason yet
@@ -9,42 +17,42 @@ local raw_servers = {
 }
 
 return {
-  'folke/neodev.nvim',
-  event = { 'BufReadPre', 'BufNewFile' },
+  {
+    'folke/lazydev.nvim',
+    ft = 'lua', -- only load on lua files
+    opts = { library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } } },
+  },
   {
     'neovim/nvim-lspconfig',
     event = { 'BufReadPre', 'BufNewFile' },
   },
   {
-    'williamboman/mason.nvim',
+    'mason-org/mason.nvim',
     event = 'VeryLazy',
     config = function()
       require('mason').setup()
     end,
   },
   {
-    'williamboman/mason-lspconfig.nvim',
+    'mason-org/mason-lspconfig.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      require('neodev').setup()
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(mason_servers),
+        automatic_installation = false,
+        handlers = {
+          function(server_name)
+            local server = mason_servers[server_name] or {}
+            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            print(vim.inspect(server))
+            require('lspconfig')[server_name].setup(server)
+          end,
+        },
       }
       for _, lsp in ipairs(vim.tbl_keys(raw_servers)) do
         require('lspconfig')[lsp].setup(raw_servers[lsp])
       end
-    end,
-  },
-  {
-    'nvim-lua/lsp-status.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      local status = require 'lsp-status'
-      status.register_progress()
-      status.config {
-        status_symbol = '',
-        diagnostics = false,
-      }
     end,
   },
   { 'jubnzv/virtual-types.nvim', event = { 'BufReadPre', 'BufNewFile' } },

@@ -10,9 +10,6 @@ end
 return {
   'nvim-lualine/lualine.nvim',
   event = 'VeryLazy',
-  dependencies = {
-    'nvim-lua/lsp-status.nvim',
-  },
   opts = {
     options = {
       icons_enabled = true,
@@ -26,7 +23,6 @@ return {
       lualine_b = { 'branch', macro_indicator },
       lualine_c = { { 'filename', file_status = true, path = 2 }, 'filesize' },
       lualine_x = {
-        "require('lsp-status').status()",
         {
           'diff',
           symbols = { added = ' ', modified = ' ', removed = ' ' },
