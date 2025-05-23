@@ -12,10 +12,10 @@ return {
         javascript = { 'prettierd', 'prettier' },
         typescript = { 'prettierd', 'prettier' },
         typescriptreact = { 'prettierd', 'prettier' },
-        json = { 'jq' },
+        json = { 'prettierd' },
       },
       formatters = {
-        jq = { prepend_args = { '--indent', '4' } },
+        prettierd = { prepend_args = { '--tab-width', '4' } },
         black = { command = 'python', prepend_args = { '-m', 'black' } },
       },
       format_after_save = {
