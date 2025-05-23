@@ -9,9 +9,9 @@ return {
         -- Conform will run multiple formatters sequentially
         python = { 'ruff_format', 'ruff_organize_imports' },
         -- Use a sub-list to run only the first available formatter
-        javascript = { 'prettierd', 'prettier' },
-        typescript = { 'prettierd', 'prettier' },
-        typescriptreact = { 'prettierd', 'prettier' },
+        javascript = { 'prettier' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
         json = { 'prettier' },
       },
       formatters = {
