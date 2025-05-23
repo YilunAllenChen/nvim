@@ -41,6 +41,7 @@ return {
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(mason_servers),
         automatic_installation = false,
+        automatic_enable = false,
       }
       for _, lsp in ipairs(vim.tbl_keys(raw_servers)) do
         require('lspconfig')[lsp].setup(raw_servers[lsp])
