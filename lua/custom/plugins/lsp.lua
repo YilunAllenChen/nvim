@@ -4,7 +4,8 @@ local mason_servers = {
     settings = {
       python = {
         analysis = {
-          diagnosticMode = 'workspace',
+          diagnosticMode = 'openFilesOnly',
+          -- diagnosticMode = 'workspace',
         },
       },
     },
