@@ -98,6 +98,25 @@ local function auto_activate_conda()
   end
 end
 
+local function toggle_telescope_harpoon(harpoon_files)
+  local file_paths = {}
+  for _, item in ipairs(harpoon_files.items) do
+    table.insert(file_paths, item.value)
+  end
+
+  local conf = require('telescope.config').values
+  require('telescope.pickers')
+    .new({}, {
+      prompt_title = 'Harpoon',
+      finder = require('telescope.finders').new_table {
+        results = file_paths,
+      },
+      previewer = conf.file_previewer {},
+      sorter = conf.generic_sorter {},
+    })
+    :find()
+end
+
 M.set_mappings {
   n = {
 
@@ -136,11 +155,6 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
-    ['<leader>h'] = {
-      function()
-        require('telescope.builtin').marks()
-      end,
-    },
     -- Jumping Around
     [';'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<leader>s'] = {
@@ -178,6 +192,27 @@ M.set_mappings {
         vim.lsp.buf.implementation()
       end,
       desc = 'implementation',
+    },
+    ['<leader>ha'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon:list():add()
+      end,
+      desc = 'Harpoon Add',
+    },
+    ['<leader>hd'] = {
+      function()
+        local harpoon = require 'harpoon'
+        harpoon:list():delete()
+      end,
+      desc = 'Harpoon Delete',
+    },
+    ['<leader>hp'] = {
+      function()
+        local harpoon = require 'harpoon'
+        toggle_telescope_harpoon(harpoon:list())
+      end,
+      desc = 'Harpoon Find',
     },
     ['<leader>i'] = {
       function()
