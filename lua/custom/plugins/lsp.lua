@@ -14,7 +14,7 @@ local mason_servers = {
 
 -- servers not in mason yet
 local raw_servers = {
-  gleam = {},
+  -- ty = {}  -- not stable yet...
 }
 
 return {
@@ -38,18 +38,21 @@ return {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
     config = function()
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
       require('mason-lspconfig').setup {
         ensure_installed = vim.tbl_keys(mason_servers),
         automatic_installation = false,
         automatic_enable = false,
       }
-      for _, lsp in ipairs(vim.tbl_keys(raw_servers)) do
-        require('lspconfig')[lsp].setup(raw_servers[lsp])
+
+      for server_name, server in pairs(raw_servers) do
+        vim.lsp.enable(server_name)
       end
+
+      local capabilities = require('blink.cmp').get_lsp_capabilities()
       for server_name, server in pairs(mason_servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        require('lspconfig')[server_name].setup(server)
+        vim.lsp.config(server_name, { init_options = { server } })
+        vim.lsp.enable(server_name)
       end
     end,
   },
