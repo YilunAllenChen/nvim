@@ -7,13 +7,13 @@ return {
         cpp = { 'clang-format' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
-        -- python = { 'ruff_format', 'ruff_organize_imports' },
-        python = { 'autoflake', 'isort', 'black' },
+        python = { 'ruff_format', 'ruff_organize_imports' },
         -- Use a sub-list to run only the first available formatter
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
         json = { 'prettier' },
+        jsonnet = { 'jsonnetfmt' },
       },
       formatters = {
         prettier = { command = 'prettier', args = { '$FILENAME', '--tab-width', '4' } },
