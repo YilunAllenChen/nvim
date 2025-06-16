@@ -38,12 +38,6 @@ return {
     'mason-org/mason-lspconfig.nvim',
     event = 'VeryLazy',
     config = function()
-      require('mason-lspconfig').setup {
-        ensure_installed = vim.tbl_keys(mason_servers),
-        automatic_installation = false,
-        -- automatic_enable = false,
-      }
-
       for server_name, server in pairs(raw_servers) do
         vim.lsp.enable(server_name)
       end
@@ -52,8 +46,14 @@ return {
       for server_name, server in pairs(mason_servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
         vim.lsp.config(server_name, { init_options = { server } })
-        vim.lsp.enable(server_name)
+        -- vim.lsp.enable(server_name)
       end
+
+      require('mason-lspconfig').setup {
+        ensure_installed = vim.tbl_keys(mason_servers),
+        automatic_installation = false,
+        -- automatic_enable = false,
+      }
     end,
   },
   { 'jubnzv/virtual-types.nvim', event = { 'BufReadPre', 'BufNewFile' } },
