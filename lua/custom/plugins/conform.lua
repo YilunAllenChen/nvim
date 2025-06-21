@@ -14,6 +14,7 @@ return {
         typescriptreact = { 'prettier' },
         json = { 'prettier' },
         jsonnet = { 'jsonnetfmt' },
+		ocaml = { "ocamlformat" },
       },
       formatters = {
         prettier = { command = 'prettier', args = { '$FILENAME', '--tab-width', '4' } },
