@@ -14,11 +14,10 @@ return {
         typescriptreact = { 'prettier' },
         json = { 'prettier' },
         jsonnet = { 'jsonnetfmt' },
-		ocaml = { "ocamlformat" },
+        ocaml = { 'ocamlformat' },
       },
       formatters = {
         prettier = { command = 'prettier', args = { '$FILENAME', '--tab-width', '4' } },
-        black = { command = 'python', prepend_args = { '-m', 'black' } },
       },
       format_after_save = {
         -- These options will be passed to conform.format()
