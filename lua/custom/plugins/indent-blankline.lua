@@ -4,6 +4,8 @@ return {
   main = 'ibl',
   opts = {},
   config = function()
-    require('ibl').setup()
+    require('ibl').setup {
+      scope = { priority = 100 },
+    }
   end,
 }
