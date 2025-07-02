@@ -7,7 +7,7 @@ return {
         cpp = { 'clang-format' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
-        python = { 'ruff_format', 'ruff_organize_imports' },
+        python = { 'ruff_format', 'ruff_organize_imports', 'ruff_fix' },
         -- Use a sub-list to run only the first available formatter
         javascript = { 'prettier' },
         typescript = { 'prettier' },
