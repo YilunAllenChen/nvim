@@ -30,6 +30,7 @@ vim.opt.rtp:prepend(lazypath)
 
 local options = {
   opt = {
+    autochdir = false,
     cmdheight = 0, -- hide command line unless needed
     clipboard = vim.env.SSH_TTY and '' or 'unnamedplus', -- Sync with system clipboard
     pumheight = 10, -- height of the pop up menu
