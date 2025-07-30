@@ -3,13 +3,14 @@ return {
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
   opts = {
-    provider = 'azure',
-    azure = {
-      endpoint = 'https://azure-openai.drwcloud.com',
-      deployment = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
-      timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-      extra_request_body = {
-        max_completion_tokens = 4096, -- Increase this to include reasoning tokens (for reasoning models)
+    providers = {
+      azure = {
+        endpoint = 'https://azure-openai.drwcloud.com',
+        deployment = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
+        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+        extra_request_body = {
+          max_completion_tokens = 4096, -- Increase this to include reasoning tokens (for reasoning models)
+        },
       },
     },
     mappings = {
