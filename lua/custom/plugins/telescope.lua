@@ -68,7 +68,7 @@ return {
         selection_caret = string.format('%s ', '>'),
         path_display = { 'full' },
         preview = {
-          filesize_limit = 2, -- in MB
+          filesize_limit = 1, -- in MB
         },
         file_ignore_patterns = {
           'node_modules',

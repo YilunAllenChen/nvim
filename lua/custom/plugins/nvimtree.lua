@@ -32,7 +32,7 @@ return {
         preserve_window_proportions = true,
       },
       filters = {
-        dotfiles = true,
+        dotfiles = false,
       },
       on_attach = nvim_tree_attach,
       live_filter = {
