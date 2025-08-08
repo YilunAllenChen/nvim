@@ -3,6 +3,7 @@ return {
   event = 'VeryLazy',
   version = false, -- Never set this value to "*"! Never!
   opts = {
+    provider = 'azure',
     providers = {
       azure = {
         endpoint = 'https://azure-openai.drwcloud.com',
@@ -18,6 +19,9 @@ return {
         switch_windows = '<C-j>',
         reverse_switch_windows = '<C-k>',
       },
+    },
+    windows = {
+      width = 40,
     },
   },
   build = 'make',
