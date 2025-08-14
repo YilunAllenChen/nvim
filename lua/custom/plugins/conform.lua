@@ -16,9 +16,7 @@ return {
         jsonnet = { 'jsonnetfmt' },
         ocaml = { 'ocamlformat' },
       },
-      formatters = {
-        prettier = { command = 'prettier', args = { '$FILENAME', '--tab-width', '4' } },
-      },
+      formatters = {},
       format_after_save = {
         -- These options will be passed to conform.format()
         timeout_ms = 500,
