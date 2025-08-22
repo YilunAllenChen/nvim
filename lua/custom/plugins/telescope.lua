@@ -3,7 +3,7 @@ local finders = require 'telescope.finders'
 local make_entry = require 'telescope.make_entry'
 local pickers = require 'telescope.pickers'
 
-LiveMultigrep = function(opts)
+RipGrep = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd or vim.uv.cwd()
 
@@ -21,12 +21,12 @@ LiveMultigrep = function(opts)
       end
 
       if pieces[2] then
+        local fuzzy_pattern = '**/*' .. pieces[2] .. '*'
         table.insert(args, '-g')
-        table.insert(args, pieces[2])
+        table.insert(args, fuzzy_pattern)
       end
 
-      ---@diagnostic disable-next-line: deprecated
-      return vim.tbl_flatten {
+      return vim.api.tbl_flatten {
         args,
         { '--color=never', '--no-heading', '--with-filename', '--line-number', '--column', '--smart-case' },
       }
@@ -37,8 +37,9 @@ LiveMultigrep = function(opts)
 
   pickers
     .new(opts, {
-      prompt_title = 'GrepOnSteroids',
+      prompt_title = 'RipGrep',
       finder = finder,
+      debounce = 500,
     })
     :find()
 end

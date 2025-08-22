@@ -134,7 +134,7 @@ M.set_mappings {
     [','] = {
       function()
         -- require('telescope.builtin').live_grep()
-        LiveMultigrep(opts)
+        RipGrep(opts)
       end,
       desc = 'Find words',
     },
@@ -601,10 +601,25 @@ M.set_mappings {
     ['vi<space>'] = { '<esc>bvt ', desc = 'Select inside surrounding spaces' },
     ['yi<space>'] = { '<esc>bvt y', desc = 'Yank inside surrounding spaces' },
 
-	['<leader>q'] = {desc = "Sessions"},
-	['<leader>qs'] = {function() require("persistence").load() end, desc="load session for current dir"},
-	['<leader>qS'] = {function() require("persistence").seldct() end, desc="select session"},
-	['<leader>ql'] = {function() require("persistence").load({ last = true }) end, desc="load last session"},
+    ['<leader>q'] = { desc = 'Sessions' },
+    ['<leader>qs'] = {
+      function()
+        require('persistence').load()
+      end,
+      desc = 'load session for current dir',
+    },
+    ['<leader>qS'] = {
+      function()
+        require('persistence').seldct()
+      end,
+      desc = 'select session',
+    },
+    ['<leader>ql'] = {
+      function()
+        require('persistence').load { last = true }
+      end,
+      desc = 'load last session',
+    },
   },
   t = {
     ['<esc>'] = { '<C-\\><C-n>' },
