@@ -155,6 +155,7 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
+
     -- Jumping Around
     [';'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
     ['<leader>s'] = {
@@ -495,6 +496,14 @@ M.set_mappings {
         auto_activate_conda()
         vim.cmd 'startinsert'
       end,
+    },
+    ['<C-a>'] = {
+      function()
+        vim.api.nvim_command 'vsplit | terminal codex'
+        vim.api.nvim_command 'startinsert'
+        auto_activate_conda()
+      end,
+      desc = 'Open codex in vertical split',
     },
     ['t'] = {
       function()
