@@ -497,7 +497,7 @@ M.set_mappings {
         vim.cmd 'startinsert'
       end,
     },
-    ['<C-a>'] = {
+    ['<leader>t'] = {
       function()
         vim.api.nvim_command 'vsplit | terminal codex'
         vim.api.nvim_command 'startinsert'
