@@ -98,25 +98,6 @@ local function auto_activate_conda()
   end
 end
 
-local function toggle_telescope_harpoon(harpoon_files)
-  local file_paths = {}
-  for _, item in ipairs(harpoon_files.items) do
-    table.insert(file_paths, item.value)
-  end
-
-  local conf = require('telescope.config').values
-  require('telescope.pickers')
-    .new({}, {
-      prompt_title = 'Harpoon',
-      finder = require('telescope.finders').new_table {
-        results = file_paths,
-      },
-      previewer = conf.file_previewer {},
-      sorter = conf.generic_sorter {},
-    })
-    :find()
-end
-
 M.set_mappings {
   n = {
 
@@ -194,27 +175,6 @@ M.set_mappings {
       end,
       desc = 'implementation',
     },
-    ['<leader>ha'] = {
-      function()
-        local harpoon = require 'harpoon'
-        harpoon:list():add()
-      end,
-      desc = 'Harpoon Add',
-    },
-    ['<leader>hd'] = {
-      function()
-        local harpoon = require 'harpoon'
-        harpoon:list():delete()
-      end,
-      desc = 'Harpoon Delete',
-    },
-    ['<leader>hp'] = {
-      function()
-        local harpoon = require 'harpoon'
-        toggle_telescope_harpoon(harpoon:list())
-      end,
-      desc = 'Harpoon Find',
-    },
     ['<leader>i'] = {
       function()
         require('telescope').extensions.repo.list { search_dirs = { '~/repos/' } }
@@ -235,7 +195,6 @@ M.set_mappings {
     ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor' },
     ['<leader>e'] = { '<cmd>NvimTreeToggle<cr>', desc = 'Explorer' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
-    ['<leader>q'] = { '<cmd>confirm q<cr>', desc = 'Quit' },
     ['<leader>n'] = { '<cmd>enew<cr>', desc = 'New File' },
     ["<leader>'"] = { '<cmd>:edit!<cr>', desc = 'Reload buffer' },
     ['<leader>/'] = {
@@ -259,6 +218,17 @@ M.set_mappings {
       desc = 'Plugins',
     },
     ['<leader>pm'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' },
+
+    -- yanky
+    ['<C-p>'] = {
+      function()
+        require('telescope').extensions.yank_history.yank_history()
+      end,
+      desc = 'Yank History',
+    },
+    ['y'] = { '<Plug>(YankyYank)', desc = 'Yanky Yank' },
+    ['p'] = { '<Plug>(YankyPutAfter)', desc = 'Yanky Put After' },
+    ['P'] = { '<Plug>(YankyPutBefore)', desc = 'Yanky Put Before' },
 
     -- Git
     [']g'] = {
@@ -604,12 +574,6 @@ M.set_mappings {
     ['<leader>fmg'] = { '<cmd>CellularAutomaton game_of_life<cr>', desc = 'Game Of Life!!!' },
     ['<leader>fms'] = { '<cmd>CellularAutomaton scramble<cr>', desc = 'SCRABLE!!!' },
 
-    -- space as text object
-    ['ci<space>'] = { '<esc>bvt c', desc = 'Change inside surrounding spaces' },
-    ['di<space>'] = { '<esc>bvt d', desc = 'Delete inside surrounding spaces' },
-    ['vi<space>'] = { '<esc>bvt ', desc = 'Select inside surrounding spaces' },
-    ['yi<space>'] = { '<esc>bvt y', desc = 'Yank inside surrounding spaces' },
-
     ['<leader>q'] = { desc = 'Sessions' },
     ['<leader>qs'] = {
       function()
@@ -650,6 +614,7 @@ M.set_mappings {
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
   },
   v = {
+    ['y'] = { '<Plug>(YankyYank)', desc = 'Yanky Yank' },
     ['<leader>/'] = {
       "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
       desc = 'Toggle comment for selection',
