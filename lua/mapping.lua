@@ -100,6 +100,10 @@ end
 
 M.set_mappings {
   n = {
+    -- Leader and movement tweaks
+    ['<Space>'] = { '<Nop>', silent = true },
+    ['k'] = { "v:count == 0 ? 'gk' : 'k'", expr = true, silent = true, desc = 'Visual line up' },
+    ['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true, desc = 'Visual line down' },
 
     -- Blazingly Fast Shortcuts
     ["'"] = {
@@ -608,6 +612,7 @@ M.set_mappings {
     ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
   },
   v = {
+    ['<Space>'] = { '<Nop>', silent = true },
     ['y'] = { '<Plug>(YankyYank)', desc = 'Yanky Yank' },
     ['<leader>/'] = {
       "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",

@@ -1,24 +1,18 @@
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
-vim.api.nvim_create_autocmd('TextYankPost', {
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-  group = highlight_group,
-  pattern = '*',
-})
+-- Auto-change to project root for Python files
+-- Deals with cases where jumping to definition changes cwd to file dir
 
-vim.api.nvim_create_autocmd('TermOpen', {
-  pattern = '*',
-  callback = function()
-    vim.cmd 'set foldexpr&'
-  end,
-})
-
--- [[ Helper function to find project root ]]
+-- Helper function to find project root
 local function find_project_root(start_path)
-  local project_indicators = { '.git', 'pyproject.toml', 'setup.py', 'requirements.txt', 'Pipfile', 'poetry.lock', 'Cargo.toml', 'package.json' }
+  local project_indicators = {
+    '.git',
+    'pyproject.toml',
+    'setup.py',
+    'requirements.txt',
+    'Pipfile',
+    'poetry.lock',
+    'Cargo.toml',
+    'package.json',
+  }
 
   for _, indicator in ipairs(project_indicators) do
     local found = vim.fn.finddir(indicator, start_path .. ';')
@@ -30,7 +24,6 @@ local function find_project_root(start_path)
   return nil
 end
 
--- [[ Auto-change to project root when switching to project files. deals with situations where, in python, when I go to definition and come back it doesn't go back to project root, but rather to the directory of current file.]]
 local project_root_group = vim.api.nvim_create_augroup('ProjectRoot', { clear = true })
 vim.api.nvim_create_autocmd('BufEnter', {
   callback = function()
@@ -64,3 +57,4 @@ vim.api.nvim_create_autocmd('BufEnter', {
   group = project_root_group,
   pattern = '*.py', -- Only trigger for Python files
 })
+
