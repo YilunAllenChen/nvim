@@ -266,12 +266,6 @@ M.set_mappings {
       end,
       desc = 'Hover symbol details',
     },
-    ['<leader>d'] = {
-      function()
-        require('neogen').generate()
-      end,
-      desc = 'Generate documentation',
-    },
     ['<leader>l'] = { desc = 'LSP' },
     ['<leader>lf'] = {
       function()
