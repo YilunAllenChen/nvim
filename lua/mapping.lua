@@ -333,13 +333,13 @@ M.set_mappings {
     },
     ['[d'] = {
       function()
-        vim.diagnostic.get_prev()
+        vim.diagnostic.jump { count = -1, float = false }
       end,
       desc = 'Previous diagnostic',
     },
     [']d'] = {
       function()
-        vim.diagnostic.get_next()
+        vim.diagnostic.jump { count = 1, float = false }
       end,
       desc = 'Next diagnostic',
     },

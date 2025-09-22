@@ -13,6 +13,10 @@ if vim.g.neovide then
   vim.g.neovide_transparency = 0.9
 end
 
+vim.diagnostic.config {
+  virtual_text = true,
+}
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
