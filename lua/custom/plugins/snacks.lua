@@ -5,6 +5,7 @@ return {
   opts = {
     bigfile = { enabled = true },
     input = { enabled = true },
+    explorer = {},
     gitbrowse = {
       enabled = true,
       notify = true,
@@ -43,6 +44,35 @@ return {
           truncate = 80, -- truncate the file path to (roughly) this length
         },
       },
+      sources = {
+        explorer = {
+          matcher = { fuzzy = true },
+          win = {
+            list = {
+              keys = {
+                ['<BS>'] = 'explorer_up',
+                ['l'] = 'confirm',
+                ['h'] = 'explorer_close', -- close directory
+                ['a'] = 'explorer_add',
+                ['d'] = 'explorer_del',
+                ['r'] = 'explorer_rename',
+                ['c'] = 'explorer_copy',
+                ['m'] = 'explorer_move',
+                ['o'] = 'explorer_open', -- open with system application
+                ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
+                ['p'] = 'explorer_paste',
+                ['u'] = 'explorer_update',
+                ['K'] = 'inspect',
+                ['<c-c>'] = 'tcd',
+                ['.'] = 'explorer_focus',
+                ['I'] = 'toggle_ignored',
+                ['H'] = 'toggle_hidden',
+                ['Z'] = 'explorer_close_all',
+              },
+            },
+          },
+        },
+      },
     },
     quickfile = { enabled = true },
     scope = { enabled = true },
@@ -60,6 +90,7 @@ return {
     -- -- find
     { '<leader>j', function() require('snacks').picker.buffers() end, desc = 'Buffers' },
     { '<leader>i', function() require('snacks').picker.projects() end, desc = 'Projects' },
+    { '<leader>e', function() require('snacks').explorer() end, desc = 'Explorer' },
     {
       '<leader>y',
       function()
