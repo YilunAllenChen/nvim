@@ -120,7 +120,7 @@ return {
     { 'gD', function() require('snacks').picker.lsp_declarations() end, desc = 'Goto Declaration' },
     { 'gr', function() require('snacks').picker.lsp_references() end, nowait = true, desc = 'References' },
     { 'gI', function() require('snacks').picker.lsp_implementations() end, desc = 'Goto Implementation' },
-    { 'gy', function() require('snacks').picker.lsp_type_definitions() end, desc = 'Goto T[y]pe Definition' },
+    { 'gt', function() require('snacks').picker.lsp_type_definitions() end, desc = 'Goto T[y]pe Definition' },
     { '<leader>ls', function() require('snacks').picker.lsp_symbols() end, desc = 'LSP Symbols' },
     { '<leader>lG', function() require('snacks').picker.lsp_workspace_symbols() end, desc = 'LSP Workspace Symbols' },
     { '<leader>fn', function() require('snacks').picker.notifications() end, desc = 'Notification History' },
