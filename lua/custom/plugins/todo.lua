@@ -4,6 +4,6 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   opts = {},
   keys = {
-    ['<leader>fd'] = { '<cmd>TodoTelescope<cr>', desc = 'TODO' },
+    { '<leader>fd', function() require('snacks').picker.todo_comments() end, desc = 'Todo' },
   },
 }

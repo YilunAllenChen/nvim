@@ -106,10 +106,6 @@ M.set_mappings {
       end,
       desc = 'Quit',
     },
-    [','] = {
-      function() RipGrep(opts) end,
-      desc = 'Find words',
-    },
     ['<C-g>'] = {
       function()
         local filePath = vim.fn.expand '%:p'

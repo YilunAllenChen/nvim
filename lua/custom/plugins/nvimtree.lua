@@ -48,6 +48,6 @@ return {
   end,
 
   keys = {
-    -- { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
+    { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
   },
 }
