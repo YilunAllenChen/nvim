@@ -5,6 +5,7 @@ return {
   opts = {
     bigfile = { enabled = true },
     input = { enabled = true },
+    notifier = { enabled = true },
     explorer = {},
     gitbrowse = {
       enabled = true,
@@ -78,6 +79,7 @@ return {
     scope = { enabled = true },
     styles = {
       notification = {
+        border = 'rounded',
         wo = { wrap = true },
       },
     },
@@ -106,7 +108,7 @@ return {
     { '<leader>Gf', function() require('snacks').picker.git_log_file() end, desc = 'Git Log File' },
     -- -- search
     { '<leader>fc', function() require('snacks').picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
-    { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Command History' },
+    { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Commands' },
     { '<leader>lD', function() require('snacks').picker.diagnostics() end, desc = 'Diagnostics' },
     { '<leader>fh', function() require('snacks').picker.help() end, desc = 'Help Pages' },
     { '<leader>fi', function() require('snacks').picker.icons() end, desc = 'Icons' },
