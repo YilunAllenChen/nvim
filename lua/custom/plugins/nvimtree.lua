@@ -3,9 +3,7 @@
 local function nvim_tree_attach(bufnr)
   local api = require 'nvim-tree.api'
 
-  local function opts(desc)
-    return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
+  local function opts(desc) return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true } end
 
   -- default mappings
   api.config.mappings.default_on_attach(bufnr)
@@ -50,6 +48,6 @@ return {
   end,
 
   keys = {
-    { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
+    -- { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
   },
 }

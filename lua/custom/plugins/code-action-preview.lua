@@ -10,9 +10,7 @@ return {
           height = 0.5,
           prompt_position = 'top',
           preview_cutoff = 20,
-          preview_height = function(_, _, max_lines)
-            return max_lines - 15
-          end,
+          preview_height = function(_, _, max_lines) return max_lines - 15 end,
           mirror = true,
         },
       },

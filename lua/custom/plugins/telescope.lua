@@ -9,9 +9,7 @@ RipGrep = function(opts)
 
   local finder = finders.new_async_job {
     command_generator = function(prompt)
-      if not prompt or prompt == '' then
-        return nil
-      end
+      if not prompt or prompt == '' then return nil end
 
       local pieces = vim.split(prompt, '  ')
       local args = { 'rg' }
@@ -59,9 +57,7 @@ return {
       'nvim-telescope/telescope-fzf-native.nvim',
       event = 'VeryLazy',
       build = 'make',
-      cond = function()
-        return vim.fn.executable 'make' == 1
-      end,
+      cond = function() return vim.fn.executable 'make' == 1 end,
     },
   },
   opts = {},
@@ -119,90 +115,25 @@ return {
 
   keys = {
 
-    {
-      '<leader>lD',
-      function()
-        require('telescope.builtin').diagnostics()
-      end,
-      desc = 'Search diagnostics',
-    },
-    {
-      '<leader>lG',
-      function()
-        require('telescope.builtin').lsp_workspace_symbols()
-      end,
-      desc = 'Search workspace symbols',
-    },
-    {
-      '<leader>ls',
-      function()
-        require('telescope.builtin').lsp_document_symbols()
-      end,
-      desc = 'Search symbols',
-    },
-
-    {
-      '<leader>f<CR>',
-      function()
-        require('telescope.builtin').resume()
-      end,
-      desc = 'Resume previous search',
-    },
-    {
-      '<leader>fc',
-      function()
-        require('telescope.builtin').grep_string()
-      end,
-      desc = 'Find for word under cursor',
-    },
-    {
-      '<leader>fn',
-      function()
-        require('telescope').extensions.notify.notify()
-      end,
-      desc = 'Find notifications',
-    },
-    {
-      '<leader>fi',
-      function()
-        require('telescope').extensions.nerdy.nerdy()
-      end,
-      desc = 'Find icons',
-    },
-    {
-      '<leader>fC',
-      function()
-        require('telescope.builtin').commands()
-      end,
-      desc = 'Find commands',
-    },
-    {
-      '<leader>fh',
-      function()
-        require('telescope.builtin').help_tags()
-      end,
-      desc = 'Find help',
-    },
-    {
-      '<leader>fk',
-      function()
-        require('telescope.builtin').keymaps()
-      end,
-      desc = 'Find keymaps',
-    },
-    {
-      '<leader>ft',
-      function()
-        require('telescope.builtin').colorscheme { enable_preview = true }
-      end,
-      desc = 'Find themes',
-    },
-    {
-      '<leader>G',
-      function()
-        require('telescope.builtin').git_bcommits_range()
-      end,
-      desc = 'Git commits in buffer for selected range',
-    },
+    { '<leader>lD', function() require('telescope.builtin').diagnostics() end, desc = 'Search diagnostics' },
+    { '<leader>lG', function() require('telescope.builtin').lsp_workspace_symbols() end, desc = 'Search workspace symbols' },
+    { '<leader>ls', function() require('telescope.builtin').lsp_document_symbols() end, desc = 'Search symbols' },
+    { '<leader>f<CR>', function() require('telescope.builtin').resume() end, desc = 'Resume previous search' },
+    { '<leader>fc', function() require('telescope.builtin').grep_string() end, desc = 'Find for word under cursor' },
+    { '<leader>fn', function() require('telescope').extensions.notify.notify() end, desc = 'Find notifications' },
+    { '<leader>fi', function() require('telescope').extensions.nerdy.nerdy() end, desc = 'Find icons' },
+    { '<leader>fC', function() require('telescope.builtin').commands() end, desc = 'Find commands' },
+    { '<leader>fh', function() require('telescope.builtin').help_tags() end, desc = 'Find help' },
+    { '<leader>fk', function() require('telescope.builtin').keymaps() end, desc = 'Find keymaps' },
+    { '<leader>ft', function() require('telescope.builtin').colorscheme { enable_preview = true } end, desc = 'Find themes' },
+    { '<leader>G', function() require('telescope.builtin').git_bcommits_range() end, desc = 'Git commits in buffer for selected range' },
+    { 'gd', function() require('telescope.builtin').lsp_definitions() end, desc = 'definition' },
+    { 'gD', function() require('telescope.builtin').lsp_declarations() end, desc = 'Declaration of current symbol' },
+    { 'gr', function() require('telescope.builtin').lsp_references() end, desc = 'references' },
+    { 'gt', function() require('telescope.builtin').lsp_type_definitions() end, desc = 'type definition' },
+    { '=', function() require('telescope.builtin').find_files() end, desc = 'Find all files' },
+    { '<leader>s', function() require('telescope.builtin').current_buffer_fuzzy_find() end, desc = 'Fuzzy Search In Buffer' },
+    { '<leader>i', function() require('telescope').extensions.repo.list { search_dirs = { '~/repos/' } } end, desc = 'Open project' },
+    { '<leader>j', function() require('telescope.builtin').buffers() end, desc = 'Find buffers' },
   },
 }

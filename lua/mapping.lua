@@ -28,12 +28,8 @@ function M.set_mappings(map_table, base)
           keymap_opts[1] = nil
         end
         if not cmd or keymap_opts.name then -- if which-key mapping, queue it
-          if not M.which_key_queue then
-            M.which_key_queue = {}
-          end
-          if not M.which_key_queue[mode] then
-            M.which_key_queue[mode] = {}
-          end
+          if not M.which_key_queue then M.which_key_queue = {} end
+          if not M.which_key_queue[mode] then M.which_key_queue[mode] = {} end
           M.which_key_queue[mode][keymap] = keymap_opts
         else -- if not which-key mapping, set it
           vim.keymap.set(mode, keymap, cmd, keymap_opts)
@@ -41,9 +37,7 @@ function M.set_mappings(map_table, base)
       end
     end
   end
-  if package.loaded['which-key'] then
-    M.which_key_register()
-  end -- if which-key is loaded already, register
+  if package.loaded['which-key'] then M.which_key_register() end -- if which-key is loaded already, register
 end
 
 local function delete_all_unused_bufs()
@@ -65,18 +59,14 @@ local function delete_all_unused_bufs()
     end
     local bufname = vim.api.nvim_buf_get_name(bufnr)
     -- Check if buffer is NvimTree, terminal, or visible
-    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then
-      vim.api.nvim_buf_delete(bufnr, { force = true })
-    end
+    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then vim.api.nvim_buf_delete(bufnr, { force = true }) end
 
     ::continue::
   end
 end
 
 local function auto_activate_conda()
-  local function get_last_part_of_path(path)
-    return path:match '^.*/(.*)$'
-  end
+  local function get_last_part_of_path(path) return path:match '^.*/(.*)$' end
   -- Helper function to read the `.conda-env` file
   local function get_conda_env()
     local registry = {
@@ -117,16 +107,8 @@ M.set_mappings {
       desc = 'Quit',
     },
     [','] = {
-      function()
-        RipGrep(opts)
-      end,
+      function() RipGrep(opts) end,
       desc = 'Find words',
-    },
-    ['='] = {
-      function()
-        require('telescope.builtin').find_files()
-      end,
-      desc = 'Find all files',
     },
     ['<C-g>'] = {
       function()
@@ -139,84 +121,19 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
-
-    -- Jumping Around
     [';'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
-    ['<leader>s'] = {
-      function()
-        require('telescope.builtin').current_buffer_fuzzy_find()
-      end,
-      desc = 'Fuzzy Search In Buffer',
-    },
-    ['gd'] = {
-      function()
-        require('telescope.builtin').lsp_definitions()
-      end,
-      desc = 'definition',
-    },
-    ['gD'] = {
-      function()
-        require('telescope.builtin').lsp_declarations()
-      end,
-      desc = 'Declaration of current symbol',
-    },
-    ['gr'] = {
-      function()
-        require('telescope.builtin').lsp_references()
-      end,
-      desc = 'references',
-    },
-    ['gt'] = {
-      function()
-        require('telescope.builtin').lsp_type_definitions()
-      end,
-      desc = 'type definition',
-    },
-    ['gI'] = {
-      function()
-        vim.lsp.buf.implementation()
-      end,
-      desc = 'implementation',
-    },
-    ['<leader>i'] = {
-      function()
-        require('telescope').extensions.repo.list { search_dirs = { '~/repos/' } }
-      end,
-      desc = 'Open project',
-    },
-
-    ['<leader>o'] = { '<cmd>:Oil<cr>', desc = 'Oil' },
-    ['<leader>j'] = {
-      function()
-        require('telescope.builtin').buffers()
-      end,
-      desc = 'Find buffers',
-    },
-    ['gx'] = { "<cmd>:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>", desc = 'open file under cursor' },
     ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
     ['<leader>n'] = { '<cmd>enew<cr>', desc = 'New File' },
     ["<leader>'"] = { '<cmd>:edit!<cr>', desc = 'Reload buffer' },
 
     ['<leader>pp'] = {
-      function()
-        require('lazy').home()
-      end,
+      function() require('lazy').home() end,
       desc = 'Plugins',
     },
-    ['K'] = {
-      function()
-        vim.lsp.buf.hover { border = 'rounded' }
-      end,
-      desc = 'Hover symbol details',
-    },
-    ['<leader>l'] = { desc = 'LSP' },
-    ['<leader>lf'] = {
-      function()
-        vim.lsp.buf.format()
-      end,
-      desc = 'Format buffer',
-    },
+    ['K'] = { function() vim.lsp.buf.hover { border = 'rounded' } end, desc = 'Hover symbol details' },
+    ['<leader>lf'] = { function() vim.lsp.buf.format() end, desc = 'Format buffer' },
+    ['gI'] = { function() vim.lsp.buf.implementation() end, desc = 'implementation' },
     ['<leader>lr'] = {
       function()
         vim.lsp.buf.rename()
@@ -225,44 +142,20 @@ M.set_mappings {
       desc = 'Rename current symbol',
     },
     ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
-    ['<leader>la'] = {
-      function()
-        require('actions-preview').code_actions()
-      end,
-      desc = 'Code action',
-    },
+    ['<leader>la'] = { function() require('actions-preview').code_actions() end, desc = 'Code action' },
     ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
-    ['<leader>ld'] = {
-      function()
-        vim.diagnostic.open_float { border = 'rounded' }
-      end,
-      desc = 'Hover diagnostics',
-    },
+    ['<leader>ld'] = { function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
     ['<leader>li'] = {
       function()
         local clients = vim.lsp.get_clients()
-        if clients == nil or clients[1] == nil then
-          return
-        end
+        if clients == nil or clients[1] == nil then return end
         local client = clients[1]
-        if client.server_capabilities.inlayHintProvider then
-          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
-        end
+        if client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {}) end
       end,
       desc = 'Enable inlay hints',
     },
-    ['[d'] = {
-      function()
-        vim.diagnostic.jump { count = -1, float = false }
-      end,
-      desc = 'Previous diagnostic',
-    },
-    [']d'] = {
-      function()
-        vim.diagnostic.jump { count = 1, float = false }
-      end,
-      desc = 'Next diagnostic',
-    },
+    ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
+    [']d'] = { function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
     -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },

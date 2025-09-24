@@ -4,9 +4,7 @@ local function alpha_render()
   -- helper function for utf8 chars
   local function getCharLen(s, pos)
     local byte = string.byte(s, pos)
-    if not byte then
-      return nil
-    end
+    if not byte then return nil end
     return (byte < 0x80 and 1) or (byte < 0xE0 and 2) or (byte < 0xF0 and 3) or (byte < 0xF8 and 4) or 1
   end
 
@@ -29,9 +27,7 @@ local function alpha_render()
         pos = pos + getCharLen(logo[i], opos + 1)
 
         local color_name = colors[line:sub(j, j)]
-        if color_name then
-          table.insert(highlights, { color_name, opos, pos })
-        end
+        if color_name then table.insert(highlights, { color_name, opos, pos }) end
       end
 
       table.insert(dashboard.section.header.opts.hl, highlights)

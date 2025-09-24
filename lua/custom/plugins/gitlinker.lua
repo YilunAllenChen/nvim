@@ -15,9 +15,7 @@ return {
           local url = 'git.drwholdings.com/' .. url_data.repo .. '/blob/' .. url_data.rev .. '/' .. url_data.file
           if url_data.lstart then
             url = url .. '#L' .. url_data.lstart
-            if url_data.lend then
-              url = url .. '-L' .. url_data.lend
-            end
+            if url_data.lend then url = url .. '-L' .. url_data.lend end
           end
           return url
         end,

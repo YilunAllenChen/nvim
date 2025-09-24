@@ -8,23 +8,17 @@ return {
     { '<leader>q', desc = 'Sessions' },
     {
       '<leader>qs',
-      function()
-        require('persistence').load()
-      end,
+      function() require('persistence').load() end,
       desc = 'load session for current dir',
     },
     {
       '<leader>qS',
-      function()
-        require('persistence').seldct()
-      end,
+      function() require('persistence').seldct() end,
       desc = 'select session',
     },
     {
       '<leader>ql',
-      function()
-        require('persistence').load { last = true }
-      end,
+      function() require('persistence').load { last = true } end,
       desc = 'load last session',
     },
   },
