@@ -8,4 +8,7 @@ return {
       -- engine = 'ripgrep' is default, but 'astgrep' can be specified
     }
   end,
+  keys = {
+    { '<leader>r', '<cmd>GrugFar<cr>', desc = 'Grug search & replace' },
+  },
 }

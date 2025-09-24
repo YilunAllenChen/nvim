@@ -118,7 +118,6 @@ M.set_mappings {
     },
     [','] = {
       function()
-        -- require('telescope.builtin').live_grep()
         RipGrep(opts)
       end,
       desc = 'Find words',
@@ -193,77 +192,18 @@ M.set_mappings {
       end,
       desc = 'Find buffers',
     },
-
-    -- Editing
     ['gx'] = { "<cmd>:execute '!open ' . shellescape(expand('<cfile>'), 1)<CR>", desc = 'open file under cursor' },
     ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor' },
-    ['<leader>e'] = { '<cmd>NvimTreeToggle<cr>', desc = 'Explorer' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
     ['<leader>n'] = { '<cmd>enew<cr>', desc = 'New File' },
     ["<leader>'"] = { '<cmd>:edit!<cr>', desc = 'Reload buffer' },
-    ['<leader>/'] = {
-      function()
-        require('Comment.api').toggle.linewise.count(vim.v.count > 0 and vim.v.count or 1)
-      end,
-      desc = 'Toggle comment line',
-    },
-    ['<leader>r'] = {
-      function()
-        require('grug-far').open()
-      end,
-      desc = 'search & replace',
-    },
 
-    -- Packages & Plugins
     ['<leader>pp'] = {
       function()
         require('lazy').home()
       end,
       desc = 'Plugins',
     },
-    ['<leader>pm'] = { '<cmd>Mason<cr>', desc = 'Mason Installer' },
-
-    -- yanky
-    ['<C-p>'] = {
-      function()
-        require('telescope').extensions.yank_history.yank_history()
-      end,
-      desc = 'Yank History',
-    },
-    ['y'] = { '<Plug>(YankyYank)', desc = 'Yanky Yank' },
-    ['p'] = { '<Plug>(YankyPutAfter)', desc = 'Yanky Put After' },
-    ['P'] = { '<Plug>(YankyPutBefore)', desc = 'Yanky Put Before' },
-
-    -- Git
-    [']g'] = {
-      function()
-        require('gitsigns').nav_hunk 'next'
-      end,
-      desc = 'Next Git hunk',
-    },
-    ['[g'] = {
-      function()
-        require('gitsigns').nav_hunk 'prev'
-      end,
-      desc = 'Previous Git hunk',
-    },
-    ['<leader>k'] = {
-      function()
-        require('gitsigns').blame_line { full = true }
-      end,
-      desc = 'View full Git blame',
-    },
-    ['<leader>g'] = {
-      '<cmd>:LazyGit<cr>',
-      desc = 'lazygit',
-    },
-    ['<leader>G'] = {
-      function()
-        require('telescope.builtin').git_bcommits()
-      end,
-      desc = 'Git commits in buffer',
-    },
-    -- LSP
     ['K'] = {
       function()
         vim.lsp.buf.hover { border = 'rounded' }
@@ -285,18 +225,6 @@ M.set_mappings {
       desc = 'Rename current symbol',
     },
     ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
-    ['<leader>lG'] = {
-      function()
-        require('telescope.builtin').lsp_workspace_symbols()
-      end,
-      desc = 'Search workspace symbols',
-    },
-    ['<leader>ls'] = {
-      function()
-        require('telescope.builtin').lsp_document_symbols()
-      end,
-      desc = 'Search symbols',
-    },
     ['<leader>la'] = {
       function()
         require('actions-preview').code_actions()
@@ -309,12 +237,6 @@ M.set_mappings {
         vim.diagnostic.open_float { border = 'rounded' }
       end,
       desc = 'Hover diagnostics',
-    },
-    ['<leader>lD'] = {
-      function()
-        require('telescope.builtin').diagnostics()
-      end,
-      desc = 'Search diagnostics',
     },
     ['<leader>li'] = {
       function()
@@ -341,123 +263,13 @@ M.set_mappings {
       end,
       desc = 'Next diagnostic',
     },
-
-    -- DAP
-    ['<space>b'] = {
-      function()
-        require('dap').toggle_breakpoint()
-      end,
-      desc = 'Toggle breakpoint',
-    },
-    ['<space>?'] = {
-      function()
-        require('dapui').eval(nil, { enter = true })
-      end,
-      desc = 'Evaluate expression',
-    },
-    ['<F1>'] = {
-      function()
-        require('dap').continue()
-      end,
-      desc = 'Continue',
-    },
-    ['<F2>'] = {
-      function()
-        require('dap').step_into()
-      end,
-      desc = 'Step into',
-    },
-    ['<F3>'] = {
-      function()
-        require('dap').step_over()
-      end,
-      desc = 'Step over',
-    },
-    ['<F4>'] = {
-      function()
-        require('dap').step_out()
-      end,
-      desc = 'Step out',
-    },
-    ['<F5>'] = {
-      function()
-        require('dap').step_back()
-      end,
-      desc = 'Step back',
-    },
-    ['<F11>'] = {
-      function()
-        require('dap').close()
-      end,
-      desc = 'Stop',
-    },
-    ['<F12>'] = {
-      function()
-        require('dap').restart()
-      end,
-      desc = 'Restart',
-    },
-
     -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
     ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
 
     ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
-
-    -- Findings stuff
-    ['<leader>f'] = { desc = 'Find' },
-    ['<leader>fd'] = { '<cmd>TodoTelescope<cr>', desc = 'TODO' },
-    ['<leader>f<CR>'] = {
-      function()
-        require('telescope.builtin').resume()
-      end,
-      desc = 'Resume previous search',
-    },
-    ['<leader>fc'] = {
-      function()
-        require('telescope.builtin').grep_string()
-      end,
-      desc = 'Find for word under cursor',
-    },
-    ['<leader>fn'] = {
-      function()
-        require('telescope').extensions.notify.notify()
-      end,
-      desc = 'Find notifications',
-    },
-    ['<leader>fi'] = {
-      function()
-        require('telescope').extensions.nerdy.nerdy()
-      end,
-      desc = 'Find icons',
-    },
-    ['<leader>fC'] = {
-      function()
-        require('telescope.builtin').commands()
-      end,
-      desc = 'Find commands',
-    },
-    ['<leader>fh'] = {
-      function()
-        require('telescope.builtin').help_tags()
-      end,
-      desc = 'Find help',
-    },
-    ['<leader>fk'] = {
-      function()
-        require('telescope.builtin').keymaps()
-      end,
-      desc = 'Find keymaps',
-    },
-    ['<leader>ft'] = {
-      function()
-        require('telescope.builtin').colorscheme { enable_preview = true }
-      end,
-      desc = 'Find themes',
-    },
-
-    -- Opening terminals
+    ['<leader>f'] = { 'Find' },
     ['<C-t>'] = {
       function()
         vim.api.nvim_command 'terminal'
@@ -469,7 +281,6 @@ M.set_mappings {
       function()
         vim.api.nvim_command 'vsplit | terminal codex'
         vim.api.nvim_command 'startinsert'
-        auto_activate_conda()
       end,
       desc = 'Open codex in vertical split',
     },
@@ -487,110 +298,9 @@ M.set_mappings {
         vim.cmd 'startinsert'
       end,
     },
-    -- window management & navigation
     ['\\'] = { '<C-w>v', desc = 'Vertical Split' },
     ['-'] = { '<C-w>s', desc = 'Horizontal Split' },
-
-    ['<C-Left>'] = {
-      function()
-        require('smart-splits').resize_left()
-      end,
-      desc = 'resize_left',
-    },
-    ['<C-Down>'] = {
-      function()
-        require('smart-splits').resize_down()
-      end,
-      desc = 'resize_down',
-    },
-    ['<C-Up>'] = {
-      function()
-        require('smart-splits').resize_up()
-      end,
-      desc = 'resize_up',
-    },
-    ['<C-Right>'] = {
-      function()
-        require('smart-splits').resize_right()
-      end,
-      desc = 'resize_right',
-    },
-    -- moving between splits
-    ['<C-h>'] = {
-      function()
-        require('smart-splits').move_cursor_left()
-      end,
-      desc = 'move_cursor_left',
-    },
-    ['<C-j>'] = {
-      function()
-        require('smart-splits').move_cursor_down()
-      end,
-      desc = 'move_cursor_down',
-    },
-    ['<C-k>'] = {
-      function()
-        require('smart-splits').move_cursor_up()
-      end,
-      desc = 'move_cursor_up',
-    },
-    ['<C-l>'] = {
-      function()
-        require('smart-splits').move_cursor_right()
-      end,
-      desc = 'move_cursor_right',
-    },
-    -- swapping buffers between windows
-    ['<leader><leader>h'] = {
-      function()
-        require('smart-splits').swap_buf_left()
-      end,
-      desc = 'swap_buf_left',
-    },
-    ['<leader><leader>j'] = {
-      function()
-        require('smart-splits').swap_buf_down()
-      end,
-      desc = 'swap_buf_down',
-    },
-    ['<leader><leader>k'] = {
-      function()
-        require('smart-splits').swap_buf_up()
-      end,
-      desc = 'swap_buf_up',
-    },
-    ['<leader><leader>l'] = {
-      function()
-        require('smart-splits').swap_buf_right()
-      end,
-      desc = 'swap_buf_right',
-    },
-
     ['<leader><leader>c'] = { '<cmd>e ~/.config/fish/config.fish<cr>', desc = 'Edit fish config' },
-    -- fun stuff
-    ['<leader>fml'] = { '<cmd>CellularAutomaton make_it_rain<cr>', desc = 'Make It Rain!!!' },
-    ['<leader>fmg'] = { '<cmd>CellularAutomaton game_of_life<cr>', desc = 'Game Of Life!!!' },
-    ['<leader>fms'] = { '<cmd>CellularAutomaton scramble<cr>', desc = 'SCRABLE!!!' },
-
-    ['<leader>q'] = { desc = 'Sessions' },
-    ['<leader>qs'] = {
-      function()
-        require('persistence').load()
-      end,
-      desc = 'load session for current dir',
-    },
-    ['<leader>qS'] = {
-      function()
-        require('persistence').seldct()
-      end,
-      desc = 'select session',
-    },
-    ['<leader>ql'] = {
-      function()
-        require('persistence').load { last = true }
-      end,
-      desc = 'load last session',
-    },
   },
   t = {
     ['<esc>'] = { '<C-\\><C-n>' },
@@ -601,30 +311,14 @@ M.set_mappings {
     ['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' },
   },
   i = {
-    ['<C-z>'] = { '<esc>ui', desc = 'Undo' },
     ['<C-h>'] = { '<left>', desc = 'Move left' },
     ['<C-l>'] = { '<right>', desc = 'Move right' },
     ['<C-j>'] = { '<down>', desc = 'Move down' },
     ['<C-k>'] = { '<up>', desc = 'Move up' },
-    ['<C-n>'] = { '<backspace>', desc = 'backspace' },
-    ['<C-s>'] = { '<cmd>:w<cr><esc>', desc = 'Save file' },
-    ['<C-e>'] = { '<esc>ldwi', desc = 'Erase word Forward' },
-    ['<C-v>'] = { '<esc>pi', desc = 'Paste' },
   },
   v = {
     ['<Space>'] = { '<Nop>', silent = true },
-    ['y'] = { '<Plug>(YankyYank)', desc = 'Yanky Yank' },
-    ['<leader>/'] = {
-      "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
-      desc = 'Toggle comment for selection',
-    },
     ['<S-Tab>'] = { '<gv', desc = 'Unindent line' },
     ['<Tab>'] = { '>gv', desc = 'Indent line' },
-    ['<leader>G'] = {
-      function()
-        require('telescope.builtin').git_bcommits_range()
-      end,
-      desc = 'Git commits in buffer for selected range',
-    },
   },
 }

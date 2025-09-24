@@ -116,4 +116,93 @@ return {
     pcall(require('telescope').load_extension, 'repo')
     pcall(require('telescope').load_extension, 'nerdy')
   end,
+
+  keys = {
+
+    {
+      '<leader>lD',
+      function()
+        require('telescope.builtin').diagnostics()
+      end,
+      desc = 'Search diagnostics',
+    },
+    {
+      '<leader>lG',
+      function()
+        require('telescope.builtin').lsp_workspace_symbols()
+      end,
+      desc = 'Search workspace symbols',
+    },
+    {
+      '<leader>ls',
+      function()
+        require('telescope.builtin').lsp_document_symbols()
+      end,
+      desc = 'Search symbols',
+    },
+
+    {
+      '<leader>f<CR>',
+      function()
+        require('telescope.builtin').resume()
+      end,
+      desc = 'Resume previous search',
+    },
+    {
+      '<leader>fc',
+      function()
+        require('telescope.builtin').grep_string()
+      end,
+      desc = 'Find for word under cursor',
+    },
+    {
+      '<leader>fn',
+      function()
+        require('telescope').extensions.notify.notify()
+      end,
+      desc = 'Find notifications',
+    },
+    {
+      '<leader>fi',
+      function()
+        require('telescope').extensions.nerdy.nerdy()
+      end,
+      desc = 'Find icons',
+    },
+    {
+      '<leader>fC',
+      function()
+        require('telescope.builtin').commands()
+      end,
+      desc = 'Find commands',
+    },
+    {
+      '<leader>fh',
+      function()
+        require('telescope.builtin').help_tags()
+      end,
+      desc = 'Find help',
+    },
+    {
+      '<leader>fk',
+      function()
+        require('telescope.builtin').keymaps()
+      end,
+      desc = 'Find keymaps',
+    },
+    {
+      '<leader>ft',
+      function()
+        require('telescope.builtin').colorscheme { enable_preview = true }
+      end,
+      desc = 'Find themes',
+    },
+    {
+      '<leader>G',
+      function()
+        require('telescope.builtin').git_bcommits_range()
+      end,
+      desc = 'Git commits in buffer for selected range',
+    },
+  },
 }

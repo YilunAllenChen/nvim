@@ -33,6 +33,9 @@ return {
     config = function()
       require('mason').setup()
     end,
+    keys = {
+      { '<leader>pm', '<cmd>Mason<cr>', desc = 'Mason Installer' },
+    },
   },
   {
     'mason-org/mason-lspconfig.nvim',

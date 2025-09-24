@@ -48,4 +48,8 @@ return {
       respect_buf_cwd = true,
     }
   end,
+
+  keys = {
+    { '<leader>e', '<cmd>NvimTreeToggle<cr>', desc = 'File Tree' },
+  },
 }

@@ -19,4 +19,16 @@ return {
       enabled = false,
     },
   },
+  keys = {
+    {
+      '<C-p>',
+      function()
+        require('telescope').extensions.yank_history.yank_history()
+      end,
+      desc = 'Yank History',
+    },
+    { 'y', '<Plug>(YankyYank)', desc = 'Yanky Yank', mode = { 'n', 'x' } },
+    { 'p', '<Plug>(YankyPutAfter)', desc = 'Yanky Put After' },
+    { 'P', '<Plug>(YankyPutBefore)', desc = 'Yanky Put Before' },
+  },
 }
