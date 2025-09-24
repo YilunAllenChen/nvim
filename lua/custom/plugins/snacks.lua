@@ -61,10 +61,14 @@ return {
     { '<leader>j', function() require('snacks').picker.buffers() end, desc = 'Buffers' },
     { '<leader>i', function() require('snacks').picker.projects() end, desc = 'Projects' },
     {
-      '<leader>Y',
-      function() require('snacks').gitbrowse { what = 'permalink' } end,
+      '<leader>y',
+      function()
+        require('snacks').gitbrowse { open = function(url) vim.fn.setreg('+', url) end }
+      end,
       desc = 'Gitbrowse',
+      mode = { 'n', 'v' },
     },
+    { '<leader>Y', function() require('snacks').gitbrowse() end, desc = 'Gitbrowse', mode = { 'n', 'v' } },
     -- -- git
     { '<leader>Gl', function() require('snacks').picker.git_log() end, desc = 'Git Log' },
     { '<leader>k', function() require('snacks').picker.git_log_line() end, desc = 'Git Log Line' },
