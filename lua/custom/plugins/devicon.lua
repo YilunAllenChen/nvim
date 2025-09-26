@@ -29,6 +29,11 @@ return {
           color = '#81e043',
           name = 'Log',
         },
+        ['.ipynb'] = {
+          icon = '',
+          color = '#e5c07b',
+          name = 'Jupyter',
+        },
       },
     }
   end,
