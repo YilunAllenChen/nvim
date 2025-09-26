@@ -1,7 +1,7 @@
 -- icons
 return {
   'nvim-tree/nvim-web-devicons',
-  -- commit = '8b2e5ef9eb8a717221bd96cb8422686d65a09ed5',
+  commit = '8b2e5ef9eb8a717221bd96cb8422686d65a09ed5',
   lazy = true,
   config = function()
     require('nvim-web-devicons').setup {
