@@ -2,7 +2,7 @@
 return {
   'smoka7/hop.nvim',
   lazy = true,
-  event = 'VeryLazy',
+  cmd = { 'HopWord' },
   config = function()
     require('hop').setup {
       multi_windows = true,

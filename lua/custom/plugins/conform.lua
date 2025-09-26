@@ -1,7 +1,7 @@
 return {
   'stevearc/conform.nvim',
   opts = {},
-  event = 'VeryLazy',
+  event = 'BufWritePre',
   config = function()
     require('conform').setup {
       formatters_by_ft = {

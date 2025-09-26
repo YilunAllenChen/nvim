@@ -84,7 +84,7 @@ local function alpha_render()
   }))
 
   vim.api.nvim_create_autocmd('User', {
-    pattern = 'LazyVimStarted',
+    pattern = 'VeryLazy',
     desc = 'Add Alpha dashboard footer',
     once = true,
     callback = function()
@@ -100,6 +100,6 @@ end
 return {
   'goolord/alpha-nvim',
   cmd = 'Alpha',
-  lazy = false,
+  event = 'VimEnter',
   config = alpha_render,
 }

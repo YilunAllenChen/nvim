@@ -1,2 +1,2 @@
 -- sudo plugin
-return { 'lambdalisue/vim-suda', event = 'BufEnter' }
+return { 'lambdalisue/vim-suda', cmd = { 'SudaWrite', 'SudaRead' } }

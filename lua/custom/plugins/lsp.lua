@@ -52,7 +52,7 @@ return {
   },
   {
     'mason-org/mason-lspconfig.nvim',
-    event = 'VeryLazy',
+    event = 'BufReadPre',
     config = function()
       for server_name, server in pairs(raw_servers) do
         vim.lsp.enable(server_name)

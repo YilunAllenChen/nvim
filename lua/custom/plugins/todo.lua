@@ -2,6 +2,7 @@
 return {
   'folke/todo-comments.nvim',
   dependencies = { 'nvim-lua/plenary.nvim' },
+  event = 'BufReadPost',
   opts = {},
   keys = {
     { '<leader>fd', function() require('snacks').picker.todo_comments() end, desc = 'Todo' },

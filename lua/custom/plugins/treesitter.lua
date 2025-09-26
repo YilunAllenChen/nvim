@@ -1,6 +1,7 @@
 return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
+    event = 'BufReadPre',
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs',
     opts = {
