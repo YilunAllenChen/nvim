@@ -95,7 +95,6 @@ return {
     { ',', function() require('snacks').picker.grep() end, desc = 'Grep' },
     -- -- find
     { '<leader>j', function() require('snacks').picker.buffers() end, desc = 'Buffers' },
-    { '<leader>i', function() require('snacks').picker.projects() end, desc = 'Projects' },
     { '<leader>e', function() require('snacks').explorer() end, desc = 'Explorer' },
     {
       '<leader>y',
@@ -114,6 +113,7 @@ return {
     { '<leader>fc', function() require('snacks').picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
     { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Commands' },
     { '<leader>lD', function() require('snacks').picker.diagnostics() end, desc = 'Diagnostics' },
+    { '<leader>fp', function() require('snacks').picker.projects() end, desc = 'Projects' },
     { '<leader>fh', function() require('snacks').picker.help() end, desc = 'Help Pages' },
     { '<leader>fi', function() require('snacks').picker.icons() end, desc = 'Icons' },
     { '<leader>fk', function() require('snacks').picker.keymaps() end, desc = 'Keymaps' },
