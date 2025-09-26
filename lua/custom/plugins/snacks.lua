@@ -87,7 +87,7 @@ return {
         wo = { wrap = true },
       },
     },
-    statuscolumn = { enabled = true, left = { 'git' }, right = { 'sign' }, refresh = 500 },
+    -- statuscolumn = { enabled = true, left = { 'git' }, right = { 'sign' }, refresh = 500 },
   },
   keys = {
     -- -- Top Pickers & Explorer
