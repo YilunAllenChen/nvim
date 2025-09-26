@@ -27,7 +27,6 @@ return {
         {
           elements = {
             'repl',
-            -- 'console',  -- is this even useful?
           },
           size = 0.4,
           position = 'bottom',
