@@ -4,8 +4,23 @@ local mason_servers = {
     settings = {
       python = {
         analysis = {
-          diagnosticMode = 'openFilesOnly',
-          -- diagnosticMode = 'workspace',
+          diagnosticMode = 'workspace',
+          indexing = true,
+          autoImportCompletions = true,
+          autoImportExclude = {
+            '**/tests/**',
+            '**/examples/**',
+            '**/notebooks/**',
+            '**/.benchmarks/**',
+            '**/__pycache__/**',
+          },
+          exclude = {
+            '**/tests/**',
+            '**/examples/**',
+            '**/notebooks/**',
+            '**/.benchmarks/**',
+            '**/__pycache__/**',
+          },
         },
       },
     },
@@ -46,8 +61,7 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
       for server_name, server in pairs(mason_servers) do
         server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(server_name, { init_options = { server } })
-        -- vim.lsp.enable(server_name)
+        vim.lsp.config(server_name, server)
       end
 
       require('mason-lspconfig').setup {
