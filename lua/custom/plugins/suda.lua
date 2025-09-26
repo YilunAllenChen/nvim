@@ -1,2 +1,2 @@
 -- sudo plugin
-return { 'lambdalisue/vim-suda' }
+return { 'lambdalisue/vim-suda', event = 'BufEnter' }
