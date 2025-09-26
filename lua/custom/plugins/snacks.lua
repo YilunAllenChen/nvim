@@ -87,7 +87,7 @@ return {
         wo = { wrap = true },
       },
     },
-    statuscolumn = { enabled = true, left = { 'git' }, right = {}, refresh = 500 },
+    statuscolumn = { enabled = true, left = { 'git' }, right = { 'sign' }, refresh = 500 },
   },
   keys = {
     -- -- Top Pickers & Explorer
@@ -129,5 +129,6 @@ return {
     { '<leader>lG', function() require('snacks').picker.lsp_workspace_symbols() end, desc = 'LSP Workspace Symbols' },
     { '<leader>fn', function() require('snacks').picker.notifications() end, desc = 'Notification History' },
     { '<leader>g', function() require('snacks').lazygit() end, desc = 'Lazygit' },
+    { '<C-z>', function() require('snacks').picker.undo() end, desc = 'Undo' },
   },
 }

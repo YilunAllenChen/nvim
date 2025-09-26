@@ -38,9 +38,7 @@ return {
     require('mason').setup {}
     require('mason-nvim-dap').setup {
       handlers = {
-        function(config)
-          require('mason-nvim-dap').default_setup(config)
-        end,
+        function(config) require('mason-nvim-dap').default_setup(config) end,
         python = function(config)
           config.adapters = {
             type = 'executable',
@@ -89,89 +87,23 @@ return {
       },
     }
 
-    vim.fn.sign_define('DapBreakpoint', { text = '🔴', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
-    vim.fn.sign_define('DapStopped', { text = '👉', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.api.nvim_set_hl(0, 'DapBreakpointText', { fg = '#FF0000' })
+    vim.fn.sign_define('DapBreakpoint', { text = '', texthl = 'DapBreakpointText', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'DapBreakpointText', linehl = 'DapBreakpoint', numhl = 'DapBreakpoint' })
 
-    dap.listeners.before.attach.dapui_config = function()
-      if require('nvim-tree.api').tree.is_visible() then
-        require('nvim-tree.api').tree.close()
-      end
-      ui.open()
-    end
-    dap.listeners.before.launch.dapui_config = function()
-      if require('nvim-tree.api').tree.is_visible() then
-        require('nvim-tree.api').tree.close()
-      end
-      ui.open()
-    end
+    dap.listeners.before.event_initialized.dapui_config = ui.open
     dap.listeners.before.event_terminated.dapui_config = ui.close
     dap.listeners.before.event_exited.dapui_config = ui.close
   end,
   keys = {
-
-    -- DAP
-    {
-      '<space>b',
-      function()
-        require('dap').toggle_breakpoint()
-      end,
-      desc = 'Toggle breakpoint',
-    },
-    {
-      '<space>?',
-      function()
-        require('dapui').eval(nil, { enter = true })
-      end,
-      desc = 'Evaluate expression',
-    },
-    {
-      '<F1>',
-      function()
-        require('dap').continue()
-      end,
-      desc = 'Continue',
-    },
-    {
-      '<F2>',
-      function()
-        require('dap').step_into()
-      end,
-      desc = 'Step into',
-    },
-    {
-      '<F3>',
-      function()
-        require('dap').step_over()
-      end,
-      desc = 'Step over',
-    },
-    {
-      '<F4>',
-      function()
-        require('dap').step_out()
-      end,
-      desc = 'Step out',
-    },
-    {
-      '<F5>',
-      function()
-        require('dap').step_back()
-      end,
-      desc = 'Step back',
-    },
-    {
-      '<F11>',
-      function()
-        require('dap').close()
-      end,
-      desc = 'Stop',
-    },
-    {
-      '<F12>',
-      function()
-        require('dap').restart()
-      end,
-      desc = 'Restart',
-    },
+    { '<leader>dk', function() require('dap').toggle_breakpoint() end, desc = 'Toggle breakpoint' },
+    { '<leader>d?', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate expression' },
+    { '<leader>dc', function() require('dap').continue() end, desc = 'Continue' },
+    { '<leader>di', function() require('dap').step_into() end, desc = 'Step into' },
+    { '<leader>df', function() require('dap').step_over() end, desc = 'Step over' },
+    { '<leader>do', function() require('dap').step_out() end, desc = 'Step out' },
+    { '<leader>db', function() require('dap').step_back() end, desc = 'Step back' },
+    { '<leader>dx', function() require('dap').close() end, desc = 'Stop' },
+    { '<leader>dr', function() require('dap').restart() end, desc = 'Restart' },
   },
 }

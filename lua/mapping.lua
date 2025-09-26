@@ -53,38 +53,10 @@ local function delete_all_unused_bufs()
   end
 
   for _, bufnr in ipairs(bufnr_list) do
-    if vim.api.nvim_buf_get_option(bufnr, 'modified') then
-      -- Skip the buffer if it has unsaved changes
-      goto continue
-    end
+    if vim.api.nvim_get_option_value('modified', { buf = bufnr }) then goto continue end
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    -- Check if buffer is NvimTree, terminal, or visible
-    if not (string.match(bufname, 'NvimTree_') or string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then vim.api.nvim_buf_delete(bufnr, { force = true }) end
-
+    if string.match(bufname, 'term://') or visible_bufnrs[bufnr] then vim.api.nvim_buf_delete(bufnr, { force = true }) end
     ::continue::
-  end
-end
-
-local function auto_activate_conda()
-  local function get_last_part_of_path(path) return path:match '^.*/(.*)$' end
-  -- Helper function to read the `.conda-env` file
-  local function get_conda_env()
-    local registry = {
-      ['alsenal'] = 'alsenal',
-      ['data'] = 'data',
-      ['data-utils'] = 'du',
-      ['desk-tools'] = 'desk-tools',
-    }
-    local current_path = vim.fn.getcwd()
-    local last_part = get_last_part_of_path(current_path)
-
-    return registry[last_part] or nil
-  end
-
-  local conda_env = get_conda_env()
-  if conda_env then
-    local term_cmd = string.format('conda activate %s; clear', conda_env)
-    vim.fn.chansend(vim.b.terminal_job_id, term_cmd .. '\n')
   end
 end
 
@@ -162,7 +134,6 @@ M.set_mappings {
     ['<C-t>'] = {
       function()
         vim.api.nvim_command 'terminal'
-        auto_activate_conda()
         vim.cmd 'startinsert'
       end,
     },
@@ -176,14 +147,12 @@ M.set_mappings {
     ['t'] = {
       function()
         vim.api.nvim_command '25split | terminal'
-        auto_activate_conda()
         vim.cmd 'startinsert'
       end,
     },
     ['T'] = {
       function()
         vim.api.nvim_command 'vsplit | terminal'
-        auto_activate_conda()
         vim.cmd 'startinsert'
       end,
     },
