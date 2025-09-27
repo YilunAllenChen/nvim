@@ -1,4 +1,3 @@
--- LSP
 local mason_servers = {
   pyright = {
     settings = {
@@ -39,20 +38,20 @@ return {
     opts = { library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } } },
   },
   {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
-  },
-  {
-    'mason-org/mason.nvim',
-    event = 'VeryLazy',
-    config = function() require('mason').setup() end,
-    keys = {
-      { '<leader>pm', '<cmd>Mason<cr>', desc = 'Mason Installer' },
-    },
-  },
-  {
     'mason-org/mason-lspconfig.nvim',
     event = 'BufReadPre',
+    dependencies = {
+      {
+        'mason-org/mason.nvim',
+        config = function() require('mason').setup() end,
+        keys = {
+          { '<leader>pm', '<cmd>Mason<cr>', desc = 'Mason Installer' },
+        },
+      },
+      {
+        'neovim/nvim-lspconfig',
+      },
+    },
     config = function()
       for server_name, server in pairs(raw_servers) do
         vim.lsp.enable(server_name)
