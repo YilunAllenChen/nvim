@@ -96,12 +96,12 @@ return {
   keys = {
     { '<leader>dk', function() require('dap').toggle_breakpoint() end, desc = 'Toggle breakpoint' },
     { '<leader>d?', function() require('dapui').eval(nil, { enter = true }) end, desc = 'Evaluate expression' },
-    { '<leader>dc', function() require('dap').continue() end, desc = 'Continue' },
+    { '<leader>dr', function() require('dap').continue() end, desc = 'Continue' },
     { '<leader>di', function() require('dap').step_into() end, desc = 'Step into' },
     { '<leader>df', function() require('dap').step_over() end, desc = 'Step over' },
     { '<leader>do', function() require('dap').step_out() end, desc = 'Step out' },
     { '<leader>db', function() require('dap').step_back() end, desc = 'Step back' },
     { '<leader>dx', function() require('dap').close() end, desc = 'Stop' },
-    { '<leader>dr', function() require('dap').restart() end, desc = 'Restart' },
+    { '<leader>ds', function() require('dap').restart() end, desc = 'Restart' },
   },
 }
