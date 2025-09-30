@@ -85,6 +85,7 @@ M.set_mappings {
           print 'No file loaded'
         else
           print(filePath)
+          vim.fn.setreg('+', filePath)
         end
       end,
       desc = 'Show Full Path',
