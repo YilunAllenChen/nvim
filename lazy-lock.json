@@ -1,6 +1,6 @@
 {
   "Comment.nvim": { "branch": "master", "commit": "e30b7f2008e52442154b66f7c519bfd2f1e32acb" },
-  "actions-preview.nvim": { "branch": "master", "commit": "929696ad265fe369bb53d2cdfeffb513a55a4e9a" },
+  "actions-preview.nvim": { "branch": "master", "commit": "cb938c25edaac38d362555f19244a9cb85d561e8" },
   "alpha-nvim": { "branch": "main", "commit": "2b3cbcdd980cae1e022409289245053f62fb50f6" },
   "automkdir.nvim": { "branch": "main", "commit": "e36da288764cc41864dc5b4e1234f1425033ce59" },
   "blink-emoji.nvim": { "branch": "master", "commit": "f22ce8cac02a6ece05368220f1e38bd34fe376f9" },
@@ -28,7 +28,7 @@
   "nvim-dap-ui": { "branch": "master", "commit": "cf91d5e2d07c72903d052f5207511bf7ecdb7122" },
   "nvim-dap-virtual-text": { "branch": "master", "commit": "fbdb48c2ed45f4a8293d0d483f7730d24467ccb6" },
   "nvim-highlight-colors": { "branch": "main", "commit": "e0c4a58ec8c3ca7c92d3ee4eb3bc1dd0f7be317e" },
-  "nvim-lspconfig": { "branch": "master", "commit": "db8fef885009fdec0daeff3e5dda92e1f539611e" },
+  "nvim-lspconfig": { "branch": "master", "commit": "b8c3630ce37dfbe51910b68785a71620b072c41a" },
   "nvim-nio": { "branch": "master", "commit": "21f5324bfac14e22ba26553caf69ec76ae8a7662" },
   "nvim-surround": { "branch": "main", "commit": "75de1782c781961e392efcca57601bf436f4d550" },
   "nvim-treesitter": { "branch": "master", "commit": "42fc28ba918343ebfd5565147a42a26580579482" },
