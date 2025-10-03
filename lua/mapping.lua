@@ -55,7 +55,7 @@ local function delete_all_unused_bufs()
   for _, bufnr in ipairs(bufnr_list) do
     if vim.api.nvim_get_option_value('modified', { buf = bufnr }) then goto continue end
     local bufname = vim.api.nvim_buf_get_name(bufnr)
-    if string.match(bufname, 'term://') or visible_bufnrs[bufnr] then vim.api.nvim_buf_delete(bufnr, { force = true }) end
+    if not (string.match(bufname, 'term://') or visible_bufnrs[bufnr]) then vim.api.nvim_buf_delete(bufnr, { force = true }) end
     ::continue::
   end
 end
@@ -70,13 +70,16 @@ M.set_mappings {
     -- Blazingly Fast Shortcuts
     ["'"] = {
       function()
-        if vim.bo.buftype == 'terminal' then
-          vim.cmd 'bd!'
+        local bt = vim.bo.buftype
+        if bt == 'terminal' then
+          vim.cmd 'q'
+        elseif bt == '' then
+          vim.cmd 'confirm bdelete'
         else
-          vim.cmd 'confirm q'
+          vim.cmd 'q'
         end
       end,
-      desc = 'Quit',
+      desc = 'Smart close: file=confirm bd, terminal=close window',
     },
     ['<C-g>'] = {
       function()
