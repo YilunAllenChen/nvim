@@ -60,6 +60,16 @@ local function delete_all_unused_bufs()
   end
 end
 
+local function buffer_is_blank(bufnr)
+  bufnr = bufnr or 0
+  local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+  if #lines == 0 then return true end
+  for _, line in ipairs(lines) do
+    if line ~= '' and not line:match '^%s*$' then return false end
+  end
+  return true
+end
+
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
@@ -74,12 +84,16 @@ M.set_mappings {
         if bt == 'terminal' then
           vim.cmd 'q'
         elseif bt == '' then
-          vim.cmd 'confirm bdelete'
+          if buffer_is_blank(0) then
+            vim.cmd 'q'
+          else
+            vim.cmd 'confirm q'
+          end
         else
           vim.cmd 'q'
         end
       end,
-      desc = 'Smart close: file=confirm bd, terminal=close window',
+      desc = 'Smart close: empty=quit, file=confirm quit (no bdelete), terminal=close window',
     },
     ['<C-g>'] = {
       function()
