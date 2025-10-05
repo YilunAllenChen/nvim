@@ -32,6 +32,6 @@ return {
       lualine_y = {},
       lualine_z = { 'os.date()' },
     },
-    extensions = { 'mason', 'lazy' },
+    extensions = {},
   },
 }
