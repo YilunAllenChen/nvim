@@ -152,10 +152,16 @@ M.set_mappings {
     },
     ['<leader>t'] = {
       function()
-        vim.api.nvim_command 'vsplit | terminal codex'
+        if vim.bo.filetype == 'alpha' then
+          -- From the alpha dashboard, use full screen
+          vim.api.nvim_command 'terminal codex'
+        else
+          -- Otherwise, keep the vertical split behavior
+          vim.api.nvim_command 'vsplit | terminal codex'
+        end
         vim.api.nvim_command 'startinsert'
       end,
-      desc = 'Open codex in vertical split',
+      desc = 'Open codex (full on alpha, vsplit otherwise)',
     },
     ['t'] = {
       function()
