@@ -17,28 +17,9 @@ return {
     },
     sections = {
       lualine_a = { 'branch', macro_indicator },
-      lualine_b = { { 'filename', file_status = true, path = 2 }, 'filesize' },
+      lualine_b = { { 'filename', file_status = true, path = 2 } },
       lualine_c = {},
       lualine_x = {
-        {
-          'diff',
-          symbols = { added = ' ', modified = ' ', removed = ' ' },
-          diff_color = {
-            added = { fg = '#88ff88' },
-            modified = { fg = '#77ffff' },
-            removed = { fg = '#ff8888' },
-          },
-        },
-        {
-          'diagnostics',
-          sources = { 'nvim_diagnostic' },
-          symbols = { error = ' ', warn = ' ', info = ' ' },
-          diagnostics_color = {
-            color_error = { fg = '#ff5555' },
-            color_warn = { fg = 'yellow' },
-            color_info = { fg = 'cyan' },
-          },
-        },
         'location',
         'filetype',
       },
