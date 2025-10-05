@@ -15,7 +15,7 @@ return { -- Highlight, edit, and navigate code
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
-    event = 'VeryLazy',
+    event = 'BufReadPost',
     config = function()
       require('treesitter-context').setup {
         enable = true,
@@ -34,7 +34,7 @@ return { -- Highlight, edit, and navigate code
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
-    event = 'VeryLazy',
+    event = 'BufReadPost',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
       require('nvim-treesitter.configs').setup {
@@ -97,7 +97,7 @@ return { -- Highlight, edit, and navigate code
   -- close html tags automatically using nvim-treesitter
   {
     'windwp/nvim-ts-autotag',
-    event = 'VeryLazy',
+    event = 'InsertEnter',
     opts = {},
   },
 }

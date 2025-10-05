@@ -11,15 +11,14 @@ return {
   opts = {
     options = {
       icons_enabled = true,
-      theme = 'tokyonight',
       component_separators = '',
-      globalstatus = true,
       section_separators = { left = '', right = '' },
+      refresh = { statusline = 500 },
     },
     sections = {
-      lualine_a = { 'mode' },
-      lualine_b = { 'branch', macro_indicator },
-      lualine_c = { { 'filename', file_status = true, path = 2 }, 'filesize' },
+      lualine_a = { 'branch', macro_indicator },
+      lualine_b = { { 'filename', file_status = true, path = 2 }, 'filesize' },
+      lualine_c = {},
       lualine_x = {
         {
           'diff',
@@ -52,6 +51,6 @@ return {
       lualine_y = {},
       lualine_z = { 'os.date()' },
     },
-    extensions = { 'nvim-tree', 'mason' },
+    extensions = { 'mason', 'lazy' },
   },
 }
