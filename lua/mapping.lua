@@ -73,22 +73,37 @@ M.set_mappings {
     ["'"] = {
       function()
         local bt = vim.bo.buftype
+        local cur_tab = vim.api.nvim_get_current_tabpage()
+        local bufnr = vim.api.nvim_get_current_buf()
+
         if bt == 'terminal' then
+          local ok = pcall(vim.cmd, 'tabclose')
+          if not ok then vim.cmd 'q' end
+          return
+        end
+
+        if bt ~= '' then
           vim.cmd 'q'
           return
         end
-        if bt ~= '' then -- help, quickfix, nofile, etc.
-          vim.cmd 'q'
-          return
+
+        local modified = vim.api.nvim_get_option_value('modified', { buf = bufnr })
+        local wins = vim.fn.win_findbuf(bufnr) or {}
+        local open_elsewhere = false
+        for _, win in ipairs(wins) do
+          local win_tab = vim.api.nvim_win_get_tabpage(win)
+          if win_tab ~= cur_tab then
+            open_elsewhere = true
+            break
+          end
         end
-        if listed_buffer_count() <= 1 then
-          vim.cmd 'confirm q'
-          return
-        end
-        if not pcall(vim.cmd, 'bnext') then pcall(vim.cmd, 'bprevious') end
-        vim.cmd 'confirm bd#'
+
+        local ok = pcall(vim.cmd, 'tabclose')
+        if not ok then vim.cmd 'q' end
+
+        if not open_elsewhere and not modified then pcall(vim.api.nvim_buf_delete, bufnr, { force = false }) end
       end,
-      desc = 'Smart close: last buffer=confirm quit; otherwise delete current',
+      desc = 'Close tab; delete buffer only if unused and unmodified',
     },
     ['<C-g>'] = {
       function()
