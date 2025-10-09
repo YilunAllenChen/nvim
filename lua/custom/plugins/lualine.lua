@@ -12,6 +12,7 @@ return {
     options = {
       icons_enabled = true,
       component_separators = '',
+      globalstatus = true,
       section_separators = { left = '', right = '' },
       refresh = { statusline = 500 },
     },
