@@ -60,6 +60,23 @@ local function delete_all_unused_bufs()
   end
 end
 
+local function goto_tab(index)
+  if index < 1 then return end
+
+  local tabs = vim.api.nvim_list_tabpages()
+  local tab_count = #tabs
+
+  if index > tab_count then -- create tabs until the requested index exists
+    for _ = 1, index - tab_count do
+      vim.cmd 'tabnew'
+    end
+    tabs = vim.api.nvim_list_tabpages()
+  end
+
+  local tab = tabs[index]
+  if tab then vim.api.nvim_set_current_tabpage(tab) end
+end
+
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
@@ -122,6 +139,9 @@ M.set_mappings {
     ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
 
     ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
+    ['<C-1>'] = { function() goto_tab(1) end, desc = 'Tab 1' },
+    ['<C-2>'] = { function() goto_tab(2) end, desc = 'Tab 2' },
+    ['<C-3>'] = { function() goto_tab(3) end, desc = 'Tab 3' },
     ['<leader>f'] = { 'Find' },
     ['<C-t>'] = {
       function()
