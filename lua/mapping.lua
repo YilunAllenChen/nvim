@@ -77,6 +77,42 @@ local function goto_tab(index)
   if tab then vim.api.nvim_set_current_tabpage(tab) end
 end
 
+local function toggle_inlay_hints()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients { bufnr = bufnr } or {}
+
+  if vim.tbl_isempty(clients) then
+    vim.notify('No LSP client attached', vim.log.levels.ERROR)
+    return
+  end
+
+  local supports = false
+  for _, client in ipairs(clients) do
+    if client.server_capabilities.inlayHintProvider then
+      supports = true
+      break
+    end
+  end
+
+  if not supports then
+    vim.notify('Attached LSP clients do not support inlay hints', vim.log.levels.WARN)
+    return
+  end
+
+  local opts = { bufnr = bufnr }
+  local enabled = false
+  local ok, result = pcall(vim.lsp.inlay_hint.is_enabled, opts)
+  if ok then
+    enabled = result
+  else
+    ok, result = pcall(vim.lsp.inlay_hint.is_enabled, bufnr)
+    if ok then enabled = result end
+  end
+
+  local ok_enable = pcall(vim.lsp.inlay_hint.enable, not enabled, opts)
+  if not ok_enable then pcall(vim.lsp.inlay_hint.enable, not enabled, bufnr) end
+end
+
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
@@ -121,28 +157,16 @@ M.set_mappings {
     ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
     ['<leader>la'] = { function() require('actions-preview').code_actions() end, desc = 'Code action' },
     ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
-    ['<leader>ld'] = { function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
-    ['<leader>li'] = {
-      function()
-        local clients = vim.lsp.get_clients()
-        if clients == nil or clients[1] == nil then return end
-        local client = clients[1]
-        if client.server_capabilities.inlayHintProvider then vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {}) end
-      end,
-      desc = 'Enable inlay hints',
-    },
+    ['<leader>li'] = { toggle_inlay_hints, desc = 'Toggle inlay hints' },
     ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
     [']d'] = { function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
-    -- Buffers
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
     ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
-
     ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
     ['<C-1>'] = { function() goto_tab(1) end, desc = 'Tab 1' },
     ['<C-2>'] = { function() goto_tab(2) end, desc = 'Tab 2' },
     ['<C-3>'] = { function() goto_tab(3) end, desc = 'Tab 3' },
-    ['<leader>f'] = { 'Find' },
     ['<C-t>'] = {
       function()
         vim.api.nvim_command 'terminal'
@@ -176,7 +200,6 @@ M.set_mappings {
     },
     ['\\'] = { '<C-w>v', desc = 'Vertical Split' },
     ['-'] = { '<C-w>s', desc = 'Horizontal Split' },
-    ['<leader><leader>c'] = { '<cmd>e ~/.config/fish/config.fish<cr>', desc = 'Edit fish config' },
   },
   t = {
     ['<esc>'] = { '<C-\\><C-n>' },
