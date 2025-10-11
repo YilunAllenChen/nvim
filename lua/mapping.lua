@@ -60,8 +60,6 @@ local function delete_all_unused_bufs()
   end
 end
 
-local function listed_buffer_count() return #vim.fn.getbufinfo { buflisted = 1 } end
-
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
