@@ -35,9 +35,7 @@ local mason_tools = {
   { 'prettier', version = '3.0.2' },
 }
 
-local function setup_mason()
-  require('mason').setup()
-end
+local function setup_mason() require('mason').setup() end
 
 local function setup_mason_lspconfig()
   for server_name, server in pairs(raw_servers) do
@@ -81,6 +79,7 @@ return {
   },
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    event = 'BufReadPre',
     dependencies = {
       'mason-org/mason.nvim',
     },
