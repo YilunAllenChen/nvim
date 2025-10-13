@@ -31,6 +31,31 @@ local raw_servers = {
   -- ty = {}  -- not stable yet...
 }
 
+local mason_tools = {
+  { 'prettier', version = '3.0.2' },
+}
+
+local function setup_mason()
+  require('mason').setup()
+end
+
+local function setup_mason_lspconfig()
+  for server_name, server in pairs(raw_servers) do
+    vim.lsp.enable(server_name)
+  end
+
+  local capabilities = require('blink.cmp').get_lsp_capabilities()
+  for server_name, server in pairs(mason_servers) do
+    server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+    vim.lsp.config(server_name, server)
+  end
+
+  require('mason-lspconfig').setup {
+    ensure_installed = vim.tbl_keys(mason_servers),
+    automatic_installation = true,
+  }
+end
+
 return {
   {
     'folke/lazydev.nvim',
@@ -38,36 +63,31 @@ return {
     opts = { library = { { path = '${3rd}/luv/library', words = { 'vim%.uv' } } } },
   },
   {
+    'mason-org/mason.nvim',
+    cmd = 'Mason',
+    keys = {
+      { '<leader>pm', '<cmd>Mason<cr>', desc = 'Mason Installer' },
+    },
+    config = setup_mason,
+  },
+  {
     'mason-org/mason-lspconfig.nvim',
     event = 'BufReadPre',
     dependencies = {
-      {
-        'mason-org/mason.nvim',
-        config = function() require('mason').setup() end,
-        keys = {
-          { '<leader>pm', '<cmd>Mason<cr>', desc = 'Mason Installer' },
-        },
-      },
-      {
-        'neovim/nvim-lspconfig',
-      },
+      'mason-org/mason.nvim',
+      'neovim/nvim-lspconfig',
     },
-    config = function()
-      for server_name, server in pairs(raw_servers) do
-        vim.lsp.enable(server_name)
-      end
-
-      local capabilities = require('blink.cmp').get_lsp_capabilities()
-      for server_name, server in pairs(mason_servers) do
-        server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-        vim.lsp.config(server_name, server)
-      end
-
-      require('mason-lspconfig').setup {
-        ensure_installed = vim.tbl_keys(mason_servers),
-        automatic_installation = false,
-      }
-    end,
+    config = setup_mason_lspconfig,
+  },
+  {
+    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = {
+      'mason-org/mason.nvim',
+    },
+    opts = {
+      ensure_installed = mason_tools,
+      run_on_start = true,
+    },
   },
   { 'jubnzv/virtual-types.nvim', event = { 'BufReadPre', 'BufNewFile' } },
 }
