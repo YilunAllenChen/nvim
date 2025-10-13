@@ -165,6 +165,7 @@ M.set_mappings {
     ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
     ['<leader>la'] = { function() require('actions-preview').code_actions() end, desc = 'Code action' },
     ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
+    ['<leader>ld'] = { function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
     ['<leader>li'] = { toggle_inlay_hints, desc = 'Toggle inlay hints' },
     ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
     [']d'] = { function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
