@@ -50,31 +50,9 @@ return {
         },
       },
       sources = {
-        explorer = {
-          matcher = { fuzzy = true },
-          win = {
-            list = {
-              keys = {
-                ['<BS>'] = 'explorer_up',
-                ['l'] = 'confirm',
-                ['h'] = 'explorer_close', -- close directory
-                ['a'] = 'explorer_add',
-                ['d'] = 'explorer_del',
-                ['r'] = 'explorer_rename',
-                ['c'] = 'explorer_copy',
-                ['m'] = 'explorer_move',
-                ['o'] = 'explorer_open', -- open with system application
-                ['y'] = { 'explorer_yank', mode = { 'n', 'x' } },
-                ['p'] = 'explorer_paste',
-                ['u'] = 'explorer_update',
-                ['K'] = 'inspect',
-                ['<c-c>'] = 'tcd',
-                ['.'] = 'explorer_focus',
-                ['I'] = 'toggle_ignored',
-                ['H'] = 'toggle_hidden',
-                ['Z'] = 'explorer_close_all',
-              },
-            },
+        projects = {
+          layout = {
+            preset = 'vscode',
           },
         },
       },
@@ -113,7 +91,7 @@ return {
     { '<leader>fc', function() require('snacks').picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
     { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Commands' },
     { '<leader>lD', function() require('snacks').picker.diagnostics() end, desc = 'Diagnostics' },
-    { '<leader>fp', function() require('snacks').picker.projects() end, desc = 'Projects' },
+    { '<leader>i', function() require('snacks').picker.projects() end, desc = 'Projects' },
     { '<leader>fh', function() require('snacks').picker.help() end, desc = 'Help Pages' },
     { '<leader>fi', function() require('snacks').picker.icons() end, desc = 'Icons' },
     { '<leader>fk', function() require('snacks').picker.keymaps() end, desc = 'Keymaps' },
