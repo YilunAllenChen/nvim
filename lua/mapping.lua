@@ -120,8 +120,16 @@ M.set_mappings {
     ['k'] = { "v:count == 0 ? 'gk' : 'k'", expr = true, silent = true, desc = 'Visual line up' },
     ['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true, desc = 'Visual line down' },
 
-    -- Blazingly Fast Shortcuts
-    ["'"] = { '<cmd>:confirm quit<cr>', desc = 'close' },
+    ["'"] = {
+      function()
+        if vim.bo.buftype == 'terminal' then
+          vim.cmd 'bd!'
+        else
+          vim.cmd 'confirm q'
+        end
+      end,
+      desc = 'Quit',
+    },
     ['<C-g>'] = {
       function()
         local filePath = vim.fn.expand '%:p'
