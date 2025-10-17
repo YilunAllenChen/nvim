@@ -223,6 +223,9 @@ M.set_mappings {
     ['<C-l>'] = { '<right>', desc = 'Move right' },
     ['<C-j>'] = { '<down>', desc = 'Move down' },
     ['<C-k>'] = { '<up>', desc = 'Move up' },
+    ['<C-1>'] = { function() goto_tab(1) end, desc = 'Tab 1' },
+    ['<C-2>'] = { function() goto_tab(2) end, desc = 'Tab 2' },
+    ['<C-3>'] = { function() goto_tab(3) end, desc = 'Tab 3' },
   },
   v = {
     ['<Space>'] = { '<Nop>', silent = true },
