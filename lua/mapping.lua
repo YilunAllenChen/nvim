@@ -66,6 +66,16 @@ local function goto_tab(index)
   if index > tab_count then -- create tabs until the requested index exists
     for _ = 1, index - tab_count do
       vim.cmd 'tabnew'
+      local initial_buf = vim.api.nvim_get_current_buf()
+      local alpha_ok = pcall(vim.cmd, 'Alpha')
+      if alpha_ok then
+        local alpha_buf = vim.api.nvim_get_current_buf()
+        if alpha_buf ~= initial_buf and vim.api.nvim_buf_is_valid(initial_buf) then
+          local name = vim.api.nvim_buf_get_name(initial_buf)
+          local buftype = vim.api.nvim_get_option_value('buftype', { buf = initial_buf })
+          if name == '' and buftype == '' then vim.api.nvim_buf_delete(initial_buf, { force = true }) end
+        end
+      end
     end
     tabs = vim.api.nvim_list_tabpages()
   end

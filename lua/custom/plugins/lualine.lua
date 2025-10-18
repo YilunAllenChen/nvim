@@ -28,10 +28,13 @@ return {
       lualine_z = {},
     },
     tabline = {
-      lualine_a = { { 'buffers', symbols = { modified = ' ', alternate_file = '' } } },
+      lualine_a = {
+        function() return tostring(vim.fn.tabpagenr()) end,
+      },
+      lualine_b = { { 'buffers', symbols = { modified = ' ', alternate_file = '' } } },
       lualine_x = {},
       lualine_y = {},
-      lualine_z = { 'os.date()' },
+      lualine_z = { function() return os.date() end },
     },
     extensions = {},
   },
