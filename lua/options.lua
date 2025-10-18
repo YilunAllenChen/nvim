@@ -31,11 +31,11 @@ local options = {
   g = {
     mapleader = ' ',
     maplocalleader = ' ',
-    max_file = { size = 1024 * 100, lines = 1000 }, -- set global limits for large files
-    diagnostics_mode = 3, -- set the visibility of diagnostics in the UI (0=off, 1=only show in status line, 2=virtual text off, 3=all on)
-    icons_enabled = true, -- disable icons in the UI (disable if no nerd font is available)
-    lsp_handlers_enabled = true, -- enable or disable default vim.lsp.handlers (hover and signature help)
-    cmp_enabled = true, -- enable completion at start
+    max_file = { size = 1024 * 100, lines = 1000 },
+    diagnostics_mode = 3,
+    icons_enabled = true,
+    lsp_handlers_enabled = true,
+    cmp_enabled = true,
 
     -- codeium
     codeium_disable_bindings = 1,

@@ -13,12 +13,9 @@ function M.which_key_register()
 end
 
 function M.set_mappings(map_table, base)
-  -- iterate over the first keys for each mode
   base = base or {}
   for mode, maps in pairs(map_table) do
-    -- iterate over each keybinding set in the current mode
     for keymap, options in pairs(maps) do
-      -- build the options for the command accordingly
       if options then
         local cmd = options
         local keymap_opts = base
