@@ -224,6 +224,9 @@ M.set_mappings {
     ['<C-k>'] = { '<cmd>wincmd k<cr>', desc = 'Terminal up window navigation' },
     ['<C-h>'] = { '<cmd>wincmd h<cr>', desc = 'Terminal left window navigation' },
     ['<C-l>'] = { '<cmd>wincmd l<cr>', desc = 'Terminal right window navigation' },
+    ['<C-1>'] = { function() goto_tab(1) end, desc = 'Tab 1' },
+    ['<C-2>'] = { function() goto_tab(2) end, desc = 'Tab 2' },
+    ['<C-3>'] = { function() goto_tab(3) end, desc = 'Tab 3' },
   },
   i = {
     ['<C-h>'] = { '<left>', desc = 'Move left' },
