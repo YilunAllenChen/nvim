@@ -18,7 +18,6 @@ return {
     opts = {
       fuzzy = {
         implementation = 'prefer_rust_with_warning',
-        sorts = { 'exact', 'score', 'label', 'sort_text' },
       },
       completion = {
         list = {

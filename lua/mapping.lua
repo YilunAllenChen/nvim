@@ -120,6 +120,22 @@ local function toggle_inlay_hints()
   if not ok_enable then pcall(vim.lsp.inlay_hint.enable, not enabled, bufnr) end
 end
 
+local function quit_window_or_buffer()
+  if vim.bo.buftype ~= 'terminal' then
+    vim.cmd 'confirm q'
+    return
+  end
+
+  local bufnr = vim.api.nvim_get_current_buf()
+  local wins = vim.fn.win_findbuf(bufnr) or {}
+
+  if #wins > 1 then
+    vim.api.nvim_win_close(0, false)
+  else
+    vim.cmd 'bd!'
+  end
+end
+
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
@@ -128,13 +144,7 @@ M.set_mappings {
     ['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true, desc = 'Visual line down' },
 
     ["'"] = {
-      function()
-        if vim.bo.buftype == 'terminal' then
-          vim.cmd 'bd!'
-        else
-          vim.cmd 'confirm q'
-        end
-      end,
+      quit_window_or_buffer,
       desc = 'Quit',
     },
     ['<C-g>'] = {
