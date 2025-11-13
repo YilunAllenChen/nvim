@@ -73,7 +73,6 @@ return {
     { ',', function() require('snacks').picker.grep() end, desc = 'Grep' },
     -- -- find
     { '<leader>j', function() require('snacks').picker.buffers() end, desc = 'Buffers' },
-    { '<leader>e', function() require('snacks').explorer() end, desc = 'Explorer' },
     {
       '<leader>y',
       function()
