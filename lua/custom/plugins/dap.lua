@@ -79,6 +79,13 @@ return {
               module = 'fio.desk_easy_deploy.operations.marea_auto_booking.main',
               args = { '/home/alchen/repos/crypto/configs/marea_auto_booking/test.json' },
             },
+            {
+              type = 'python',
+              request = 'launch',
+              name = 'Alsenal Trading Engine',
+              module = 'alsenal.trading_game.main',
+              args = {},
+            },
           }
           require('mason-nvim-dap').default_setup(config) -- don't forget this!
         end,
