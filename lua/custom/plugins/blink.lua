@@ -1,3 +1,9 @@
+local source_priority = {
+  lsp = 3,
+  path = 2,
+  buffer = 1,
+}
+
 return {
   {
     'saghen/blink.compat',
@@ -18,6 +24,15 @@ return {
     opts = {
       fuzzy = {
         implementation = 'prefer_rust_with_warning',
+        sorts = {
+          function(a, b)
+            local a_priority = source_priority[a.source_id]
+            local b_priority = source_priority[b.source_id]
+            if a_priority ~= b_priority then return a_priority > b_priority end
+          end,
+          'score',
+          'sort_text',
+        },
       },
       completion = {
         list = {

@@ -26,6 +26,27 @@ return {
         cyclic = true,
       }
     ) end
+
+    local env_cycle = { 'test', 'dev', 'qa', 'cert', 'prod' }
+    local has_env_cycle = false
+
+    for _, entry in ipairs(default) do
+      if type(entry.elements) == 'table' and vim.deep_equal(entry.elements, env_cycle) then
+        has_env_cycle = true
+        break
+      end
+    end
+
+    if not has_env_cycle then
+      table.insert(
+        default,
+        augend.constant.new {
+          elements = env_cycle,
+          word = true,
+          cyclic = true,
+        }
+      )
+    end
   end,
   keys = {
     { '<C-a>', function() require('dial.map').manipulate('increment', 'normal') end, desc = 'Increment' },
