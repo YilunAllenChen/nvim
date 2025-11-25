@@ -28,7 +28,7 @@ return {
           function(a, b)
             local a_priority = source_priority[a.source_id]
             local b_priority = source_priority[b.source_id]
-            if a_priority ~= b_priority then return a_priority > b_priority end
+            if a_priority ~= b_priority and a_priority ~= nil and b_priority ~= nil then return a_priority > b_priority end
           end,
           'score',
           'sort_text',
@@ -70,7 +70,7 @@ return {
           emoji = {
             module = 'blink-emoji',
             name = 'Emoji',
-            score_offset = 15, -- Tune by preference
+            score_offset = -10,
           },
           calc = {
             module = 'blink.compat.source',
