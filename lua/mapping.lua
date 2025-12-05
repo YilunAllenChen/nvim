@@ -143,7 +143,7 @@ M.set_mappings {
     ['k'] = { "v:count == 0 ? 'gk' : 'k'", expr = true, silent = true, desc = 'Visual line up' },
     ['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true, desc = 'Visual line down' },
 
-    ["'"] = {
+    ['<BS>'] = {
       quit_window_or_buffer,
       desc = 'Quit',
     },
