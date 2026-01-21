@@ -69,7 +69,7 @@ return {
   },
   keys = {
     -- -- Top Pickers & Explorer
-    { '=', function() require('snacks').picker.files() end, desc = 'Find Files' },
+    { '=', function() require('snacks').picker.files({ main = { file = false } }) end, desc = 'Find Files' },
     { ',', function() require('snacks').picker.grep() end, desc = 'Grep' },
     -- -- find
     { '<leader>j', function() require('snacks').picker.buffers() end, desc = 'Buffers' },
