@@ -48,6 +48,9 @@ return {
           auto_show = true,
           auto_show_delay_ms = 200,
         },
+        trigger = {
+          show_on_backspace = true,
+        },
       },
       signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
       keymap = {
@@ -77,6 +80,10 @@ return {
             name = 'calc',
           },
           dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+          lsp = {
+            max_items = 50,
+            score_offset = 100,
+          },
         },
       },
     },
