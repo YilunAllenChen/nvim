@@ -203,10 +203,10 @@ M.set_mappings {
       function()
         if vim.bo.filetype == 'alpha' then
           -- From the alpha dashboard, use full screen
-          vim.api.nvim_command 'terminal cursor-agent'
+          vim.api.nvim_command 'terminal claude'
         else
           -- Otherwise, keep the vertical split behavior
-          vim.api.nvim_command 'vsplit | terminal cursor-agent'
+          vim.api.nvim_command 'vsplit | terminal claude'
         end
         vim.api.nvim_command 'startinsert'
       end,

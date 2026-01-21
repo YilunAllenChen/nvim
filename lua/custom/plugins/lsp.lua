@@ -23,13 +23,17 @@ local mason_servers = {
         },
       },
     },
+    on_attach = function(client, bufnr)
+      -- Disable completion and go-to-definition (diagnostics only)
+      client.server_capabilities.completionProvider = nil
+      client.server_capabilities.definitionProvider = nil
+    end,
   },
+  ty = {},
 }
 
 -- servers not in mason yet
-local raw_servers = {
-  -- ty = {}  -- not stable yet...
-}
+local raw_servers = {}
 
 local mason_tools = {
   { 'prettier', version = '3.0.2' },
