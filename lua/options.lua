@@ -37,12 +37,7 @@ local options = {
     lsp_handlers_enabled = true,
     cmp_enabled = true,
 
-    -- codeium
     codeium_disable_bindings = 1,
-    codeium_server_config = {
-      portal_url = 'https://codeium.drwholdings.com',
-      api_url = 'https://codeium.drwholdings.com/_route/api_server',
-    },
   },
 }
 
