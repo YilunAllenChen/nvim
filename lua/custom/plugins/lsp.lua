@@ -1,4 +1,5 @@
 local mason_servers = {
+  'prettier@3.0.2',
   pyright = {
     settings = {
       python = {
@@ -24,9 +25,24 @@ local mason_servers = {
       },
     },
     on_attach = function(client, bufnr)
-      -- Disable completion and go-to-definition (diagnostics only)
-      client.server_capabilities.completionProvider = nil
-      client.server_capabilities.definitionProvider = nil
+      -- Diagnostics only - disable all other capabilities
+      local caps = client.server_capabilities
+      caps.completionProvider = nil
+      caps.hoverProvider = nil
+      caps.signatureHelpProvider = nil
+      caps.definitionProvider = nil
+      caps.typeDefinitionProvider = nil
+      caps.implementationProvider = nil
+      caps.declarationProvider = nil
+      caps.referencesProvider = nil
+      caps.documentHighlightProvider = nil
+      caps.documentSymbolProvider = nil
+      caps.workspaceSymbolProvider = nil
+      caps.codeActionProvider = nil
+      caps.documentFormattingProvider = nil
+      caps.documentRangeFormattingProvider = nil
+      caps.renameProvider = nil
+      caps.inlayHintProvider = nil
     end,
   },
   ty = {},
