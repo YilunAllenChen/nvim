@@ -1,5 +1,4 @@
 local mason_servers = {
-  'prettier@3.0.2',
   pyright = {
     settings = {
       python = {
