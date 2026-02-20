@@ -1,49 +1,4 @@
 local mason_servers = {
-  pyright = {
-    settings = {
-      python = {
-        analysis = {
-          diagnosticMode = 'openFilesOnly',
-          indexing = true,
-          autoImportCompletions = true,
-          autoImportExclude = {
-            '**/tests/**',
-            '**/examples/**',
-            '**/notebooks/**',
-            '**/.benchmarks/**',
-            '**/__pycache__/**',
-          },
-          exclude = {
-            '**/tests/**',
-            '**/examples/**',
-            '**/notebooks/**',
-            '**/.benchmarks/**',
-            '**/__pycache__/**',
-          },
-        },
-      },
-    },
-    on_attach = function(client, bufnr)
-      -- Diagnostics only - disable all other capabilities
-      local caps = client.server_capabilities
-      caps.completionProvider = nil
-      caps.hoverProvider = nil
-      caps.signatureHelpProvider = nil
-      caps.definitionProvider = nil
-      caps.typeDefinitionProvider = nil
-      caps.implementationProvider = nil
-      caps.declarationProvider = nil
-      caps.referencesProvider = nil
-      caps.documentHighlightProvider = nil
-      caps.documentSymbolProvider = nil
-      caps.workspaceSymbolProvider = nil
-      caps.codeActionProvider = nil
-      caps.documentFormattingProvider = nil
-      caps.documentRangeFormattingProvider = nil
-      caps.renameProvider = nil
-      caps.inlayHintProvider = nil
-    end,
-  },
   ty = {},
 }
 
