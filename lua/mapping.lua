@@ -81,7 +81,10 @@ local function goto_tab(index)
   end
 
   local tab = tabs[index]
-  if tab then vim.api.nvim_set_current_tabpage(tab) end
+  if tab then
+    vim.api.nvim_set_current_tabpage(tab)
+    vim.cmd 'startinsert'
+  end
 end
 
 local function toggle_inlay_hints()
