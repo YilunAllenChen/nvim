@@ -1,9 +1,3 @@
-local source_priority = {
-  lsp = 3,
-  path = 2,
-  buffer = 1,
-}
-
 return {
   {
     'saghen/blink.cmp',
@@ -26,13 +20,9 @@ return {
       fuzzy = {
         implementation = 'prefer_rust_with_warning',
         sorts = {
-          -- function(a, b)
-          --   local a_priority = source_priority[a.source_id]
-          --   local b_priority = source_priority[b.source_id]
-          --   if a_priority ~= b_priority and a_priority ~= nil and b_priority ~= nil then return a_priority > b_priority end
-          -- end,
-          -- 'score',
-          -- 'sort_text',
+          'exact',
+          'score',
+          'sort_text',
         },
       },
       completion = {
@@ -46,7 +36,6 @@ return {
         },
         menu = {
           border = 'rounded',
-          draw = { treesitter = { 'lsp' } },
         },
         documentation = {
           window = {
@@ -59,7 +48,7 @@ return {
           show_on_backspace = true,
         },
       },
-      signature = { enabled = false }, -- currently unstable and might cause high cpu usage. once stable, can swap this in and get rid of lsp-signature
+      signature = { enabled = true, window = { border = 'rounded' } },
       keymap = {
         preset = 'none',
         ['<Up>'] = { 'select_prev', 'fallback' },
