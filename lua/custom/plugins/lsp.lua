@@ -1,13 +1,15 @@
 local mason_servers = {
-  ty = {},
+  ty = {
+    settings = {
+      ty = {
+        diagnositcMode = 'workspace',
+      },
+    },
+  },
 }
 
 -- servers not in mason yet
 local raw_servers = {}
-
-local mason_tools = {
-  { 'prettier', version = '3.0.2' },
-}
 
 local function setup_mason() require('mason').setup() end
 
@@ -50,17 +52,6 @@ return {
       'neovim/nvim-lspconfig',
     },
     config = setup_mason_lspconfig,
-  },
-  {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
-    event = 'BufReadPre',
-    dependencies = {
-      'mason-org/mason.nvim',
-    },
-    opts = {
-      ensure_installed = mason_tools,
-      run_on_start = true,
-    },
   },
   { 'jubnzv/virtual-types.nvim', event = { 'BufReadPre', 'BufNewFile' } },
 }

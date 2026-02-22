@@ -6,15 +6,16 @@ local source_priority = {
 
 return {
   {
-    'saghen/blink.compat',
-    version = '*',
-    lazy = true,
-    opts = {},
-  },
-  {
     'saghen/blink.cmp',
     event = 'InsertEnter',
+    build = vim.g.lazyvim_blink_main and 'cargo build --release',
     dependencies = {
+      {
+        'saghen/blink.compat',
+        version = '*',
+        lazy = true,
+        opts = {},
+      },
       'moyiz/blink-emoji.nvim',
       'hrsh7th/cmp-calc',
     },
@@ -25,21 +26,27 @@ return {
       fuzzy = {
         implementation = 'prefer_rust_with_warning',
         sorts = {
-          function(a, b)
-            local a_priority = source_priority[a.source_id]
-            local b_priority = source_priority[b.source_id]
-            if a_priority ~= b_priority and a_priority ~= nil and b_priority ~= nil then return a_priority > b_priority end
-          end,
-          'score',
-          'sort_text',
+          -- function(a, b)
+          --   local a_priority = source_priority[a.source_id]
+          --   local b_priority = source_priority[b.source_id]
+          --   if a_priority ~= b_priority and a_priority ~= nil and b_priority ~= nil then return a_priority > b_priority end
+          -- end,
+          -- 'score',
+          -- 'sort_text',
         },
       },
       completion = {
+        accept = {
+          auto_brackets = {
+            enabled = true,
+          },
+        },
         list = {
           selection = { preselect = false, auto_insert = true },
         },
         menu = {
           border = 'rounded',
+          draw = { treesitter = { 'lsp' } },
         },
         documentation = {
           window = {

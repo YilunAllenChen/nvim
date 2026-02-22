@@ -6,6 +6,7 @@ return {
     require('conform').setup {
       formatters_by_ft = {
         cpp = { 'clang-format' },
+        h = { 'clang-format' },
         lua = { 'stylua' },
         -- Conform will run multiple formatters sequentially
         python = { 'ruff_format', 'ruff_organize_imports', 'ruff_fix' },
