@@ -22,6 +22,7 @@ local function find_project_root(start_path)
   return nil
 end
 
+-- Auto-change to project root for python
 local project_root_group = vim.api.nvim_create_augroup('ProjectRoot', { clear = true })
 vim.api.nvim_create_autocmd('BufEnter', {
   callback = function()
@@ -46,4 +47,15 @@ vim.api.nvim_create_autocmd('BufEnter', {
   end,
   group = project_root_group,
   pattern = '*.py', -- Only trigger for Python files
+})
+
+-- Auto-change to project root
+vim.api.nvim_create_autocmd('BufEnter', {
+  callback = function()
+    local ok, snacks = pcall(require, 'snacks.project')
+    if not ok then return end
+
+    local root = snacks.get_root(vim.api.nvim_buf_get_name(0))
+    if root and vim.fn.getcwd() ~= root then vim.cmd.tcd(root) end
+  end,
 })
