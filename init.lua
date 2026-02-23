@@ -1,5 +1,4 @@
 require 'options'
-require 'tweaks'
 require 'custom.autocmds'
 require 'mapping'
 
