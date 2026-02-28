@@ -202,12 +202,12 @@ M.set_mappings {
         vim.cmd 'startinsert'
       end,
     },
-    ['<C-a>'] = {
+    ['<leader>t'] = {
       function()
         if vim.bo.filetype == 'alpha' then
-          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits --worktree'
+          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits'
         else
-          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits --worktree'
+          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits'
         end
         vim.api.nvim_command 'startinsert'
       end,
