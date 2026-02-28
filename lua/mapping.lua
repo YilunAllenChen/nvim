@@ -202,18 +202,27 @@ M.set_mappings {
         vim.cmd 'startinsert'
       end,
     },
-    ['<leader>t'] = {
+    ['<C-a>'] = {
       function()
         if vim.bo.filetype == 'alpha' then
-          -- From the alpha dashboard, use full screen
-          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits'
+          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits --worktree'
         else
-          -- Otherwise, keep the vertical split behavior
-          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits'
+          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits --worktree'
         end
         vim.api.nvim_command 'startinsert'
       end,
       desc = 'AI (full on alpha, vsplit otherwise)',
+    },
+    ['<C-s>'] = {
+      function()
+        if vim.bo.filetype == 'alpha' then
+          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits -r'
+        else
+          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits -r'
+        end
+        vim.api.nvim_command 'startinsert'
+      end,
+      desc = 'AI resume (full on alpha, vsplit otherwise)',
     },
     ['t'] = {
       function()
