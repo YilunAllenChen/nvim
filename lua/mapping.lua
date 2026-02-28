@@ -173,7 +173,7 @@ M.set_mappings {
       desc = 'Plugins',
     },
     ['K'] = { function() vim.lsp.buf.hover { border = 'rounded' } end, desc = 'Hover symbol details' },
-    ['<leader>lf'] = { function() vim.lsp.buf.format() end, desc = 'Format buffer' },
+    ['<leader>lf'] = { function() require('conform').format { async = true, lsp_format = 'fallback' } end, desc = 'Format buffer' },
     ['gI'] = { function() vim.lsp.buf.implementation() end, desc = 'implementation' },
     ['<leader>lr'] = {
       function()

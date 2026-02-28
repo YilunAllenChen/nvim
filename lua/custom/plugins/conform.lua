@@ -3,14 +3,18 @@ return {
   opts = {},
   event = 'BufWritePre',
   config = function()
+    local autoformat = true
+    vim.api.nvim_create_user_command('ConformDisableAutoformat', function()
+      autoformat = false
+      vim.notify('Conform: autoformat disabled for this session', vim.log.levels.INFO)
+    end, {})
+
     require('conform').setup {
       formatters_by_ft = {
         cpp = { 'clang-format' },
         h = { 'clang-format' },
         lua = { 'stylua' },
-        -- Conform will run multiple formatters sequentially
         python = { 'ruff_format', 'ruff_organize_imports', 'ruff_fix' },
-        -- Use a sub-list to run only the first available formatter
         javascript = { 'prettier' },
         typescript = { 'prettier' },
         typescriptreact = { 'prettier' },
@@ -19,11 +23,10 @@ return {
         ocaml = { 'ocamlformat' },
       },
       formatters = {},
-      format_after_save = {
-        -- These options will be passed to conform.format()
-        timeout_ms = 500,
-        lsp_format = 'never',
-      },
+      format_after_save = function()
+        if not autoformat then return end
+        return { timeout_ms = 500, lsp_format = 'fallback' }
+      end,
     }
   end,
 }
