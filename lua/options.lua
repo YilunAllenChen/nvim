@@ -55,10 +55,10 @@ if vim.fn.executable 'fish' == 1 then vim.opt.shell = 'fish' end
 -- Neovide GUI settings
 if vim.g.neovide then
   vim.g.neovide_scale_factor = 1.0
-  vim.o.guifont = 'FiraCode Nerd Font:h12'
+  vim.o.guifont = 'FiraCode Nerd Font:h14'
   vim.g.neovide_position_animation_length = 0.0
-  vim.g.neovide_scroll_animation_length = 0.1
-  vim.g.neovide_transparency = 0.9
+  vim.g.neovide_scroll_animation_length = 0.03
+  vim.g.neovide_opacity = 0.95
 end
 
 local opt = vim.opt
