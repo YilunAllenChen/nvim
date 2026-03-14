@@ -58,7 +58,7 @@ if vim.g.neovide then
   vim.o.guifont = 'FiraCode Nerd Font:h13'
   vim.g.neovide_position_animation_length = 0.0
   vim.g.neovide_scroll_animation_length = 0.1
-  vim.g.neovide_transparency = 0.95
+  vim.g.neovide_transparency = 0.90
 end
 
 local opt = vim.opt
