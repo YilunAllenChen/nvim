@@ -1,7 +1,22 @@
+local function toggle_explorer()
+  local snacks = require 'snacks'
+  local explorers = snacks.picker.get { source = 'explorer' }
+
+  if #explorers > 0 then
+    for _, picker in ipairs(explorers) do
+      picker:close()
+    end
+    return
+  end
+
+  snacks.explorer.reveal()
+end
+
 vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = '*',
   callback = function() vim.api.nvim_set_hl(0, 'SnacksPickerDir', { fg = 'none', nocombine = true }) end,
 })
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -51,6 +66,23 @@ return {
         },
       },
       sources = {
+        files = {
+          hidden = true,
+          ignored = false,
+        },
+        explorer = {
+          hidden = false,
+          ignored = true,
+          follow_file = true,
+          layout = {
+            preset = 'sidebar',
+            preview = false,
+            layout = {
+              width = 50,
+              min_width = 50,
+            },
+          },
+        },
         projects = {
           layout = {
             preset = 'vscode',
@@ -70,6 +102,8 @@ return {
   },
   keys = {
     -- -- Top Pickers & Explorer
+    { '<leader>e', toggle_explorer, desc = 'File Explorer' },
+    { '<leader>E', function() require('snacks').explorer.reveal() end, desc = 'Reveal File In Explorer' },
     { '=', function() require('snacks').picker.files() end, desc = 'Find Files' },
     { ',', function() require('snacks').picker.grep() end, desc = 'Grep' },
     -- -- find
