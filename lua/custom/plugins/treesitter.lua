@@ -5,7 +5,7 @@ return { -- Highlight, edit, and navigate code
     build = ':TSUpdate',
     main = 'nvim-treesitter.configs',
     opts = {
-      ensure_installed = { 'python', 'lua', 'json', 'yaml' },
+      ensure_installed = { 'python', 'lua', 'json', 'yaml', 'markdown', 'markdown_inline' },
       auto_install = true,
       highlight = {
         enable = true,

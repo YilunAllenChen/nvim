@@ -123,6 +123,33 @@ local function toggle_inlay_hints()
   if not ok_enable then pcall(vim.lsp.inlay_hint.enable, not enabled, bufnr) end
 end
 
+local function open_ai_terminal(resume)
+  local ai_command = vim.fn.executable 'claude' == 1 and 'claude'
+    or (vim.fn.executable 'codex' == 1 and 'codex' or nil)
+
+  if not ai_command then
+    vim.notify('Neither claude nor codex is installed', vim.log.levels.ERROR)
+    return
+  end
+
+  local args = { ai_command }
+  if ai_command == 'claude' then
+    table.insert(args, '--permission-mode')
+    table.insert(args, 'acceptEdits')
+    if resume then table.insert(args, '-r') end
+  elseif resume then
+    table.insert(args, '-r')
+  end
+
+  local terminal_cmd = 'terminal ' .. table.concat(args, ' ')
+  if vim.bo.filetype == 'alpha' then
+    vim.api.nvim_command(terminal_cmd)
+  else
+    vim.api.nvim_command('vsplit | ' .. terminal_cmd)
+  end
+  vim.api.nvim_command 'startinsert'
+end
+
 local function quit_window_or_buffer()
   if vim.bo.buftype ~= 'terminal' then
     vim.cmd 'confirm q'
@@ -203,25 +230,11 @@ M.set_mappings {
       end,
     },
     ['<leader>t'] = {
-      function()
-        if vim.bo.filetype == 'alpha' then
-          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits'
-        else
-          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits'
-        end
-        vim.api.nvim_command 'startinsert'
-      end,
+      function() open_ai_terminal(false) end,
       desc = 'AI (full on alpha, vsplit otherwise)',
     },
     ['<C-s>'] = {
-      function()
-        if vim.bo.filetype == 'alpha' then
-          vim.api.nvim_command 'terminal claude --permission-mode acceptEdits -r'
-        else
-          vim.api.nvim_command 'vsplit | terminal claude --permission-mode acceptEdits -r'
-        end
-        vim.api.nvim_command 'startinsert'
-      end,
+      function() open_ai_terminal(true) end,
       desc = 'AI resume (full on alpha, vsplit otherwise)',
     },
     ['t'] = {
