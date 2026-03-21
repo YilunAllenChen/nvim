@@ -37,3 +37,10 @@ vim.api.nvim_create_autocmd({ 'TermOpen', 'BufWinEnter' }, {
     scroll_terminal_windows_to_bottom(args.buf)
   end,
 })
+
+vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
+  pattern = 'term://*',
+  callback = function()
+    vim.cmd('startinsert')
+  end,
+})
