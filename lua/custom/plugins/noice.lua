@@ -1,6 +1,9 @@
 return {
   'folke/noice.nvim',
   event = 'VeryLazy',
+  keys = {
+    { '<leader>fm', '<cmd>messages<cr>', desc = 'Messages' },
+  },
   opts = {
     lsp = {
       override = { ['cmp.entry.get_documentation'] = false },
