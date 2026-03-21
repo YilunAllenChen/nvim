@@ -74,6 +74,13 @@ return {
           hidden = false,
           ignored = true,
           follow_file = true,
+          win = {
+            list = {
+              keys = {
+                ['/'] = false,
+              },
+            },
+          },
           layout = {
             preset = 'sidebar',
             preview = false,
