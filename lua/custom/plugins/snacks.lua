@@ -91,6 +91,7 @@ return {
           },
         },
         projects = {
+          dev = { '~/dev', '~/projects', '/repos' },
           layout = {
             preset = 'vscode',
           },
