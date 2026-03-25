@@ -41,6 +41,9 @@ vim.api.nvim_create_autocmd({ 'TermOpen', 'BufWinEnter' }, {
 vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
   pattern = 'term://*',
   callback = function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local wins = vim.fn.win_findbuf(bufnr)
+    if #wins > 1 then return end
     vim.cmd('startinsert')
   end,
 })
