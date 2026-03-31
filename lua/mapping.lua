@@ -83,7 +83,8 @@ local function goto_tab(index)
   local tab = tabs[index]
   if tab then
     vim.api.nvim_set_current_tabpage(tab)
-    vim.cmd 'startinsert'
+    local bt = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+    if bt ~= 'alpha' then vim.cmd 'startinsert' end
   end
 end
 
