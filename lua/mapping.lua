@@ -143,7 +143,7 @@ local function open_ai_terminal(resume)
   end
 
   local terminal_cmd = 'terminal ' .. table.concat(args, ' ')
-  if vim.bo.filetype == 'alpha' then
+  if vim.bo.filetype == 'alpha' or vim.bo.filetype == 'snacks_dashboard' then
     vim.api.nvim_command(terminal_cmd)
   else
     vim.api.nvim_command('vsplit | ' .. terminal_cmd)

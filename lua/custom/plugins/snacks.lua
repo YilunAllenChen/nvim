@@ -12,10 +12,92 @@ local function toggle_explorer()
   snacks.explorer.reveal()
 end
 
+local alpha_hl_map = {
+  a = 'AlphaA',
+  b = 'AlphaB',
+  g = 'AlphaG',
+  h = 'AlphaH',
+  i = 'AlphaI',
+  j = 'AlphaJ',
+  k = 'AlphaK',
+}
+
+local function set_dashboard_highlights()
+  vim.api.nvim_set_hl(0, 'SnacksPickerDir', { fg = 'none', nocombine = true })
+  vim.api.nvim_set_hl(0, 'AlphaB', { fg = '#3399ff', ctermfg = 33 })
+  vim.api.nvim_set_hl(0, 'AlphaA', { fg = '#53C670', ctermfg = 35 })
+  vim.api.nvim_set_hl(0, 'AlphaG', { fg = '#39ac56', ctermfg = 29 })
+  vim.api.nvim_set_hl(0, 'AlphaH', { fg = '#33994d', ctermfg = 23 })
+  vim.api.nvim_set_hl(0, 'AlphaI', { fg = '#33994d', bg = '#39ac56', ctermfg = 23, ctermbg = 29 })
+  vim.api.nvim_set_hl(0, 'AlphaJ', { fg = '#53C670', bg = '#33994d', ctermfg = 35, ctermbg = 23 })
+  vim.api.nvim_set_hl(0, 'AlphaK', { fg = '#30A572', ctermfg = 36 })
+end
+
+local function dashboard_line(text, colormap)
+  local segments = {}
+  local current = { text = '', hl = nil }
+  local len = vim.fn.strchars(text)
+
+  for i = 0, len - 1 do
+    local char = vim.fn.strcharpart(text, i, 1)
+    local key = colormap:sub(i + 1, i + 1)
+    local hl = alpha_hl_map[key]
+
+    if current.text ~= '' and current.hl ~= hl then
+      local segment = { current.text }
+      if current.hl then segment.hl = current.hl end
+      table.insert(segments, segment)
+      current = { text = '', hl = hl }
+    elseif current.text == '' then
+      current.hl = hl
+    end
+    current.text = current.text .. char
+  end
+
+  if current.text ~= '' then
+    local segment = { current.text }
+    if current.hl then segment.hl = current.hl end
+    table.insert(segments, segment)
+  end
+
+  return segments
+end
+
+local function build_dashboard_header()
+  local lines = {
+    { '  ███       ███  ', '  kkkka       gggg  ' },
+    { '  ████      ████ ', '  kkkkaa      ggggg ' },
+    { '  ████     █████ ', ' b kkkaaa     ggggg ' },
+    { ' █ ████    █████ ', ' bb kkaaaa    ggggg ' },
+    { ' ██ ████   █████ ', ' bbb kaaaaa   ggggg ' },
+    { ' ███ ████  █████ ', ' bbbb aaaaaa  ggggg ' },
+    { ' ████ ████ ████ ', ' bbbbb aaaaaa igggg ' },
+    { ' █████  ████████ ', ' bbbbb  aaaaaahiggg ' },
+    { ' █████   ███████ ', ' bbbbb   aaaaajhigg ' },
+    { ' █████    ██████ ', ' bbbbb    aaaaajhig ' },
+    { ' █████     █████ ', ' bbbbb     aaaaajhi ' },
+    { ' ████      ████ ', ' bbbbb      aaaaajh ' },
+    { '  ███       ███  ', '  bbbb       aaaaa  ' },
+    { '                    ', '                    ' },
+    { '                    ', '                    ' },
+    { "    Allen's Neovim  ", '  aaaaaaaaabbbbbbb  ' },
+    { ' ', ' ' },
+    { ' ', ' ' },
+    { ' ', ' ' },
+  }
+  local header = {}
+  for i, line in ipairs(lines) do
+    vim.list_extend(header, dashboard_line(line[1], line[2]))
+    if i < #lines then table.insert(header, { '\n' }) end
+  end
+  return { text = header, align = 'center' }
+end
+
 vim.api.nvim_create_autocmd('ColorScheme', {
   pattern = '*',
-  callback = function() vim.api.nvim_set_hl(0, 'SnacksPickerDir', { fg = 'none', nocombine = true }) end,
+  callback = set_dashboard_highlights,
 })
+set_dashboard_highlights()
 
 return {
   'folke/snacks.nvim',
@@ -23,8 +105,16 @@ return {
   lazy = false,
   opts = {
     bigfile = { enabled = true },
+    dashboard = {
+      enabled = true,
+      sections = {
+        build_dashboard_header(),
+        { section = 'startup' },
+      },
+    },
     input = { enabled = true },
     notifier = { enabled = true },
+    rename = { enabled = true },
     explorer = {},
     gitbrowse = {
       enabled = true,
@@ -139,6 +229,7 @@ return {
     { '<leader>fk', function() require('snacks').picker.keymaps() end, desc = 'Keymaps' },
     { '<leader>f<CR>', function() require('snacks').picker.resume() end, desc = 'Resume previous search' },
     { '<leader>ft', function() require('snacks').picker.colorschemes() end, desc = 'Colorschemes' },
+    { '<leader>rf', function() require('snacks').rename.rename_file() end, desc = 'Rename file' },
     -- -- LSP
     { 'gd', function() require('snacks').picker.lsp_definitions() end, desc = 'Goto Definition' },
     { 'gD', function() require('snacks').picker.lsp_declarations() end, desc = 'Goto Declaration' },
