@@ -3,7 +3,7 @@ return { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     event = 'VeryLazy',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.config',
+    main = 'nvim-treesitter.configs',
     opts = {
       ensure_installed = { 'python', 'lua', 'json', 'yaml', 'markdown', 'markdown_inline' },
       auto_install = true,
@@ -37,7 +37,7 @@ return { -- Highlight, edit, and navigate code
     event = 'BufReadPost',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('nvim-treesitter.config').setup {
+      require('nvim-treesitter.configs').setup {
         incremental_selection = {
           enable = false,
         },
