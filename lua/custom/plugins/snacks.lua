@@ -241,5 +241,6 @@ return {
     { '<leader>fn', function() require('snacks').picker.notifications() end, desc = 'Notification History' },
     { '<leader>g', function() require('snacks').lazygit() end, desc = 'Lazygit' },
     { '<C-z>', function() require('snacks').picker.undo() end, desc = 'Undo' },
+    { '<Tab>', function() require('snacks').picker.git_status() end, desc = 'Git Status' },
   },
 }
