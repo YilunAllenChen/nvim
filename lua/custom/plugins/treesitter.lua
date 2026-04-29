@@ -1,17 +1,25 @@
 return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
-    event = 'VeryLazy',
+    branch = 'main',
+    lazy = false,
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs',
-    opts = {
-      ensure_installed = { 'python', 'lua', 'json', 'yaml', 'markdown', 'markdown_inline' },
-      auto_install = true,
-      highlight = {
-        enable = true,
-      },
-      indent = { enable = false },
-    },
+    config = function()
+      require('nvim-treesitter').setup()
+      require('nvim-treesitter').install {
+        'python',
+        'lua',
+        'json',
+        'yaml',
+        'markdown',
+        'markdown_inline',
+        'rust',
+        'bash',
+        'vim',
+        'vimdoc',
+        'query',
+      }
+    end,
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
@@ -20,72 +28,58 @@ return { -- Highlight, edit, and navigate code
       require('treesitter-context').setup {
         enable = true,
         multiwindow = true,
-        max_lines = 5, -- How many lines the window should span. Values <= 0 mean no limit.
-        min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+        max_lines = 5,
+        min_window_height = 0,
         line_numbers = true,
-        multiline_threshold = 2, -- Maximum number of lines to show for a single context
+        multiline_threshold = 2,
         trim_scope = 'outer',
-        mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
+        mode = 'cursor',
         separator = nil,
-        zindex = 20, -- The Z-index of the context window
+        zindex = 20,
         on_attach = nil,
       }
     end,
   },
   {
     'nvim-treesitter/nvim-treesitter-textobjects',
+    branch = 'main',
     event = 'BufReadPost',
     dependencies = { 'nvim-treesitter/nvim-treesitter' },
     config = function()
-      require('nvim-treesitter.configs').setup {
-        incremental_selection = {
-          enable = false,
-        },
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-            keymaps = {
-              -- You can use the capture groups defined in textobjects.scm
-              ['aa'] = '@parameter.outer',
-              ['ia'] = '@parameter.inner',
-              ['af'] = '@function.outer',
-              ['if'] = '@function.inner',
-              ['ac'] = '@class.outer',
-              ['ic'] = '@class.inner',
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-              [']m'] = '@function.outer',
-              [']]'] = '@class.outer',
-            },
-            goto_next_end = {
-              [']M'] = '@function.outer',
-              [']['] = '@class.outer',
-            },
-            goto_previous_start = {
-              ['[m'] = '@function.outer',
-              ['[['] = '@class.outer',
-            },
-            goto_previous_end = {
-              ['[M'] = '@function.outer',
-              ['[]'] = '@class.outer',
-            },
-          },
-          swap = {
-            enable = true,
-            swap_next = {
-              ['<leader>a'] = '@parameter.inner',
-            },
-            swap_previous = {
-              ['<leader>A'] = '@parameter.inner',
-            },
-          },
-        },
+      require('nvim-treesitter-textobjects').setup {
+        select = { lookahead = true },
+        move = { set_jumps = true },
       }
+
+      local select = require 'nvim-treesitter-textobjects.select'
+      local move = require 'nvim-treesitter-textobjects.move'
+      local swap = require 'nvim-treesitter-textobjects.swap'
+
+      local select_map = {
+        aa = '@parameter.outer',
+        ia = '@parameter.inner',
+        af = '@function.outer',
+        ['if'] = '@function.inner',
+        ac = '@class.outer',
+        ic = '@class.inner',
+      }
+      for lhs, capture in pairs(select_map) do
+        vim.keymap.set({ 'x', 'o' }, lhs, function()
+          select.select_textobject(capture, 'textobjects')
+        end)
+      end
+
+      vim.keymap.set({ 'n', 'x', 'o' }, ']m', function() move.goto_next_start('@function.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']]', function() move.goto_next_start('@class.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, ']M', function() move.goto_next_end('@function.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '][', function() move.goto_next_end('@class.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[m', function() move.goto_previous_start('@function.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[[', function() move.goto_previous_start('@class.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[M', function() move.goto_previous_end('@function.outer', 'textobjects') end)
+      vim.keymap.set({ 'n', 'x', 'o' }, '[]', function() move.goto_previous_end('@class.outer', 'textobjects') end)
+
+      vim.keymap.set('n', '<leader>a', function() swap.swap_next '@parameter.inner' end)
+      vim.keymap.set('n', '<leader>A', function() swap.swap_previous '@parameter.inner' end)
     end,
   },
   -- close html tags automatically using nvim-treesitter
