@@ -6,6 +6,11 @@ local mason_servers = {
       },
     },
   },
+  ruff = {
+    on_attach = function(client)
+      client.server_capabilities.hoverProvider = false
+    end,
+  },
 }
 
 -- servers not in mason yet
