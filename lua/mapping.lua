@@ -210,9 +210,19 @@ M.set_mappings {
       end,
       desc = 'Rename current symbol',
     },
-    ['<leader>lx'] = { '<cmd>:LspRestart<cr>', desc = 'LSP Restart' },
+    ['<leader>lx'] = {
+      function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local clients = vim.lsp.get_clients { bufnr = bufnr }
+        for _, client in ipairs(clients) do
+          vim.lsp.stop_client(client.id)
+        end
+        vim.defer_fn(function() vim.cmd 'edit' end, 200)
+      end,
+      desc = 'LSP Restart',
+    },
     ['<leader>la'] = { function() require('actions-preview').code_actions() end, desc = 'Code action' },
-    ['<leader>lI'] = { '<cmd>LspInfo<cr>', desc = 'LSP information' },
+    ['<leader>lI'] = { '<cmd>checkhealth vim.lsp<cr>', desc = 'LSP information' },
     ['<leader>ld'] = { function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
     ['<leader>li'] = { toggle_inlay_hints, desc = 'Toggle inlay hints' },
     ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },

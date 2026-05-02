@@ -29,9 +29,9 @@ local function attach_terminal_follow(bufnr)
   })
 end
 
-vim.api.nvim_create_autocmd({ 'TermOpen', 'BufWinEnter' }, {
+vim.api.nvim_create_autocmd('TermOpen', {
   group = terminal_follow_group,
-  pattern = 'term://*',
+  pattern = '*',
   callback = function(args)
     attach_terminal_follow(args.buf)
     scroll_terminal_windows_to_bottom(args.buf)
