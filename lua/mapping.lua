@@ -1,5 +1,33 @@
 local M = {}
 
+local function nav_changed_file(direction)
+  local cwd = vim.fn.getcwd()
+  local lines = vim.fn.systemlist('git status --porcelain 2>/dev/null')
+  local files = {}
+  for _, line in ipairs(lines) do
+    local f = line:sub(4) -- skip "XY " status prefix
+    if f ~= '' then table.insert(files, cwd .. '/' .. f) end
+  end
+  if #files == 0 then return end
+
+  local current = vim.fn.expand '%:p'
+  local idx = nil
+  for i, f in ipairs(files) do
+    if f == current then idx = i break end
+  end
+
+  local next_idx
+  if idx == nil then
+    next_idx = direction == 'next' and 1 or #files
+  elseif direction == 'next' then
+    next_idx = idx % #files + 1
+  else
+    next_idx = (idx - 2) % #files + 1
+  end
+  vim.cmd('edit ' .. vim.fn.fnameescape(files[next_idx]))
+end
+
+
 function M.which_key_register()
   if M.which_key_queue then
     local wk_avail, wk = pcall(require, 'which-key')
@@ -125,8 +153,7 @@ local function toggle_inlay_hints()
 end
 
 local function open_ai_terminal(resume)
-  local ai_command = vim.fn.executable 'claude' == 1 and 'claude'
-    or (vim.fn.executable 'codex' == 1 and 'codex' or nil)
+  local ai_command = vim.fn.executable 'claude' == 1 and 'claude' or (vim.fn.executable 'codex' == 1 and 'codex' or nil)
 
   if not ai_command then
     vim.notify('Neither claude nor codex is installed', vim.log.levels.ERROR)
@@ -227,6 +254,8 @@ M.set_mappings {
     ['<leader>li'] = { toggle_inlay_hints, desc = 'Toggle inlay hints' },
     ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
     [']d'] = { function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
+    [']f'] = { function() nav_changed_file 'next' end, desc = 'Next changed file' },
+    ['[f'] = { function() nav_changed_file 'prev' end, desc = 'Prev changed file' },
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
     ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
@@ -264,8 +293,8 @@ M.set_mappings {
     ['-'] = { '<C-w>s', desc = 'Horizontal Split' },
   },
   t = {
-    ['<esc>'] = { '<C-\\><C-n>' },
     ['<C-BS>'] = { '<C-w>', desc = 'Delete word' },
+    ['<C-q>'] = { '<C-\\><C-n>', desc = 'Normal mode' },
     ['<C-j>'] = { '<cmd>wincmd j<cr>', desc = 'Terminal down window navigation' },
     ['<C-k>'] = { '<cmd>wincmd k<cr>', desc = 'Terminal up window navigation' },
     ['<C-h>'] = { '<cmd>wincmd h<cr>', desc = 'Terminal left window navigation' },

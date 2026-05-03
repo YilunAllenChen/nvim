@@ -2,7 +2,7 @@ local mason_servers = {
   ty = {
     settings = {
       ty = {
-        diagnositcMode = 'workspace',
+        diagnosticMode = 'workspace',
       },
     },
   },
