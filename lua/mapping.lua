@@ -2,7 +2,7 @@ local M = {}
 
 local function nav_changed_file(direction)
   local cwd = vim.fn.getcwd()
-  local lines = vim.fn.systemlist('git status --porcelain 2>/dev/null')
+  local lines = vim.fn.systemlist 'git status --porcelain 2>/dev/null'
   local files = {}
   for _, line in ipairs(lines) do
     local f = line:sub(4) -- skip "XY " status prefix
@@ -13,7 +13,10 @@ local function nav_changed_file(direction)
   local current = vim.fn.expand '%:p'
   local idx = nil
   for i, f in ipairs(files) do
-    if f == current then idx = i break end
+    if f == current then
+      idx = i
+      break
+    end
   end
 
   local next_idx
@@ -26,7 +29,6 @@ local function nav_changed_file(direction)
   end
   vim.cmd('edit ' .. vim.fn.fnameescape(files[next_idx]))
 end
-
 
 function M.which_key_register()
   if M.which_key_queue then
@@ -294,7 +296,7 @@ M.set_mappings {
   },
   t = {
     ['<C-BS>'] = { '<C-w>', desc = 'Delete word' },
-    ['<C-q>'] = { '<C-\\><C-n>', desc = 'Normal mode' },
+    ['<esc>'] = { '<C-\\><C-n>', desc = 'Normal mode' },
     ['<C-j>'] = { '<cmd>wincmd j<cr>', desc = 'Terminal down window navigation' },
     ['<C-k>'] = { '<cmd>wincmd k<cr>', desc = 'Terminal up window navigation' },
     ['<C-h>'] = { '<cmd>wincmd h<cr>', desc = 'Terminal left window navigation' },
