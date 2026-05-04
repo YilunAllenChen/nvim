@@ -37,24 +37,3 @@ vim.api.nvim_create_autocmd('TermOpen', {
     scroll_terminal_windows_to_bottom(args.buf)
   end,
 })
-
-vim.api.nvim_create_autocmd({ 'BufEnter', 'WinEnter' }, {
-  pattern = 'term://*',
-  callback = function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local wins = vim.fn.win_findbuf(bufnr)
-    if #wins > 1 then return end
-    vim.cmd('startinsert')
-  end,
-})
-
-
--- In terminal normal mode, snap back to insert when cursor reaches the last line
-vim.api.nvim_create_autocmd('CursorMoved', {
-  pattern = 'term://*',
-  callback = function()
-    if vim.fn.mode() == 'n' and vim.fn.line('.') == vim.fn.line('$') then
-      vim.cmd('startinsert')
-    end
-  end,
-})
