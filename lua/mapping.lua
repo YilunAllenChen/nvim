@@ -155,7 +155,7 @@ local function toggle_inlay_hints()
 end
 
 local function open_ai_terminal(resume)
-  local ai_command = vim.fn.executable 'claude' == 1 and 'claude' or (vim.fn.executable 'codex' == 1 and 'codex' or nil)
+  local ai_command = vim.fn.executable 'codex' == 1 and 'codex' or (vim.fn.executable 'claude' == 1 and 'claude' or nil)
 
   if not ai_command then
     vim.notify('Neither claude nor codex is installed', vim.log.levels.ERROR)
