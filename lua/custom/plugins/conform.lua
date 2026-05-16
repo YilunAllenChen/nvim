@@ -2,6 +2,9 @@ return {
   'stevearc/conform.nvim',
   opts = {},
   event = 'BufWritePre',
+  keys = {
+    { '<leader>lf', function() require('conform').format { async = true, lsp_format = 'fallback' } end, desc = 'Format buffer' },
+  },
   config = function()
     local autoformat = true
     vim.api.nvim_create_user_command('ConformDisableAutoformat', function()

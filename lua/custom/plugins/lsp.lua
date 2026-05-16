@@ -1,3 +1,51 @@
+local function toggle_inlay_hints()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local clients = vim.lsp.get_clients { bufnr = bufnr } or {}
+  if vim.tbl_isempty(clients) then
+    vim.notify('No LSP client attached', vim.log.levels.ERROR)
+    return
+  end
+  local supports = false
+  for _, client in ipairs(clients) do
+    if client.server_capabilities.inlayHintProvider then
+      supports = true
+      break
+    end
+  end
+  if not supports then
+    vim.notify('Attached LSP clients do not support inlay hints', vim.log.levels.WARN)
+    return
+  end
+  local opts = { bufnr = bufnr }
+  local enabled = false
+  local ok, result = pcall(vim.lsp.inlay_hint.is_enabled, opts)
+  if ok then
+    enabled = result
+  else
+    ok, result = pcall(vim.lsp.inlay_hint.is_enabled, bufnr)
+    if ok then enabled = result end
+  end
+  local ok_enable = pcall(vim.lsp.inlay_hint.enable, not enabled, opts)
+  if not ok_enable then pcall(vim.lsp.inlay_hint.enable, not enabled, bufnr) end
+end
+
+local lsp_keys = {
+  { 'K', function() vim.lsp.buf.hover { border = 'rounded' } end, desc = 'Hover symbol details' },
+  { 'gI', function() vim.lsp.buf.implementation() end, desc = 'Implementation' },
+  { '<leader>lr', function() vim.lsp.buf.rename(); vim.cmd 'silent! wa' end, desc = 'Rename current symbol' },
+  { '<leader>lx', function()
+    local bufnr = vim.api.nvim_get_current_buf()
+    local clients = vim.lsp.get_clients { bufnr = bufnr }
+    for _, client in ipairs(clients) do vim.lsp.stop_client(client.id) end
+    vim.defer_fn(function() vim.cmd 'edit' end, 200)
+  end, desc = 'LSP Restart' },
+  { '<leader>lI', '<cmd>checkhealth vim.lsp<cr>', desc = 'LSP information' },
+  { '<leader>ld', function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
+  { '<leader>li', toggle_inlay_hints, desc = 'Toggle inlay hints' },
+  { '[d', function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
+  { ']d', function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
+}
+
 local mason_servers = {
   ty = {
     settings = {
@@ -52,6 +100,7 @@ return {
   {
     'mason-org/mason-lspconfig.nvim',
     event = 'BufReadPre',
+    keys = lsp_keys,
     dependencies = {
       'mason-org/mason.nvim',
       'neovim/nvim-lspconfig',

@@ -118,42 +118,6 @@ local function goto_tab(index)
   end
 end
 
-local function toggle_inlay_hints()
-  local bufnr = vim.api.nvim_get_current_buf()
-  local clients = vim.lsp.get_clients { bufnr = bufnr } or {}
-
-  if vim.tbl_isempty(clients) then
-    vim.notify('No LSP client attached', vim.log.levels.ERROR)
-    return
-  end
-
-  local supports = false
-  for _, client in ipairs(clients) do
-    if client.server_capabilities.inlayHintProvider then
-      supports = true
-      break
-    end
-  end
-
-  if not supports then
-    vim.notify('Attached LSP clients do not support inlay hints', vim.log.levels.WARN)
-    return
-  end
-
-  local opts = { bufnr = bufnr }
-  local enabled = false
-  local ok, result = pcall(vim.lsp.inlay_hint.is_enabled, opts)
-  if ok then
-    enabled = result
-  else
-    ok, result = pcall(vim.lsp.inlay_hint.is_enabled, bufnr)
-    if ok then enabled = result end
-  end
-
-  local ok_enable = pcall(vim.lsp.inlay_hint.enable, not enabled, opts)
-  if not ok_enable then pcall(vim.lsp.inlay_hint.enable, not enabled, bufnr) end
-end
-
 local function open_ai_terminal(resume)
   local first_option = 'claude'
   local fallback = 'codex'
@@ -204,11 +168,7 @@ M.set_mappings {
     ['<Space>'] = { '<Nop>', silent = true },
     ['k'] = { "v:count == 0 ? 'gk' : 'k'", expr = true, silent = true, desc = 'Visual line up' },
     ['j'] = { "v:count == 0 ? 'gj' : 'j'", expr = true, silent = true, desc = 'Visual line down' },
-
-    ["'"] = {
-      quit_window_or_buffer,
-      desc = 'Quit',
-    },
+    ["'"] = { quit_window_or_buffer, desc = 'Quit' },
     ['<C-g>'] = {
       function()
         local filePath = vim.fn.expand '%:p'
@@ -221,8 +181,7 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
-    [';'] = { '<cmd>:HopWord<cr>', desc = 'Hop' },
-    ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor' },
+    ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor in nvim' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
     ['<leader>n'] = { '<cmd>enew<cr>', desc = 'New File' },
     ["<leader>'"] = { '<cmd>:edit!<cr>', desc = 'Reload buffer' },
@@ -231,39 +190,11 @@ M.set_mappings {
       function() require('lazy').home() end,
       desc = 'Plugins',
     },
-    ['K'] = { function() vim.lsp.buf.hover { border = 'rounded' } end, desc = 'Hover symbol details' },
-    ['<leader>lf'] = { function() require('conform').format { async = true, lsp_format = 'fallback' } end, desc = 'Format buffer' },
-    ['gI'] = { function() vim.lsp.buf.implementation() end, desc = 'implementation' },
-    ['<leader>lr'] = {
-      function()
-        vim.lsp.buf.rename()
-        vim.cmd 'silent! wa'
-      end,
-      desc = 'Rename current symbol',
-    },
-    ['<leader>lx'] = {
-      function()
-        local bufnr = vim.api.nvim_get_current_buf()
-        local clients = vim.lsp.get_clients { bufnr = bufnr }
-        for _, client in ipairs(clients) do
-          vim.lsp.stop_client(client.id)
-        end
-        vim.defer_fn(function() vim.cmd 'edit' end, 200)
-      end,
-      desc = 'LSP Restart',
-    },
-    ['<leader>la'] = { function() require('actions-preview').code_actions() end, desc = 'Code action' },
-    ['<leader>lI'] = { '<cmd>checkhealth vim.lsp<cr>', desc = 'LSP information' },
-    ['<leader>ld'] = { function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
-    ['<leader>li'] = { toggle_inlay_hints, desc = 'Toggle inlay hints' },
-    ['[d'] = { function() vim.diagnostic.jump { count = -1, float = false } end, desc = 'Previous diagnostic' },
-    [']d'] = { function() vim.diagnostic.jump { count = 1, float = false } end, desc = 'Next diagnostic' },
     [']f'] = { function() nav_changed_file 'next' end, desc = 'Next changed file' },
     ['[f'] = { function() nav_changed_file 'prev' end, desc = 'Prev changed file' },
     ['H'] = { '<cmd>:bprevious<cr>', desc = 'Prev Buffer' },
     ['L'] = { '<cmd>:bnext<cr>', desc = 'Next Buffer' },
     ['<leader>C'] = { delete_all_unused_bufs, desc = 'Close all buffers except for tree & terminals current' },
-    ['<leader>c'] = { ':bnext<CR>:bd#<CR>', desc = 'Close buffer' },
     ['<C-1>'] = { function() goto_tab(1) end, desc = 'Tab 1' },
     ['<C-2>'] = { function() goto_tab(2) end, desc = 'Tab 2' },
     ['<C-3>'] = { function() goto_tab(3) end, desc = 'Tab 3' },

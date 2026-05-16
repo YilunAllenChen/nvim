@@ -1,9 +1,46 @@
+local function wildfire()
+  local mode = vim.fn.mode()
+
+  if mode ~= 'v' and mode ~= 'V' and mode ~= '\22' then
+    local node = vim.treesitter.get_node()
+    if not node then return end
+    local sr, sc, er, ec = node:range()
+    vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
+    vim.cmd 'normal! v'
+    vim.api.nvim_win_set_cursor(0, { er + 1, math.max(0, ec - 1) })
+    return
+  end
+
+  local vstart = vim.fn.getpos 'v'
+  local vcur = vim.fn.getcurpos()
+  local sr = math.min(vstart[2], vcur[2]) - 1
+  local sc = math.min(vstart[3], vcur[3]) - 1
+  local er = math.max(vstart[2], vcur[2]) - 1
+  local ec = math.max(vstart[3], vcur[3])
+
+  local node = vim.treesitter.get_node { pos = { sr, sc } }
+  while node do
+    local nsr, nsc, ner, nec = node:range()
+    if nsr < sr or (nsr == sr and nsc < sc) or ner > er or (ner == er and nec > ec) then break end
+    node = node:parent()
+  end
+
+  if not node then return end
+  local nsr, nsc, ner, nec = node:range()
+  vim.api.nvim_win_set_cursor(0, { nsr + 1, nsc })
+  vim.cmd 'normal! o'
+  vim.api.nvim_win_set_cursor(0, { ner + 1, math.max(0, nec - 1) })
+end
+
 return { -- Highlight, edit, and navigate code
   {
     'nvim-treesitter/nvim-treesitter',
     branch = 'main',
     lazy = false,
     build = ':TSUpdate',
+    keys = {
+      { '<CR>', wildfire, mode = { 'n', 'x' }, desc = 'Expand treesitter selection' },
+    },
     config = function()
       require('nvim-treesitter').setup()
       require('nvim-treesitter').install {

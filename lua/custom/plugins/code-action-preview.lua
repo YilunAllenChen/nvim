@@ -1,6 +1,9 @@
 return {
   'aznhe21/actions-preview.nvim',
   event = 'LspAttach',
+  keys = {
+    { '<leader>la', function() require('actions-preview').code_actions() end, desc = 'Code action' },
+  },
   config = function()
     require('actions-preview').setup {
       telescope = {
