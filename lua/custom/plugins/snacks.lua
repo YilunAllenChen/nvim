@@ -104,6 +104,7 @@ return {
   priority = 1000,
   lazy = false,
   opts = {
+    animate = { enabled = true },
     bigfile = { enabled = true },
     dashboard = {
       enabled = true,
@@ -112,6 +113,7 @@ return {
         { section = 'startup' },
       },
     },
+    indent = { enabled = true, animate = { enabled = false } },
     input = { enabled = true },
     notifier = { enabled = true },
     rename = { enabled = true },
@@ -190,6 +192,13 @@ return {
     },
     quickfile = { enabled = true },
     scope = { enabled = true },
+    scroll = {
+      enabled = true,
+      animate = {
+        duration = { step = 5, total = 100 },
+      },
+      easing = 'quadOut',
+    },
     styles = {
       notification = {
         border = 'rounded',
@@ -216,9 +225,8 @@ return {
     },
     { '<leader>Y', function() require('snacks').gitbrowse() end, desc = 'Gitbrowse', mode = { 'n', 'v' } },
     -- -- git
-    { '<leader>Gl', function() require('snacks').picker.git_log() end, desc = 'Git Log' },
     { '<leader>k', function() require('snacks').picker.git_log_line() end, desc = 'Git Log Line' },
-    { '<leader>Gf', function() require('snacks').picker.git_log_file() end, desc = 'Git Log File' },
+    { '<leader>h', function() require('snacks').picker.git_log_file() end, desc = 'Git Log File' },
     -- -- search
     { '<leader>fc', function() require('snacks').picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
     { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Commands' },
