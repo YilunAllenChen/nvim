@@ -249,6 +249,19 @@ return {
     { '<leader>fn', function() require('snacks').picker.notifications() end, desc = 'Notification History' },
     { '<leader>g', function() require('snacks').lazygit() end, desc = 'Lazygit' },
     { '<C-z>', function() require('snacks').picker.undo() end, desc = 'Undo' },
-    { '<leader>D', function() require('snacks').picker.git_status() end, desc = 'Git Status' },
+    {
+      '<leader>D',
+      function()
+        local r = require('custom.git_branch_diff').resolve()
+        if r.action == 'dirty' then
+          require('snacks').picker.git_status()
+        elseif r.action == 'on_default' then
+          vim.notify("You're already on " .. r.branch .. ', no change', vim.log.levels.INFO)
+        else
+          require('snacks').picker.git_diff { base = r.branch }
+        end
+      end,
+      desc = 'Git Status (or diff vs master if clean)',
+    },
   },
 }

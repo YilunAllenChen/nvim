@@ -79,4 +79,11 @@ if vim.env.SSH_CONNECTION then
       ['*'] = vim_paste,
     },
   }
+
+  -- Route `gx` and friends through lemonade so URLs open on the SSH client.
+  if vim.fn.executable 'lemonade' == 1 then
+    vim.ui.open = function(target)
+      return vim.system({ 'lemonade', 'open', target }, { text = true })
+    end
+  end
 end
