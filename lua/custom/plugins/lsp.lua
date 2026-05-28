@@ -36,7 +36,7 @@ local lsp_keys = {
   { '<leader>lx', function()
     local bufnr = vim.api.nvim_get_current_buf()
     local clients = vim.lsp.get_clients { bufnr = bufnr }
-    for _, client in ipairs(clients) do vim.lsp.stop_client(client.id) end
+    for _, client in ipairs(clients) do client:stop() end
     vim.defer_fn(function() vim.cmd 'edit' end, 200)
   end, desc = 'LSP Restart' },
   { '<leader>lI', '<cmd>checkhealth vim.lsp<cr>', desc = 'LSP information' },
