@@ -64,7 +64,7 @@ return {
         nerd_font_variant = 'mono',
       },
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'calc', 'dadbod' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'emoji', 'calc' },
         providers = {
           emoji = {
             module = 'blink-emoji',
@@ -75,7 +75,6 @@ return {
             module = 'blink.compat.source',
             name = 'calc',
           },
-          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
           lsp = {
             max_items = 50,
             score_offset = 100,
