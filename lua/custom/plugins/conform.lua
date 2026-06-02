@@ -19,6 +19,7 @@ return {
         javascript = { 'prettier' },
         json = { 'prettier' },
         jsonnet = { 'jsonnetfmt' },
+        kotlin = { 'ktfmt' },
         lua = { 'stylua' },
         ocaml = { 'ocamlformat' },
         python = { 'ruff_format', 'ruff_organize_imports', 'ruff_fix' },
@@ -27,8 +28,9 @@ return {
         typescriptreact = { 'prettier' },
       },
       formatters = {},
-      format_after_save = function()
+      format_after_save = function(bufnr)
         if not autoformat then return end
+        if vim.bo[bufnr].filetype == 'kotlin' then return end
         return { timeout_ms = 500, lsp_format = 'fallback' }
       end,
     }

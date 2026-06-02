@@ -32,13 +32,27 @@ end
 local lsp_keys = {
   { 'K', function() vim.lsp.buf.hover { border = 'rounded' } end, desc = 'Hover symbol details' },
   { 'gI', function() vim.lsp.buf.implementation() end, desc = 'Implementation' },
-  { '<leader>lr', function() vim.lsp.buf.rename(); vim.cmd 'silent! wa' end, desc = 'Rename current symbol' },
-  { '<leader>lx', function()
-    local bufnr = vim.api.nvim_get_current_buf()
-    local clients = vim.lsp.get_clients { bufnr = bufnr }
-    for _, client in ipairs(clients) do client:stop() end
-    vim.defer_fn(function() vim.cmd 'edit' end, 200)
-  end, desc = 'LSP Restart' },
+  {
+    '<leader>lr',
+    function()
+      vim.lsp.buf.rename()
+      vim.cmd 'silent! wa'
+    end,
+    desc = 'Rename current symbol',
+  },
+  { '<leader>lf', function() require('conform').format { async = true, lsp_format = 'fallback' } end, desc = 'Format current buffer' },
+  {
+    '<leader>lx',
+    function()
+      local bufnr = vim.api.nvim_get_current_buf()
+      local clients = vim.lsp.get_clients { bufnr = bufnr }
+      for _, client in ipairs(clients) do
+        client:stop()
+      end
+      vim.defer_fn(function() vim.cmd 'edit' end, 200)
+    end,
+    desc = 'LSP Restart',
+  },
   { '<leader>lI', '<cmd>checkhealth vim.lsp<cr>', desc = 'LSP information' },
   { '<leader>ld', function() vim.diagnostic.open_float { border = 'rounded' } end, desc = 'Hover diagnostics' },
   { '<leader>li', toggle_inlay_hints, desc = 'Toggle inlay hints' },
@@ -55,9 +69,16 @@ local mason_servers = {
     },
   },
   ruff = {
-    on_attach = function(client)
-      client.server_capabilities.hoverProvider = false
-    end,
+    on_attach = function(client) client.server_capabilities.hoverProvider = false end,
+  },
+  clangd = {
+    cmd = {
+      'clangd',
+      '--query-driver=/usr/bin/g++*',
+      '--background-index',
+      '--clang-tidy',
+      '--header-insertion=iwyu',
+    },
   },
 }
 
