@@ -37,3 +37,13 @@ vim.api.nvim_create_autocmd('TermOpen', {
     scroll_terminal_windows_to_bottom(args.buf)
   end,
 })
+
+local autoread_group = vim.api.nvim_create_augroup('AutoReadChangedFiles', { clear = true })
+
+vim.opt.autoread = true
+
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  group = autoread_group,
+  pattern = '*',
+  command = "if mode() != 'c' | checktime | endif",
+})
