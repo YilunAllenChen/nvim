@@ -219,7 +219,8 @@ return {
     { '<leader>Y', function() require('snacks').gitbrowse() end, desc = 'Gitbrowse', mode = { 'n', 'v' } },
     -- -- git
     { '<leader>k', function() require('snacks').picker.git_log_line() end, desc = 'Git Log Line' },
-    { '<leader>h', function() require('snacks').picker.git_log_file() end, desc = 'Git Log File' },
+    { '<leader>H', function() require('snacks').picker.git_log_file() end, desc = 'Git Log File' },
+    { '<leader>h', function() require('snacks').picker.git_diff() end, desc = 'Git Hunks' },
     -- -- search
     { '<leader>fc', function() require('snacks').picker.grep_word() end, desc = 'Visual selection or word', mode = { 'n', 'x' } },
     { '<leader>fC', function() require('snacks').picker.commands() end, desc = 'Commands' },
