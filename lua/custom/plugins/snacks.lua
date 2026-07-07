@@ -242,7 +242,6 @@ return {
     { '<leader>lG', function() require('snacks').picker.lsp_workspace_symbols() end, desc = 'LSP Workspace Symbols' },
     { '<leader>fn', function() require('snacks').picker.notifications() end, desc = 'Notification History' },
     { '<leader>g', function() require('snacks').lazygit() end, desc = 'Lazygit' },
-    { '<leader>fs', function() require('snacks').picker.git_status() end, desc = 'Git Status' },
     { '<C-z>', function() require('snacks').picker.undo() end, desc = 'Undo' },
     {
       '<leader>D',
