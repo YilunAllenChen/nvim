@@ -119,12 +119,17 @@ local function goto_tab(index)
 end
 
 local function open_ai_terminal(resume)
-  local first_option = 'claude'
-  local fallback = 'codex'
-  local ai_command = vim.fn.executable(first_option) == 1 and first_option or (vim.fn.executable(fallback) == 1 and fallback or nil)
+  local ai_priority = { 'pi', 'claude', 'codex' }
+  local ai_command
+  for _, cmd in ipairs(ai_priority) do
+    if vim.fn.executable(cmd) == 1 then
+      ai_command = cmd
+      break
+    end
+  end
 
   if not ai_command then
-    vim.notify(('Neither %s nor %s is installed'):format(first_option, fallback), vim.log.levels.ERROR)
+    vim.notify(('None of %s are installed'):format(table.concat(ai_priority, ', ')), vim.log.levels.ERROR)
     return
   end
 
