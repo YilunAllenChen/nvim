@@ -118,8 +118,10 @@ local function goto_tab(index)
   end
 end
 
+local last_ai_buf
+
 local function open_ai_terminal(resume)
-  local ai_priority = { 'pi', 'codex', 'claude' }
+  local ai_priority = { 'pi', 'claude', 'codex' }
   local ai_command
   for _, cmd in ipairs(ai_priority) do
     if vim.fn.executable(cmd) == 1 then
@@ -149,6 +151,26 @@ local function open_ai_terminal(resume)
     vim.api.nvim_command('vsplit | ' .. terminal_cmd)
   end
   vim.api.nvim_command 'startinsert'
+  last_ai_buf = vim.api.nvim_get_current_buf()
+end
+
+local function copy_location_to_ai()
+  if vim.bo.buftype ~= '' then
+    vim.notify('Current buffer is not a file', vim.log.levels.ERROR)
+    return
+  end
+
+  local location = ('%s:%d'):format(vim.fn.expand '%:p', vim.fn.line '.')
+  vim.fn.setreg('+', location)
+
+  if not last_ai_buf or not vim.api.nvim_buf_is_valid(last_ai_buf) then return end
+  local ai_win = vim.fn.win_findbuf(last_ai_buf)[1]
+  if not ai_win then return end
+
+  vim.api.nvim_set_current_win(ai_win)
+  local job_id = vim.b[last_ai_buf].terminal_job_id
+  if job_id then vim.fn.chansend(job_id, location) end
+  vim.cmd 'startinsert'
 end
 
 local function quit_window_or_buffer()
@@ -186,6 +208,7 @@ M.set_mappings {
       end,
       desc = 'Show Full Path',
     },
+    ['<leader>r'] = { copy_location_to_ai, desc = 'Reference in AI' },
     ['gz'] = { '<cmd>:e <cfile><CR>', desc = 'open file under cursor in nvim' },
     ['<leader>w'] = { '<cmd>w<cr>', desc = 'Save' },
     ['<leader>n'] = { '<cmd>enew<cr>', desc = 'New File' },

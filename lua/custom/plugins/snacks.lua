@@ -231,7 +231,6 @@ return {
     { '<leader>fk', function() require('snacks').picker.keymaps() end, desc = 'Keymaps' },
     { '<leader>f<CR>', function() require('snacks').picker.resume() end, desc = 'Resume previous search' },
     { '<leader>ft', function() require('snacks').picker.colorschemes() end, desc = 'Colorschemes' },
-    { '<leader>rf', function() require('snacks').rename.rename_file() end, desc = 'Rename file' },
     -- -- LSP
     { 'gd', function() require('snacks').picker.lsp_definitions() end, desc = 'Goto Definition' },
     { 'gD', function() require('snacks').picker.lsp_declarations() end, desc = 'Goto Declaration' },
