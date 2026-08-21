@@ -121,7 +121,7 @@ end
 local last_ai_buf
 
 local function open_ai_terminal(resume)
-  local ai_priority = { 'pi', 'claude', 'codex' }
+  local ai_priority = { 'pi', 'codex', 'claude' }
   local ai_command
   for _, cmd in ipairs(ai_priority) do
     if vim.fn.executable(cmd) == 1 then
