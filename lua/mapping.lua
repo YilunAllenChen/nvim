@@ -160,7 +160,16 @@ local function copy_location_to_ai()
     return
   end
 
-  local location = ('%s:%d'):format(vim.fn.expand '%:p', vim.fn.line '.')
+  local start_line = vim.fn.line '.'
+  local end_line = start_line
+  if vim.fn.mode():match '[vV\022]' then
+    start_line = vim.fn.line "'<"
+    end_line = vim.fn.line "'>"
+    if start_line > end_line then start_line, end_line = end_line, start_line end
+  end
+
+  local line_reference = start_line == end_line and tostring(start_line) or ('%d-%d'):format(start_line, end_line)
+  local location = ('%s:%s'):format(vim.fn.expand '%:p', line_reference)
   vim.fn.setreg('+', location)
 
   if not last_ai_buf or not vim.api.nvim_buf_is_valid(last_ai_buf) then return end
@@ -169,7 +178,7 @@ local function copy_location_to_ai()
 
   vim.api.nvim_set_current_win(ai_win)
   local job_id = vim.b[last_ai_buf].terminal_job_id
-  if job_id then vim.fn.chansend(job_id, location) end
+  if job_id then vim.fn.chansend(job_id, location .. ' ') end
   vim.cmd 'startinsert'
 end
 
@@ -277,6 +286,7 @@ M.set_mappings {
   },
   v = {
     ['<Space>'] = { '<Nop>', silent = true },
+    ['<leader>r'] = { copy_location_to_ai, desc = 'Reference in AI' },
     ['<S-Tab>'] = { '<gv', desc = 'Unindent line' },
     ['<Tab>'] = { '>gv', desc = 'Indent line' },
   },
