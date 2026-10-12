@@ -198,6 +198,13 @@ local function quit_window_or_buffer()
   end
 end
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'ocaml',
+  callback = function(ev)
+    vim.schedule(function() pcall(vim.keymap.del, 'n', '<leader>t', { buffer = ev.buf }) end)
+  end,
+})
+
 M.set_mappings {
   n = {
     -- Leader and movement tweaks
